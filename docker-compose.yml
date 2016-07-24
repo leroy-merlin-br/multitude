@@ -1,0 +1,37 @@
+webapp:
+  build: .
+  volumes:
+    - .:/var/www/html
+  ports:
+    - "8000:80"
+  links:
+    - mongo
+    - elastic
+    - redis
+  environment:
+    DB_HOST: mongo
+mongodata:
+  image: mongo:3.2
+  volumes:
+    - /data/db
+  command: --break-mongo
+mongo:
+  image: mongo:3.2
+  volumes_from:
+    - mongodata
+  expose:
+    - "27017-27019"
+    - "28017"
+  command: --smallfiles --rest
+elastic:
+  image: "elasticsearch:2.3"
+  ports:
+    - "9200"
+    - "9300"
+  volumes:
+    - "/mnt/sda1/data/elastic/logs:/usr/share/elasticsearch/logs"
+    - "/mnt/sda1/data/elastic/data:/usr/share/elasticsearch/data"
+redis:
+    image: redis:alpine
+    ports:
+      - "36379:6379"
