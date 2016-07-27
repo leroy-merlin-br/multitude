@@ -69,6 +69,15 @@ $app->singleton(
 
 /*
 |--------------------------------------------------------------------------
+| Preload config files
+|--------------------------------------------------------------------------
+|
+*/
+$app->configure('database');
+$app->configure('elasticsearch');
+
+/*
+|--------------------------------------------------------------------------
 | Register Service Providers
 |--------------------------------------------------------------------------
 |
@@ -79,6 +88,9 @@ $app->singleton(
 */
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
+$app->register(App\Providers\MongoServiceProvider::class);
+$app->register(Cviebrock\LaravelElasticsearch\LumenServiceProvider::class);
+$app->register(App\Providers\ElasticsearchServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);

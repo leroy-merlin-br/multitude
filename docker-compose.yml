@@ -2,6 +2,7 @@ webapp:
   build: .
   volumes:
     - .:/var/www/html
+    - ~/.config/psysh:/root/.config/psysh
   ports:
     - "8000:80"
   links:
