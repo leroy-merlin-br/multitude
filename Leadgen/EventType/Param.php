@@ -1,10 +1,10 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Leadgen\Base\BaseEntity;
 
 /**
- * Entity that represents a EventType Param.
+ * Entity that represents a InteractionType Param.
  */
 class Param extends BaseEntity
 {

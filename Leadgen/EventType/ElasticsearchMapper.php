@@ -1,10 +1,10 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Elasticsearch\Client;
 
 /**
- * Updates the Mapping of an EventType in Elasticsearch
+ * Updates the Mapping of an InteractionType in Elasticsearch
  */
 class ElasticsearchMapper
 {
@@ -24,21 +24,21 @@ class ElasticsearchMapper
     }
 
     /**
-     * Updates the mapping of the given EventType in ES.
+     * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  EventType $eventType EventType being updated.
+     * @param  InteractionType $eventType InteractionType being updated.
      *
      * @return boolean Success
      */
-    public function map(EventType $eventType)
+    public function map(InteractionType $eventType)
     {
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
 
         $mapping = [
             'index' => $indexName,
-            'type' => 'Event',
+            'type' => 'Interaction',
             'body' => [
-                'Event' => [
+                'Interaction' => [
                     'properties' => array_merge(
                         $this->buildProperties($eventType),
                         [
@@ -73,11 +73,11 @@ class ElasticsearchMapper
     /**
      * Build the properties of the given eventType to be mapped in elasticsearch
      *
-     * @param  EventType $eventType That will have its properties parsed for es.
+     * @param  InteractionType $eventType That will have its properties parsed for es.
      *
      * @return array
      */
-    protected function buildProperties(EventType $eventType)
+    protected function buildProperties(InteractionType $eventType)
     {
         $properties = [];
 

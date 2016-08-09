@@ -1,5 +1,5 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Mongolid\Schema;
 
