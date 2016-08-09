@@ -26,11 +26,11 @@ class ElasticsearchMapper
     /**
      * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  InteractionType $eventType InteractionType being updated.
+     * @param  InteractionType $interactionType InteractionType being updated.
      *
      * @return boolean Success
      */
-    public function map(InteractionType $eventType)
+    public function map(InteractionType $interactionType)
     {
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
 
@@ -40,7 +40,7 @@ class ElasticsearchMapper
             'body' => [
                 'Interaction' => [
                     'properties' => array_merge(
-                        $this->buildProperties($eventType),
+                        $this->buildProperties($interactionType),
                         [
                             'author' => [
                                 'type' => 'string',
@@ -50,7 +50,7 @@ class ElasticsearchMapper
                                 'type' => 'string',
                                 'index' => 'not_analyzed'
                             ],
-                            'event' => [
+                            'interaction' => [
                                 'type' =>  'string',
                                 'index' => 'not_analyzed'
                             ],
@@ -71,17 +71,17 @@ class ElasticsearchMapper
     }
 
     /**
-     * Build the properties of the given eventType to be mapped in elasticsearch
+     * Build the properties of the given interactionType to be mapped in elasticsearch
      *
-     * @param  InteractionType $eventType That will have its properties parsed for es.
+     * @param  InteractionType $interactionType That will have its properties parsed for es.
      *
      * @return array
      */
-    protected function buildProperties(InteractionType $eventType)
+    protected function buildProperties(InteractionType $interactionType)
     {
         $properties = [];
 
-        foreach ($eventType->params() as $param) {
+        foreach ($interactionType->params() as $param) {
             $paramEsType = $param->type == 'string' ? 'string' : 'float';
             $properties['params/'.$param->name."/$paramEsType"] = [
                 'type' => $paramEsType,

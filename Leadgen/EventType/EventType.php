@@ -62,11 +62,11 @@ class InteractionType extends BaseEntity
      * Check if there is any error in the given Interaction based on the current
      * InteractionType
      *
-     * @param  Interaction $event Interaction object being evaluated.
+     * @param  Interaction $interaction Interaction object being evaluated.
      *
      * @return array Errors
      */
-    public function checkErrors(Interaction $event)
+    public function checkErrors(Interaction $interaction)
     {
         $rules = [];
 
@@ -74,12 +74,12 @@ class InteractionType extends BaseEntity
             $rules[$param->name] = $param->type . ($param->required ? '|required' : '');
         }
 
-        $validator = app(ValidationFactory::class)->make($event->params, $rules);
+        $validator = app(ValidationFactory::class)->make($interaction->params, $rules);
         return $validator->errors()->all();
     }
 
     /**
-     * Prepare the Interaction mapping in Elasticsearch. This allow that new events
+     * Prepare the Interaction mapping in Elasticsearch. This allow that new interactions
      * can be indexed with the params of the InteractionType.
      *
      * @return boolean

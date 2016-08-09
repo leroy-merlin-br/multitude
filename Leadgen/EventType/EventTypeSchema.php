@@ -14,7 +14,7 @@ class InteractionTypeSchema extends Schema
      *
      * @var string
      */
-    public $collection = 'eventTypes';
+    public $collection = 'interactionTypes';
 
     /**
      * Name of the class that will be used to represent a document of this
