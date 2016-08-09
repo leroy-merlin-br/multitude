@@ -1,12 +1,12 @@
 <?php
-namespace Leadgen\Event;
+namespace Leadgen\Interaction;
 
 use Mongolid\Schema;
 
 /**
- * Describes the schema of an Event document
+ * Describes the schema of an Interaction document
  */
-class EventSchema extends Schema
+class InteractionSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
@@ -14,7 +14,7 @@ class EventSchema extends Schema
      *
      * @var string
      */
-    public $collection = 'events';
+    public $collection = 'interactions';
 
     /**
      * Name of the class that will be used to represent a document of this
@@ -22,7 +22,7 @@ class EventSchema extends Schema
      *
      * @var string
      */
-    public $entityClass = Event::class;
+    public $entityClass = Interaction::class;
 
     /**
      * Tells how a document should look like.
@@ -30,23 +30,23 @@ class EventSchema extends Schema
      * @var string[]
      */
     public $fields  = [
-        '_id'        => 'objectId',
-        'author'     => 'string',
-        'authorId'   => 'string',
-        'event'      => 'objectId',
-        'params'     => 'eventFields',
-        'created_at' => 'createdAtTimestamp',
-        'updated_at' => 'updatedAtTimestamp'
+        '_id'         => 'objectId',
+        'author'      => 'string',
+        'authorId'    => 'string',
+        'interaction' => 'objectId',
+        'params'      => 'interactionFields',
+        'created_at'  => 'createdAtTimestamp',
+        'updated_at'  => 'updatedAtTimestamp'
     ];
 
     /**
-     * Prepares the field to be the event fields.
+     * Prepares the field to be the interaction fields.
      *
      * @param  mixed $value Value that will be evaluated.
      *
      * @return array
      */
-    public function eventFields($value = []): array
+    public function interactionFields($value = []): array
     {
         return $value;
     }
