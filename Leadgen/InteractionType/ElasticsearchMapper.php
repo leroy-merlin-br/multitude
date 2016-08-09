@@ -1,10 +1,10 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Elasticsearch\Client;
 
 /**
- * Updates the Mapping of an EventType in Elasticsearch
+ * Updates the Mapping of an InteractionType in Elasticsearch
  */
 class ElasticsearchMapper
 {
@@ -24,23 +24,23 @@ class ElasticsearchMapper
     }
 
     /**
-     * Updates the mapping of the given EventType in ES.
+     * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  EventType $eventType EventType being updated.
+     * @param  InteractionType $interactionType InteractionType being updated.
      *
      * @return boolean Success
      */
-    public function map(EventType $eventType)
+    public function map(InteractionType $interactionType)
     {
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
 
         $mapping = [
             'index' => $indexName,
-            'type' => 'Event',
+            'type' => 'Interaction',
             'body' => [
-                'Event' => [
+                'Interaction' => [
                     'properties' => array_merge(
-                        $this->buildProperties($eventType),
+                        $this->buildProperties($interactionType),
                         [
                             'author' => [
                                 'type' => 'string',
@@ -50,7 +50,7 @@ class ElasticsearchMapper
                                 'type' => 'string',
                                 'index' => 'not_analyzed'
                             ],
-                            'event' => [
+                            'interaction' => [
                                 'type' =>  'string',
                                 'index' => 'not_analyzed'
                             ],
@@ -71,17 +71,17 @@ class ElasticsearchMapper
     }
 
     /**
-     * Build the properties of the given eventType to be mapped in elasticsearch
+     * Build the properties of the given interactionType to be mapped in elasticsearch
      *
-     * @param  EventType $eventType That will have its properties parsed for es.
+     * @param  InteractionType $interactionType That will have its properties parsed for es.
      *
      * @return array
      */
-    protected function buildProperties(EventType $eventType)
+    protected function buildProperties(InteractionType $interactionType)
     {
         $properties = [];
 
-        foreach ($eventType->params() as $param) {
+        foreach ($interactionType->params() as $param) {
             $paramEsType = $param->type == 'string' ? 'string' : 'float';
             $properties['params/'.$param->name."/$paramEsType"] = [
                 'type' => $paramEsType,

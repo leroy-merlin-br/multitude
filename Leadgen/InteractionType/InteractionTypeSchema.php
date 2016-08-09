@@ -1,12 +1,12 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Mongolid\Schema;
 
 /**
- * The EventTypeSchema defines how a EventType document will look like
+ * The InteractionTypeSchema defines how a InteractionType document will look like
  */
-class EventTypeSchema extends Schema
+class InteractionTypeSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
@@ -14,7 +14,7 @@ class EventTypeSchema extends Schema
      *
      * @var string
      */
-    public $collection = 'eventTypes';
+    public $collection = 'interactionTypes';
 
     /**
      * Name of the class that will be used to represent a document of this
@@ -22,7 +22,7 @@ class EventTypeSchema extends Schema
      *
      * @var string
      */
-    public $entityClass = EventType::class;
+    public $entityClass = InteractionType::class;
 
     /**
      * Tells how a document should look like.

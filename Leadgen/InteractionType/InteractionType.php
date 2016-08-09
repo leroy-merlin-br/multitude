@@ -1,23 +1,23 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\InteractionType;
 
 use Elasticsearch\Client;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Leadgen\Event\Event;
+use Leadgen\Interaction\Interaction;
 use Leadgen\Base\BaseEntity;
 use Mongolid\Cursor\CursorInterface;
 
 /**
- * Entity that represents a schema of an Event.
+ * Entity that represents a schema of an Interaction.
  */
-class EventType extends BaseEntity
+class InteractionType extends BaseEntity
 {
     /**
      * Describes the Schema fields of the model.
      *
      * @var  string
      */
-    protected $fields = EventTypeSchema::class;
+    protected $fields = InteractionTypeSchema::class;
 
     /**
      * Validation rules
@@ -31,7 +31,7 @@ class EventType extends BaseEntity
     ];
 
     /**
-     * EventType embeds many Param objects
+     * InteractionType embeds many Param objects
      *
      * @return CursorInterface
      */
@@ -59,14 +59,14 @@ class EventType extends BaseEntity
     }
 
     /**
-     * Check if there is any error in the given Event based on the current
-     * EventType
+     * Check if there is any error in the given Interaction based on the current
+     * InteractionType
      *
-     * @param  Event $event Event object being evaluated.
+     * @param  Interaction $interaction Interaction object being evaluated.
      *
      * @return array Errors
      */
-    public function checkErrors(Event $event)
+    public function checkErrors(Interaction $interaction)
     {
         $rules = [];
 
@@ -74,13 +74,13 @@ class EventType extends BaseEntity
             $rules[$param->name] = $param->type . ($param->required ? '|required' : '');
         }
 
-        $validator = app(ValidationFactory::class)->make($event->params, $rules);
+        $validator = app(ValidationFactory::class)->make($interaction->params, $rules);
         return $validator->errors()->all();
     }
 
     /**
-     * Prepare the Event mapping in Elasticsearch. This allow that new events
-     * can be indexed with the params of the EventType.
+     * Prepare the Interaction mapping in Elasticsearch. This allow that new interactions
+     * can be indexed with the params of the InteractionType.
      *
      * @return boolean
      */

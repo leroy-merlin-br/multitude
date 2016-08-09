@@ -1,5 +1,5 @@
 <?php
-namespace Leadgen\EventType;
+namespace Leadgen\Interaction;
 
 use Leadgen\Base\RepositoryInterface;
 use Leadgen\Base\ResourceRepository;
@@ -10,7 +10,7 @@ use Mongolid\Cursor\CursorInterface;
  * Class Repository
  *
  * The Repository service is responsible for abstracting database queries
- * regarding EventType in order to have cleaner controllers and a better
+ * regarding Interaction in order to have cleaner controllers and a better
  * code-reuse.
  */
 class Repository implements RepositoryInterface
@@ -19,7 +19,7 @@ class Repository implements RepositoryInterface
      * The entity that the repository manipulates.
      * @var ActiveRecord
      */
-    protected $resource = EventType::class;
+    protected $resource = Interaction::class;
 
     /**
      * ResourceRepository used in composition

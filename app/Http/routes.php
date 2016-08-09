@@ -20,8 +20,8 @@ $resource = function ($name, $controller) use ($app) {
 };
 
 $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
-    $resource('eventType', 'EventTypeController');
-    $app->post('event', ['as' => 'event.store', 'uses' => 'EventController@store']);
+    $resource('interactionType', 'InteractionTypeController');
+    $app->post('interaction', ['as' => 'interaction.store', 'uses' => 'InteractionController@store']);
 });
 
 $app->get('/', function () use ($app) {

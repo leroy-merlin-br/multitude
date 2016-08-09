@@ -1,21 +1,21 @@
 <?php
-namespace Leadgen\Event;
+namespace Leadgen\Interaction;
 
-use Leadgen\EventType\EventType;
-use Leadgen\EventType\Repository as EventTypeRepo;
+use Leadgen\InteractionType\InteractionType;
+use Leadgen\InteractionType\Repository as InteractionTypeRepo;
 use Leadgen\Base\BaseEntity;
 
 /**
- * Represents an single event by an individual
+ * Represents an single interaction by an individual
  */
-class Event extends BaseEntity
+class Interaction extends BaseEntity
 {
     /**
      * Describes the Schema fields of the model.
      *
      * @var  string
      */
-    protected $fields = EventSchema::class;
+    protected $fields = InteractionSchema::class;
 
     /**
      * Disables write concern to optimze write performance.
@@ -33,19 +33,19 @@ class Event extends BaseEntity
     public static $rules = [
         'author'   => 'required',
         'authorId' => 'required',
-        'event'    => 'required',
-        'eventId'  => 'required',
+        'interaction'    => 'required',
+        'interactionId'  => 'required',
         'params'   => 'required|array'
     ];
 
     /**
-     * References one eventType
+     * References one interactionType
      *
-     * @return EventType
+     * @return InteractionType
      */
-    public function eventType()
+    public function interactionType()
     {
-        return $this->referencesOne(EventType::class, 'eventId');
+        return $this->referencesOne(InteractionType::class, 'interactionId');
     }
 
     /**
@@ -59,10 +59,10 @@ class Event extends BaseEntity
             $this->authorId = md5($this->author);
         }
 
-        if (empty($this->eventId)) {
-            $eventType = app()->make(EventTypeRepo::class)
-                ->findExisting(['slug' => $this->event]);
-            $this->eventId = $eventType->_id;
+        if (empty($this->interactionId)) {
+            $interactionType = app()->make(InteractionTypeRepo::class)
+                ->findExisting(['slug' => $this->interaction]);
+            $this->interactionId = $interactionType->_id;
         }
     }
 
@@ -74,7 +74,7 @@ class Event extends BaseEntity
     public function isValid()
     {
         $this->sanitize();
-        $errors = $this->eventType()->checkErrors($this);
+        $errors = $this->interactionType()->checkErrors($this);
 
         if (! empty($errors)) {
             $this->errors()->merge($errors);
@@ -86,7 +86,7 @@ class Event extends BaseEntity
 
     /**
      * Overwrites save method in order to return true if the entity was valid.
-     * Since Events have write concern as zero this is needed in order to know
+     * Since Interactions have write concern as zero this is needed in order to know
      * if the entity was good enought to be sent to the database and not the
      * real database save return.
      *
