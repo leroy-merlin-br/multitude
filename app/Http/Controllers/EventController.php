@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
-use Leadgen\Event\Repository;
+use Leadgen\Interaction\Repository;
 
 /**
- * Controller to handle the creation of Events
+ * Controller to handle the creation of Interactions
  */
-class EventController extends ApiController
+class InteractionController extends ApiController
 {
     /**
-     * Event repository
+     * Interaction repository
      * @var Repository
      */
     protected $repo;
@@ -27,7 +27,7 @@ class EventController extends ApiController
     /**
      * Constructor
      *
-     * @param Repository      $repo            Event repository.
+     * @param Repository      $repo            Interaction repository.
      * @param ResponseBuilder $responseBuilder To build the server response.
      */
     public function __construct(Repository $repo, ResponseBuilder $responseBuilder)
@@ -45,15 +45,15 @@ class EventController extends ApiController
      */
     public function store(Request $request)
     {
-        $event = $this->repo->createNew($request->all());
+        $interaction = $this->repo->createNew($request->all());
 
-        if (! $event) {
+        if (! $interaction) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
 
         return $this->responseBuilder
             ->setStatusCode(201)
-            ->respond($event);
+            ->respond($interaction);
     }
 }

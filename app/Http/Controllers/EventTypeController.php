@@ -6,16 +6,16 @@ use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Leadgen\EventType\EventType;
-use Leadgen\EventType\Repository;
+use Leadgen\InteractionType\InteractionType;
+use Leadgen\InteractionType\Repository;
 
 /**
- * RESTful controller of EventType entity.
+ * RESTful controller of InteractionType entity.
  */
-class EventTypeController extends ApiController
+class InteractionTypeController extends ApiController
 {
     /**
-     * EventType repository
+     * InteractionType repository
      * @var Repository
      */
     protected $repo;
@@ -29,7 +29,7 @@ class EventTypeController extends ApiController
     /**
      * Constructor
      *
-     * @param Repository      $repo            EventType repository.
+     * @param Repository      $repo            InteractionType repository.
      * @param ResponseBuilder $responseBuilder To build the server response.
      */
     public function __construct(Repository $repo, ResponseBuilder $responseBuilder)
@@ -62,16 +62,16 @@ class EventTypeController extends ApiController
      */
     public function store(Request $request)
     {
-        $eventType = $this->repo->createNew($request->all());
+        $interactionType = $this->repo->createNew($request->all());
 
-        if (! $eventType) {
+        if (! $interactionType) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
 
         return $this->responseBuilder
             ->setStatusCode(201)
-            ->respond($eventType);
+            ->respond($interactionType);
     }
 
     /**
@@ -83,10 +83,10 @@ class EventTypeController extends ApiController
      */
     public function show($id)
     {
-        $eventType = $this->repo->findExisting($id);
+        $interactionType = $this->repo->findExisting($id);
 
         return $this->responseBuilder
-            ->respond($eventType);
+            ->respond($interactionType);
     }
 
     /**
@@ -99,15 +99,15 @@ class EventTypeController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $eventType = $this->repo->findExisting($id);
+        $interactionType = $this->repo->findExisting($id);
 
-        if (! $this->repo->updateExisting($eventType, $request->all())) {
+        if (! $this->repo->updateExisting($interactionType, $request->all())) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
 
         return $this->responseBuilder
-            ->respond($eventType);
+            ->respond($interactionType);
     }
 
     /**
@@ -119,9 +119,9 @@ class EventTypeController extends ApiController
      */
     public function destroy($id)
     {
-        $eventType = $this->repo->findExisting($id);
+        $interactionType = $this->repo->findExisting($id);
 
-        if (! $this->repo->deleteExisting($eventType)) {
+        if (! $this->repo->deleteExisting($interactionType)) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
