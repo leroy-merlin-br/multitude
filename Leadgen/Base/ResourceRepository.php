@@ -5,13 +5,13 @@ use Mongolid\ActiveRecord;
 use Mongolid\Cursor\CursorInterface;
 
 /**
- * Class BaseRepository
+ * Class ResourceRepository
  *
- * The base repository contains the base implementation of a service that is
- * responsible for abstracting database queries regarding a resource in order
- * to have cleaner controllers and a better code-reuse.
+ * The resource repository contains the base implementation of a service that
+ * is responsible for abstracting database queries regarding a given resource
+ * in order to have cleaner controllers and a better code-reuse.
  */
-abstract class BaseRepository implements RepositoryInterface
+class ResourceRepository implements RepositoryInterface
 {
     /**
      * The entity that the repository manipulates.
@@ -24,6 +24,16 @@ abstract class BaseRepository implements RepositoryInterface
      * @var array
      */
     protected $errors = [];
+
+    /**
+     * Constructor for a Repository for the given resource
+     *
+     * @param string $resourceClass Resource class.
+     */
+    public function __construct(string $resourceClass)
+    {
+        $this->resource = $resourceClass;
+    }
 
     /**
      * Retrieves all resources with support to pagination.
