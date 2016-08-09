@@ -17,7 +17,7 @@ RUN curl -sS https://getcomposer.org/installer \
         && mv /usr/local/bin/composer.phar /usr/local/bin/composer
 
 # Configure apache
-RUN sed -i "s/DocumentRoot .*/DocumentRoot \/var\/www\/html\/public/" /etc/apache2/apache2.conf
+RUN sed -i "s/DocumentRoot .*/DocumentRoot \/var\/www\/html\/public/" /etc/apache2/sites-enabled/000-default.conf
 RUN echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /usr/local/etc/php/conf.d/error.ini
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/error.ini
 RUN a2enmod rewrite
