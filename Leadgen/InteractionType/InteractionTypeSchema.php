@@ -5,6 +5,30 @@ use Mongolid\Schema;
 
 /**
  * The InteractionTypeSchema defines how a InteractionType document will look like
+ *
+ * @SWG\Definition(
+ *     type="object",
+ *     definition="InteractionType",
+ *     required={"name", "slug", "params"},
+ *     @SWG\Property(
+ *         property="name",
+ *         type="string",
+ *         description="The name of the interaction type."
+ *     ),
+ *     @SWG\Property(
+ *         property="slug",
+ *         type="string",
+ *         description="Slug that identifies the given interaction type. No space or special characters are allowed."
+ *     ),
+ *     @SWG\Property(
+ *         property="params",
+ *         type="array",
+ *         description="Params of the given interaction",
+ *         @SWG\Items(
+ *             ref="#/definitions/Param",
+ *         )
+ *     ),
+ * )
  */
 class InteractionTypeSchema extends Schema
 {

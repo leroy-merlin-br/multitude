@@ -19,11 +19,20 @@ $resource = function ($name, $controller) use ($app) {
     $app->delete("$name/{id}", ['as' => "$name.delete", 'uses' => "$controller@destroy"]);
 };
 
+/**
+ * @SWG\Info(title="Leadgen API", version="0.1-beta")
+ */
 $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
+    // Interaction type routes
     $resource('interactionType', 'InteractionTypeController');
+
+    // Interaction routes
     $app->post('interaction', ['as' => 'interaction.store', 'uses' => 'InteractionController@store']);
+
+    // Customer routes
+    $app->get('customer', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
 });
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    return redirect('/swagger.json');
 });
