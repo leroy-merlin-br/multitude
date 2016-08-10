@@ -1,7 +1,6 @@
 <?php
 namespace Leadgen\InteractionType;
 
-use Elasticsearch\Client;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Leadgen\Interaction\Interaction;
 use Leadgen\Base\BaseEntity;

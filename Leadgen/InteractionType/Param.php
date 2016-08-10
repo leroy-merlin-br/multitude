@@ -21,7 +21,7 @@ class Param extends BaseEntity
      * @var array
      */
     public static $rules = [
-        'name'     => 'required|alpha',
+        'name'     => 'required|alpha_dash',
         'type'     => 'required|in:integer,numeric,string',
         'required' => 'required|boolean',
     ];
