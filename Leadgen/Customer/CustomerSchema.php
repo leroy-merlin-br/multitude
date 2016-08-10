@@ -31,8 +31,8 @@ class CustomerSchema extends Schema
      * @var string[]
      */
     public $fields  = [
-        '_id' => 'objectId',
-        'identifier' => 'string',
+        '_id' => 'string',
+        'docNumber' => 'string',
         'email' => 'string',
         'name' => 'string',
         'interactions' => 'schema.'.InteractionSchema::class,
