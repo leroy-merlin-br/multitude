@@ -21,15 +21,6 @@ class SwaggerGenerateCommand extends Command
     protected $description = 'Generates swagger.json based in project annotations';
 
     /**
-     * Injects
-     * @param TinkerShell $shell [description]
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      *  Performs the event.
      */
     public function fire()

@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ProcessInteractionsCommand;
 use App\Console\Commands\SwaggerGenerateCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        SwaggerGenerateCommand::class
+        SwaggerGenerateCommand::class,
+        ProcessInteractionsCommand::class,
     ];
 
     /**
@@ -25,6 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('leadgen:proc-interaction')
+            ->everyMinute()
+            ->withoutOverlapping();
     }
 }
