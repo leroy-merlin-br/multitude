@@ -5,6 +5,11 @@ use Mongolid\Schema;
 
 /**
  * Describes the schema of an Interaction document
+ *
+ * @SWG\Definition(
+ *     type="object",
+ *     definition="Interaction",
+ * )
  */
 class InteractionSchema extends Schema
 {
@@ -28,6 +33,31 @@ class InteractionSchema extends Schema
      * Tells how a document should look like.
      *
      * @var string[]
+     * @SWG\Property(
+     *     property="_id",
+     *     type="string",
+     *     description="Unique identifier of the interaction. (Generated automatically)"
+     * ),
+     * @SWG\Property(
+     *     property="author",
+     *     type="string",
+     *     description="Email or docNumber of the customer that made the interaction."
+     * ),
+     * @SWG\Property(
+     *     property="authorId",
+     *     type="string",
+     *     description="Unique identifier of the customer that made the interaction. (Generated based in the `author` property)"
+     * ),
+     * @SWG\Property(
+     *     property="interaction",
+     *     type="string",
+     *     description="Unique identifier of the `InteractionType` that describes this interaction."
+     * ),
+     * @SWG\Property(
+     *     property="params",
+     *     type="object",
+     *     description="The params of the interaction. A set of key-value properties that should follow the params described in the `InteractionType`."
+     * )
      */
     public $fields  = [
         '_id'         => 'objectId',
