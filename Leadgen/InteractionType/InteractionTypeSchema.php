@@ -9,25 +9,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="InteractionType",
- *     required={"name", "slug", "params"},
- *     @SWG\Property(
- *         property="name",
- *         type="string",
- *         description="The name of the interaction type."
- *     ),
- *     @SWG\Property(
- *         property="slug",
- *         type="string",
- *         description="Slug that identifies the given interaction type. No space or special characters are allowed."
- *     ),
- *     @SWG\Property(
- *         property="params",
- *         type="array",
- *         description="Params of the given interaction",
- *         @SWG\Items(
- *             ref="#/definitions/Param",
- *         )
- *     ),
+ *     required={"name", "slug", "params"}
  * )
  */
 class InteractionTypeSchema extends Schema
@@ -52,6 +34,29 @@ class InteractionTypeSchema extends Schema
      * Tells how a document should look like.
      *
      * @var string[]
+     * @SWG\Property(
+     *     property="_id",
+     *     type="string",
+     *     description="Unique identifier. (Generated automatically)"
+     * ),
+     * @SWG\Property(
+     *     property="name",
+     *     type="string",
+     *     description="The name of the interaction type."
+     * ),
+     * @SWG\Property(
+     *     property="slug",
+     *     type="string",
+     *     description="Slug that identifies the given interaction type. No space or special characters are allowed."
+     * ),
+     * @SWG\Property(
+     *     property="params",
+     *     type="array",
+     *     description="Params of the given interaction",
+     *     @SWG\Items(
+     *         ref="#/definitions/Param",
+     *     )
+     * )
      */
     public $fields  = [
         '_id' => 'objectId',

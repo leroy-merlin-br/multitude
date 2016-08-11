@@ -9,22 +9,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="Param",
- *     required={"name", "type", "required"},
- *     @SWG\Property(
- *         property="name",
- *         type="string",
- *         description="Name of parameter. No space or special characters are allowed.",
- *     ),
- *     @SWG\Property(
- *         property="type",
- *         type="string",
- *         description="Type of the parameter"
- *     ),
- *     @SWG\Property(
- *         property="required",
- *         type="boolean",
- *         description="Tells if the parameter is required."
- *     ),
+ *     required={"name", "type", "required"}
  * )
  */
 class ParamSchema extends Schema
@@ -41,6 +26,26 @@ class ParamSchema extends Schema
      * Tells how a document should look like.
      *
      * @var string[]
+     * @SWG\Property(
+     *     property="_id",
+     *     type="string",
+     *     description="Unique identifier. (Generated automatically)"
+     * ),
+     * @SWG\Property(
+     *     property="name",
+     *     type="string",
+     *     description="Name of parameter. No space or special characters are allowed.",
+     * ),
+     * @SWG\Property(
+     *     property="type",
+     *     type="string",
+     *     description="Type of the parameter"
+     * ),
+     * @SWG\Property(
+     *     property="required",
+     *     type="boolean",
+     *     description="Tells if the parameter is required."
+     * )
      */
     public $fields  = [
         '_id'      => 'objectId',
