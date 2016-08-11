@@ -58,15 +58,22 @@ class InteractionSchema extends Schema
      *     type="object",
      *     description="The params of the interaction. A set of key-value properties that should follow the params described in the `InteractionType`."
      * )
+     * @SWG\Property(
+     *     property="acknowledged",
+     *     type="boolean",
+     *     default=false,
+     *     description="Tells if the given `Interaction` have already been indexed in Elasticsearch."
+     * ),
      */
     public $fields  = [
-        '_id'         => 'objectId',
-        'author'      => 'string',
-        'authorId'    => 'string',
-        'interaction' => 'objectId',
-        'params'      => 'interactionFields',
-        'created_at'  => 'createdAtTimestamp',
-        'updated_at'  => 'updatedAtTimestamp'
+        '_id'          => 'objectId',
+        'author'       => 'string',
+        'authorId'     => 'string',
+        'interaction'  => 'objectId',
+        'params'       => 'interactionFields',
+        'acknowledged' => 'bool',
+        'created_at'   => 'createdAtTimestamp',
+        'updated_at'   => 'updatedAtTimestamp'
     ];
 
     /**

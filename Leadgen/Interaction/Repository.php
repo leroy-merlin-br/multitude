@@ -124,4 +124,14 @@ class Repository implements RepositoryInterface
     {
         return $this->resourceRepo->getLastErrors();
     }
+
+    /**
+     * Retrieves interactions that have not ben aknowledged yet
+     *
+     * @return CursorInterface
+     */
+    public function getUnacknowledged(): CursorInterface
+    {
+        return $this->resourceRepo->where(['acknowledged' => false], 1, 250);
+    }
 }
