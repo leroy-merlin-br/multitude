@@ -126,9 +126,9 @@ abstract class BaseEntity extends ActiveRecord
      *
      * @return Collection
      */
-    protected function collection(): Collection
+    public function collection(): Collection
     {
-        return $this->db()->{$this->collection};
+        return $this->db()->{$this->getCollectionName()};
     }
 
     /**
