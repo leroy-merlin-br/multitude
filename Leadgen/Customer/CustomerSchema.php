@@ -6,6 +6,11 @@ use Mongolid\Schema;
 
 /**
  * The CustomerSchema defines how a Customer document will look like
+ *
+ * @SWG\Definition(
+ *     type="object",
+ *     definition="Customer",
+ * )
  */
 class CustomerSchema extends Schema
 {
@@ -29,6 +34,34 @@ class CustomerSchema extends Schema
      * Tells how a document should look like.
      *
      * @var string[]
+     * @SWG\Property(
+     *     property="_id",
+     *     type="string",
+     *     description="Unique identifier of the customer. (Generated automatically)"
+     * ),
+     * @SWG\Property(
+     *     property="docNumber",
+     *     type="string",
+     *     description="An document number that identify this customer. May be an CRM number for example."
+     * ),
+     * @SWG\Property(
+     *     property="email",
+     *     type="string",
+     *     description="Email of the customer."
+     * ),
+     * @SWG\Property(
+     *     property="name",
+     *     type="string",
+     *     description="Name of the customer."
+     * ),
+     * @SWG\Property(
+     *     property="interactions",
+     *     type="array",
+     *     description="Interactions that this customer has made.",
+     *     @SWG\Items(
+     *         ref="#/definitions/Interaction",
+     *     )
+     * )
      */
     public $fields  = [
         '_id' => 'string',
