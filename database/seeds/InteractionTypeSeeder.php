@@ -155,6 +155,11 @@ class InteractionTypeSeeder extends Seeder
                         'type' => 'numeric',
                         'required' => true,
                     ],
+                    [
+                        'name' => 'details',
+                        'type' => 'string',
+                        'required' => false,
+                    ],
                 ]
             ],
         ];
