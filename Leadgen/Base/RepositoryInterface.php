@@ -22,6 +22,17 @@ interface RepositoryInterface
     public function all(int $page = 1, int $perPage = 10): CursorInterface;
 
     /**
+     * Retrieves the resources that maches the query. Supports pagination.
+     *
+     * @param  array   $query   Mongo query
+     * @param  integer $page    Page number being displayed.
+     * @param  integer $perPage Results per page.
+     *
+     * @return CursorInterface
+     */
+    public function where($query = [], int $page = 1, int $perPage = 10): CursorInterface;
+
+    /**
      * Find an resource that exists
      *
      * @throws ModelNotFoundException If no document was found.
