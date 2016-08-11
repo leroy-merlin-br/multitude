@@ -87,4 +87,14 @@ class InteractionSchema extends Schema
     {
         return $value;
     }
+
+    /**
+     * Prepares a boolean field
+     * @param  boolean $value Input
+     * @return boolean
+     */
+    public function bool($value = false): bool
+    {
+        return (bool) $value;
+    }
 }
