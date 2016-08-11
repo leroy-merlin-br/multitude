@@ -32,6 +32,19 @@ class ElasticsearchMapper
      */
     public function map(InteractionType $interactionType)
     {
+        $this->mapInteractions($interactionType);
+        $this->mapCustomers($interactionType);
+    }
+
+    /**
+     * Updates the mapping of the given InteractionType in ES.
+     *
+     * @param  InteractionType $interactionType InteractionType being updated.
+     *
+     * @return boolean Success
+     */
+    public function mapInteractions(InteractionType $interactionType)
+    {
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
 
         $mapping = [
@@ -60,6 +73,70 @@ class ElasticsearchMapper
                             ],
                         ]
                     ),
+                ]
+            ]
+        ];
+
+        // Update the index mapping
+        $result = $this->elasticsearch->indices()->putMapping($mapping);
+
+        return $result['acknowledged'] ?? false;
+    }
+
+    /**
+     * Updates the mapping of the given InteractionType in ES.
+     *
+     * @param  InteractionType $interactionType InteractionType being updated.
+     *
+     * @return boolean Success
+     */
+    public function mapCustomers(InteractionType $interactionType)
+    {
+        $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
+
+        $mapping = [
+            'index' => $indexName,
+            'type' => 'Customer',
+            'body' => [
+                'Customer' => [
+                    'properties' => [
+                        'docNumber' => [
+                            'type' => 'string',
+                            'index' => 'not_analyzed'
+                        ],
+                        'email' => [
+                            'type' => 'string',
+                            'index' => 'not_analyzed'
+                        ],
+                        'name' => [
+                            'type' =>  'string',
+                            'index' => 'not_analyzed'
+                        ],
+                        'interactions' => [
+                            'type' =>  'object',
+                            'properties' => array_merge(
+                                $this->buildProperties($interactionType),
+                                [
+                                    'interaction' => [
+                                        'type' =>  'string',
+                                        'index' => 'not_analyzed'
+                                    ],
+                                    'created_at' => [
+                                        'type' => 'date',
+                                        'format' => 'date_hour_minute'
+                                    ],
+                                ]
+                            )
+                        ],
+                        'created_at' => [
+                            'type' => 'date',
+                            'format' => 'date_hour_minute'
+                        ],
+                        'updated_at' => [
+                            'type' => 'date',
+                            'format' => 'date_hour_minute'
+                        ],
+                    ]
                 ]
             ]
         ];
