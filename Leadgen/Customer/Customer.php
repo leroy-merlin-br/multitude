@@ -2,6 +2,7 @@
 namespace Leadgen\Customer;
 
 use Leadgen\Base\BaseEntity;
+use Leadgen\Interaction\Interaction;
 use Mongolid\Cursor\CursorInterface;
 
 class Customer extends BaseEntity
