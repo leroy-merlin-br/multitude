@@ -2,8 +2,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Leadgen\Interaction\ElasticsearchIndexer;
+use Leadgen\Customer\ElasticsearchIndexer as CustomerIndexer;
+use Leadgen\Customer\InteractionsParser;
+use Leadgen\Interaction\ElasticsearchIndexer as InteractionIndexer;
+use Leadgen\Interaction\Interaction;
 use Leadgen\Interaction\Repository;
+use MongoDB\Driver\WriteConcern;
 use Swagger;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -30,16 +34,34 @@ class ProcessInteractionsCommand extends Command
 
     /**
      * Indexer instance that will be used to index interactions into Elasticsearch
-     * @var ElasticsearchIndexer
+     * @var \Leadgen\Interaction\ElasticsearchIndexer
      */
-    protected $esIndexer;
+    protected $interactionIndexer;
 
-    public function __construct(Repository $interactionRepo, ElasticsearchIndexer $esIndexer)
-    {
+    /**
+     * Indexer instance that will be used to index sustomers into Elasticsearch
+     * @var \Leadgen\Customer\ElasticsearchIndexer
+     */
+    protected $customerIndexer;
+
+    /**
+     * Customer interaction parser instance that will be used process interactions to the Customers.
+     * @var InteractionParser
+     */
+    protected $interactionParser;
+
+    public function __construct(
+        Repository $interactionRepo,
+        InteractionIndexer $interactionIndexer,
+        InteractionsParser $interactionParser,
+        CustomerIndexer $customerIndexer
+    ) {
         parent::__construct();
 
         $this->interactionRepo = $interactionRepo;
-        $this->esIndexer = $esIndexer;
+        $this->interactionIndexer = $interactionIndexer;
+        $this->interactionParser = $interactionParser;
+        $this->customerIndexer = $customerIndexer;
     }
 
     /**
@@ -47,12 +69,42 @@ class ProcessInteractionsCommand extends Command
      */
     public function fire()
     {
-        $interactions = $this->interactionRepo->getUnacknowledged();
+        $interactions = $this->interactionRepo->getUnacknowledged()->all();
 
-        if ($count = $interactions->count()) {
-            $processedIds = $this->esIndexer->index($interactions);
+        if ($count = count($interactions)) {
+            $processedIds = $this->interactionIndexer->index($interactions);
+            $customers    = $this->interactionParser->parse($interactions);
+
+            $this->markAsAknowledged($processedIds);
+            $this->customerIndexer->index($customers);
+
             $this->comment("$count interactions processed");
         }
     }
 
+    /**
+     * Mark a series of `Interaction`s as aknowledged
+     *
+     * @param  array  $idList List of _id of interactions
+     *
+     * @return boolean  Success
+     */
+    protected function markAsAknowledged(array $idList)
+    {
+        (new Interaction)->collection()->updateMany(
+            [
+                '_id' => [
+                    '$in' => $idList,
+                ],
+            ],
+            [
+                '$set' => [
+                    'acknowledged' => true,
+                ],
+            ],
+            ['writeConcern' => new WriteConcern(1)]
+        );
+
+        return true;
+    }
 }
