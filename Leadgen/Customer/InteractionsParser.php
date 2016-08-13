@@ -4,6 +4,11 @@ namespace Leadgen\Customer;
 use Leadgen\Customer\Customer;
 use Leadgen\Customer\Repository;
 
+/**
+ * A service that, by receiving a list of interactions, will embed then to the
+ * correspondent customer (or create it) in order to make sure that the
+ * interactions are "as close as possible" for later queries.
+ */
 class InteractionsParser
 {
     /**
@@ -18,6 +23,11 @@ class InteractionsParser
      */
     protected $touchedCustomers = [];
 
+    /**
+     * Constructs and inject dependencies
+     *
+     * @param Repository $customerRepo Customer repository instance.
+     */
     public function __construct(Repository $customerRepo)
     {
         $this->customerRepo = $customerRepo;
