@@ -11,6 +11,10 @@ use MongoDB\Driver\WriteConcern;
 use Swagger;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * This command have the purpose of "crunching" the data of the latest
+ * interactions made and preparing then for later queries.
+ */
 class ProcessInteractionsCommand extends Command
 {
     /**
