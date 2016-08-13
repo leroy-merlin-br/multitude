@@ -2,7 +2,6 @@
 namespace Leadgen\Interaction;
 
 use Elasticsearch\Client;
-use MongoDB\Driver\WriteConcern;
 use MongoDB\BSON\ObjectID;
 
 /**
@@ -43,8 +42,6 @@ class ElasticsearchIndexer
             }
         }
 
-        $this->markAsAknowledged($acknowledgedItems);
-
         return $acknowledgedItems;
     }
 
@@ -67,32 +64,6 @@ class ElasticsearchIndexer
         }
 
         return $this->elasticsearch->bulk($params);
-    }
-
-    /**
-     * Mark a series of `Interaction`s as aknowledged
-     *
-     * @param  array  $idList List of _id of interactions
-     *
-     * @return boolean  Success
-     */
-    protected function markAsAknowledged(array $idList)
-    {
-        (new Interaction)->collection()->updateMany(
-            [
-                '_id' => [
-                    '$in' => $idList,
-                ],
-            ],
-            [
-                '$set' => [
-                    'acknowledged' => true,
-                ],
-            ],
-            ['writeConcern' => new WriteConcern(1)]
-        );
-
-        return true;
     }
 
     /**
