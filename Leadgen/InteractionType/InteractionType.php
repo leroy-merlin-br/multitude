@@ -58,6 +58,22 @@ class InteractionType extends BaseEntity
     }
 
     /**
+     * Save the interaction type and updates it's mapping
+     *
+     * @param boolean $force Force save even if the object is invalid.
+     *
+     * @return boolean
+     */
+    public function save(bool $force = false)
+    {
+        if ($result = parent::save($force)) {
+            $this->prepareMapping();
+        }
+
+        return $result;
+    }
+
+    /**
      * Check if there is any error in the given Interaction based on the current
      * InteractionType
      *
