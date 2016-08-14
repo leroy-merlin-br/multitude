@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\MigrationCommand;
 use App\Console\Commands\ProcessInteractionsCommand;
 use App\Console\Commands\SwaggerGenerateCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SwaggerGenerateCommand::class,
         ProcessInteractionsCommand::class,
+        MigrationCommand::class,
     ];
 
     /**
