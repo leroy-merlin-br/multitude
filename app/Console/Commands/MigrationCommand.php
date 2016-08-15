@@ -6,6 +6,7 @@ use Illuminate\Filesystem\Filesystem;
 use MongoDB\BSON\ObjectID;
 use Mongolid\Connection\Pool;
 use stdClass;
+use Exception;
 
 class MigrationCommand extends Command
 {
@@ -88,6 +89,7 @@ class MigrationCommand extends Command
             $migrationName = $this->filesystem->name($filename);
             if ($migrationName > $this->getLastRunnedMigration()) {
                 $this->comment("Running $migrationName...");
+                $this->runMigration($this->getClassNameFromFilename($migrationName));
                 $this->setLastRunnedMigration($migrationName);
                 $steps--;
             }
@@ -113,6 +115,7 @@ class MigrationCommand extends Command
                 }
 
                 $this->comment("Rolling back $migrationName...");
+                $this->runMigration($this->getClassNameFromFilename($migrationName), 'down');
 
                 $steps--;
             }
@@ -120,6 +123,39 @@ class MigrationCommand extends Command
 
         $this->setLastRunnedMigration('0');
     }
+
+    /**
+     * Figure out the class name by looking at the filename
+     *
+     * @param  string $filename Name of the migration file
+     *
+     * @return string Class name
+     */
+    protected function getClassNameFromFilename($filename)
+    {
+        preg_match("/[\d_]+(\D+)/", $filename, $matches);
+
+        if (! $matches[1] ?? null) {
+            throw new Exception("Unable to resolve class name for migration $filename.", 25);
+        }
+
+        return studly_case($matches[1]);
+    }
+
+    /**
+     * Run the migration
+     *
+     * @param  string $className Migration class
+     * @param  string $direction Method to be called. Usually 'up' or 'down'.
+     *
+     * @return void
+     */
+    protected function runMigration($className, $direction = 'up')
+    {
+        $migrationObject = new $className;
+        $migrationObject->$direction($this->db);
+    }
+
 
     /**
      * Gets the name of the latest runned migration
