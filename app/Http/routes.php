@@ -30,7 +30,8 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     $app->post('interaction', ['as' => 'interaction.store', 'uses' => 'InteractionController@store']);
 
     // Customer routes
-    $app->get('customer', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
+    $app->get('customer', ['as' => 'customer.index', 'uses' => 'CustomerController@index']);
+    $app->get('customer/{id}', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
 });
 
 $app->get('/', function () use ($app) {
