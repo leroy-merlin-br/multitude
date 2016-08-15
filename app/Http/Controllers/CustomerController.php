@@ -39,6 +39,30 @@ class CustomerController extends ApiController
     /**
      * Display a listing of the resource.
      *
+     * @SWG\Get(
+     *     path="/customer",
+     *     summary="Retrieve a list of customers",
+     *     tags={"customer"},
+     *     description="Retrieves a list of customers with pagination support.",
+     *     operationId="customer.index",
+     *     @SWG\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Page to be retrieved",
+     *         required=false,
+     *         type="integer",
+     *         default=1,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Customer data",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Customer")
+     *         ),
+     *     )
+     * )
+     *
      * @param Request $request Client request.
      *
      * @return \Illuminate\Http\Response
@@ -52,7 +76,33 @@ class CustomerController extends ApiController
     }
 
     /**
-     * Display the specified resource.
+     * Retrieve a specific customer.
+     *
+     * @SWG\Get(
+     *     path="/customer/{id}",
+     *     summary="Retrieve a specific customer",
+     *     tags={"customer"},
+     *     description="You can retrieve a customer by it's _id.",
+     *     operationId="customer.show",
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="_id of the customer to be retrieved",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Customer data",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Customer",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Customer not found",
+     *     )
+     * )
      *
      * @param  mixed $id Id of the resource.
      *
