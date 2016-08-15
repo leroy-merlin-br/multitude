@@ -20,7 +20,15 @@ $resource = function ($name, $controller) use ($app) {
 };
 
 /**
- * @SWG\Info(title="Leadgen API", version="0.1-beta")
+ * @SWG\Swagger(
+ *     basePath="/api/v1",
+ *     consumes={"application/json"},
+ *     produces={"application/json"},
+ *     @SWG\Info(
+ *         title="Leadgen API",
+ *         version="0.1-beta",
+ *     )
+ * )
  */
 $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
     // Interaction type routes
