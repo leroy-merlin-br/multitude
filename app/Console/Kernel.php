@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\MakeMigrationCommand;
 use App\Console\Commands\MigrationCommand;
 use App\Console\Commands\ProcessInteractionsCommand;
 use App\Console\Commands\SwaggerGenerateCommand;
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
         SwaggerGenerateCommand::class,
         ProcessInteractionsCommand::class,
         MigrationCommand::class,
+        MakeMigrationCommand::class,
     ];
 
     /**
