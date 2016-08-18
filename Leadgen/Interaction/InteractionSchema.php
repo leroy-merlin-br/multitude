@@ -9,6 +9,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="Interaction",
+ *     required={"author", "interaction"}
  * )
  */
 class InteractionSchema extends Schema
