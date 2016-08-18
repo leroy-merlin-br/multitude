@@ -57,8 +57,10 @@ class CustomerController extends ApiController
      *         response=200,
      *         description="Customer data",
      *         @SWG\Schema(
-     *             type="array",
-     *             @SWG\Items(ref="#/definitions/Customer")
+     *             type="object",
+     *             @SWG\Property(property="status", type="string", description="Response status"),
+     *             @SWG\Property(property="content", type="array", @SWG\Items(ref="#/definitions/Customer")),
+     *             @SWG\Property(property="errors", type="array", @SWG\Items(type="string"), description="Array of error messages"),
      *         ),
      *     )
      * )
@@ -95,7 +97,10 @@ class CustomerController extends ApiController
      *         response=200,
      *         description="Customer data",
      *         @SWG\Schema(
-     *             ref="#/definitions/Customer",
+     *             type="object",
+     *             @SWG\Property(property="status", type="string", description="Response status"),
+     *             @SWG\Property(property="content", ref="#/definitions/Customer"),
+     *             @SWG\Property(property="errors", type="array", @SWG\Items(type="string"), description="Array of error messages"),
      *         ),
      *     ),
      *     @SWG\Response(
