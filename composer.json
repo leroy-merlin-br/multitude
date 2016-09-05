@@ -12,7 +12,9 @@
         "illuminate/redis": "5.2.*",
         "vluzrmos/tinker": "^1.1",
         "leroy-merlin-br/mongolid": "2.0.x-dev",
-        "cviebrock/laravel-elasticsearch": "^1.2"
+        "cviebrock/laravel-elasticsearch": "^1.2",
+        "phpfluent/elastic-query-builder": "^1.0",
+        "zircote/swagger-php": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
