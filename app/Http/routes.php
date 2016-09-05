@@ -31,6 +31,10 @@ $resource = function ($name, $controller) use ($app) {
  * )
  */
 $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
+    $app->get('/', function () use ($app) {
+        return redirect('/swagger.json');
+    });
+
     // Interaction type routes
     $resource('interactionType', 'InteractionTypeController');
 
@@ -42,6 +46,4 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     $app->get('customer/{id}', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
 });
 
-$app->get('/', function () use ($app) {
-    return redirect('/swagger.json');
-});
+$app->get('/', ['as' => 'dashboard.home', 'uses' => 'DashboardController@home']);
