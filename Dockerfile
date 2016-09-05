@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mbstring tokenizer pcntl
 
 # Install pecl extensions
-RUN pecl install mongodb \
+RUN pecl install mongodb-1.2.0alpha1 \
     && pecl install xdebug
 RUN docker-php-ext-enable mongodb xdebug
 
