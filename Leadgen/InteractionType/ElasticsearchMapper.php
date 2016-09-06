@@ -113,7 +113,7 @@ class ElasticsearchMapper
                             'index' => 'not_analyzed'
                         ],
                         'interactions' => [
-                            'type' =>  'object',
+                            'type' =>  'nested',
                             'properties' => array_merge(
                                 $this->buildProperties($interactionType),
                                 [
