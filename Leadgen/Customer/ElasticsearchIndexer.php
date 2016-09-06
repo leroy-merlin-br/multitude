@@ -4,6 +4,7 @@ namespace Leadgen\Customer;
 use Elasticsearch\Client;
 use MongoDB\Driver\WriteConcern;
 use MongoDB\BSON\ObjectID;
+use Leadgen\Interaction\ElasticsearchCaster;
 
 /**
  * Index `Customer`s into Elasticsearch
@@ -82,10 +83,7 @@ class ElasticsearchIndexer
         $document['interactions'] = [];
 
         foreach($customer->interactions() as $interaction) {
-            $intDocument = array_diff_key($interaction->attributes, ['_id' => 1]);
-            $intDocument['created_at'] = $interaction->created_at->toDateTime()->format('Y-m-d\Th:i');
-            $intDocument['updated_at'] = $interaction->updated_at->toDateTime()->format('Y-m-d\Th:i');
-            $document['interactions'][] = $intDocument;
+            $document['interactions'][] = ElasticsearchCaster::castToEs($interaction);
         }
 
         return $document;

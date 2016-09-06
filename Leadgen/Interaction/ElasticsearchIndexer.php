@@ -2,6 +2,7 @@
 namespace Leadgen\Interaction;
 
 use Elasticsearch\Client;
+use Leadgen\Interaction\ElasticsearchCaster;
 use MongoDB\BSON\ObjectID;
 
 /**
@@ -75,10 +76,6 @@ class ElasticsearchIndexer
      */
     protected function parseInteraction(Interaction $interaction)
     {
-        $document = array_diff_key($interaction->attributes, ['_id' => 1]);
-        $document['created_at'] = $interaction->created_at->toDateTime()->format('Y-m-d\Th:i');
-        $document['updated_at'] = $interaction->updated_at->toDateTime()->format('Y-m-d\Th:i');
-
-        return $document;
+        return ElasticsearchCaster::castToEs($interaction);
     }
 }
