@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Leadgen\Interaction\Interaction;
-use Mongolid\Serializer\Type\ObjectID;
+use MongoDB\BSON\ObjectID;
 
 class InteractionSeeder extends Seeder
 {
