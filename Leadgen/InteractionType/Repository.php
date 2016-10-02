@@ -70,7 +70,7 @@ class Repository implements RepositoryInterface
      *
      * @return ActiveRecord
      */
-    public function findExisting($id)
+    public function findExisting($id): InteractionType
     {
         return $this->resourceRepo->findExisting($id);
     }
