@@ -32,8 +32,8 @@ class ElasticsearchMapper
      */
     public function map(InteractionType $interactionType)
     {
-        $this->mapInteractions($interactionType);
-        $this->mapCustomers($interactionType);
+        return $this->mapInteractions($interactionType) &&
+            $this->mapCustomers($interactionType);
     }
 
     /**
