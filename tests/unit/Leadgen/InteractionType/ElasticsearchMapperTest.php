@@ -13,7 +13,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function testShouldMapInteractionsAndCustomers()
+    public function testShouldHaveAnAliasToMapInteractionsAndCustomers()
     {
         // Arrange
         $elasticsearch   = m::mock(Client::class);
