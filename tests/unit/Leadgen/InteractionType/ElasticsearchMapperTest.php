@@ -72,6 +72,10 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
                             'type' =>  'string',
                             'index' => 'not_analyzed'
                         ],
+                        'channel' => [
+                            'type' =>  'string',
+                            'index' => 'not_analyzed'
+                        ],
                         'created_at' => [
                             'type' => 'date',
                             'format' => 'date_hour_minute'
@@ -122,6 +126,10 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
                             'type' =>  'string',
                             'index' => 'not_analyzed'
                         ],
+                        'location' => [
+                            'type' => 'string',
+                            'index' => 'not_analyzed'
+                        ],
                         'interactions' => [
                             'type' =>  'nested',
                             'properties' => [
@@ -138,6 +146,10 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
                                     'index' => 'not_analyzed'
                                 ],
                                 'interaction' => [
+                                    'type' =>  'string',
+                                    'index' => 'not_analyzed'
+                                ],
+                                'channel' => [
                                     'type' =>  'string',
                                     'index' => 'not_analyzed'
                                 ],

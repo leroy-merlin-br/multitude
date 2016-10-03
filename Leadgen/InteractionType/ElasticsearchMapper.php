@@ -67,6 +67,10 @@ class ElasticsearchMapper
                                 'type' =>  'string',
                                 'index' => 'not_analyzed'
                             ],
+                            'channel' => [
+                                'type' =>  'string',
+                                'index' => 'not_analyzed'
+                            ],
                             'created_at' => [
                                 'type' => 'date',
                                 'format' => 'date_hour_minute'
@@ -112,12 +116,20 @@ class ElasticsearchMapper
                             'type' =>  'string',
                             'index' => 'not_analyzed'
                         ],
+                        'location' => [
+                            'type' => 'string',
+                            'index' => 'not_analyzed'
+                        ],
                         'interactions' => [
                             'type' =>  'nested',
                             'properties' => array_merge(
                                 $this->buildProperties($interactionType),
                                 [
                                     'interaction' => [
+                                        'type' =>  'string',
+                                        'index' => 'not_analyzed'
+                                    ],
+                                    'channel' => [
                                         'type' =>  'string',
                                         'index' => 'not_analyzed'
                                     ],
