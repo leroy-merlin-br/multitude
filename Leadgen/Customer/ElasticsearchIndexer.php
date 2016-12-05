@@ -39,8 +39,8 @@ class ElasticsearchIndexer
 
         $acknowledgedItems = [];
         foreach (($result['items'] ?? []) as $sentItem) {
-            if (($sentItem['index']['status'] ?? 400) != 200) {
-                throw new \Exception("Damn ".$sentItem['index']['_id'], 1);
+            if (($sentItem['index']['status'] ?? 400) > 299) {
+                throw new \Exception("Unable to index Customer ".json_encode($sentItem['index']), 1);
             }
         }
 
