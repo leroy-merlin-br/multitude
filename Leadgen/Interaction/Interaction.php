@@ -1,9 +1,10 @@
 <?php
 namespace Leadgen\Interaction;
 
+use Leadgen\Base\BaseEntity;
 use Leadgen\InteractionType\InteractionType;
 use Leadgen\InteractionType\Repository as InteractionTypeRepo;
-use Leadgen\Base\BaseEntity;
+use Mongolid\Exception\ModelNotFoundException;
 
 /**
  * Represents an single interaction by an individual
@@ -73,15 +74,24 @@ class Interaction extends BaseEntity
      */
     public function isValid()
     {
-        $this->sanitize();
-        $errors = $this->interactionType()->checkErrors($this);
+        try {
+            $this->sanitize();
+
+            if (! $result = parent::isValid()) {
+                return $result;
+            }
+
+            $errors = $this->interactionType()->checkErrors($this);
+        } catch (ModelNotFoundException $e) {
+            $errors = ["interactionId doesn't corresponds to an existing InteractionType"];
+        }
 
         if (! empty($errors)) {
             $this->errors()->merge($errors);
             return false;
         }
 
-        return parent::isValid();
+        return true;
     }
 
     /**

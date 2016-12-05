@@ -86,7 +86,12 @@ class InteractionType extends BaseEntity
         $rules = [];
 
         foreach ($this->params() as $param) {
-            $rules[$param->name] = $param->type . ($param->required ? '|required' : '');
+            $paramName = $param->name;
+            if (is_array(array_get($interaction->params, $param->name))) {
+                $paramName .= '.*';
+            }
+
+            $rules[$paramName] = $param->type . ($param->required ? '|required' : '');
         }
 
         $validator = app(ValidationFactory::class)->make($interaction->params, $rules);
