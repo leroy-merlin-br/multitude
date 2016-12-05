@@ -85,7 +85,7 @@ class InteractionController extends ApiController
 
         if (! $interaction) {
             return $this->responseBuilder
-                ->respondBadRequest(null, $this->repo->getLastErrors());
+                ->respondBadRequest($request->all(), $this->repo->getLastErrors());
         }
 
         return $this->responseBuilder
