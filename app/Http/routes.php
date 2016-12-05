@@ -21,6 +21,7 @@ $resource = function ($name, $controller) use ($app) {
 
 /**
  * @SWG\Swagger(
+ *     host="{{ $host }}",
  *     basePath="/api/v1",
  *     consumes={"application/json"},
  *     produces={"application/json"},
@@ -31,9 +32,7 @@ $resource = function ($name, $controller) use ($app) {
  * )
  */
 $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
-    $app->get('/', function () use ($app) {
-        return redirect('/swagger.json');
-    });
+    $app->get('/', ['as' => 'root', 'uses' => 'DocsController@index']);
 
     // Interaction type routes
     $resource('interactionType', 'InteractionTypeController');
