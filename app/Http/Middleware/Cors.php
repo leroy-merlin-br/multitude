@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Laravel\Lumen\Http\ResponseFactory;
+use Illuminate\Http\Request;
 
 /**
  * Allows modern browsers to request data from other domains
@@ -17,10 +19,25 @@ class Cors {
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        return $next($request)
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $headers = [
+            'Access-Control-Allow-Origin'  => $request->header('Origin', '*'),
+            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers' => 'Content-Type, Accept, Authorization, X-Requested-With'
+        ];
+
+        // Using this you don't need an method for 'OPTIONS' on controller
+        if ($request->isMethod('OPTIONS')) {
+            return app(ResponseFactory::class)->json(null, 200, $headers);
+        }
+
+        // For all other cases
+        $response = $next($request);
+        foreach ($headers as $key => $value) {
+            $response->header($key, $value);
+        }
+
+        return $response;
     }
 }
