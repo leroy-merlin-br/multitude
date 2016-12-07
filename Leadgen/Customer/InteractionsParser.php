@@ -74,7 +74,7 @@ class InteractionsParser
             $customerIds[] = $interaction->authorId;
         }
 
-        $customerIds = array_unique($customerIds);
+        $customerIds = array_values(array_unique($customerIds));
 
         return $this->customerRepo->where(['_id' => ['$in' => $customerIds]]);
     }
