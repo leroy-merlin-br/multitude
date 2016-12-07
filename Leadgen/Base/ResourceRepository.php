@@ -101,7 +101,7 @@ class ResourceRepository implements RepositoryInterface
         $entity = new $this->resource;
         $entity->fill($data);
 
-        if ($entity->save()) {
+        if ($entity->save() && $entity->errors()->isEmpty()) {
             return $entity;
         }
 
