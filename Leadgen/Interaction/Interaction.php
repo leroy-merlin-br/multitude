@@ -56,6 +56,8 @@ class Interaction extends BaseEntity
      */
     public function sanitize()
     {
+        $this->author = urldecode($this->author);
+
         if (empty($this->authorId)) {
             $this->authorId = md5($this->author);
         }
