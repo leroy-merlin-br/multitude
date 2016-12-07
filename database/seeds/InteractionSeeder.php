@@ -46,7 +46,7 @@ class InteractionSeeder extends Seeder
                 'author' => 'zizaco@gmail.com',
                 'interaction' => 'visited-product',
                 'params' => [
-                    'product-id' => 1,
+                    'productId' => 1,
                     'category' => 'Roots and Vegetables'
                 ]
             ],
@@ -57,7 +57,7 @@ class InteractionSeeder extends Seeder
                 'author' => 'zizaco@gmail.com',
                 'interaction' => 'added-to-basket',
                 'params' => [
-                    'product-id' => 1,
+                    'productId' => 1,
                     'price' => 1.90,
                     'category' => 'Roots and Vegetables'
                 ]
@@ -69,7 +69,7 @@ class InteractionSeeder extends Seeder
                 'author' => 'zizaco@gmail.com',
                 'interaction' => 'purchased-products',
                 'params' => [
-                    'product-id' => 1,
+                    'productId' => 1,
                     'total' => 1.90,
                     'category' => 'Roots and Vegetables'
                 ]

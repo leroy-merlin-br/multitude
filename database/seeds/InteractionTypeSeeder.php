@@ -79,12 +79,12 @@ class InteractionTypeSeeder extends Seeder
                 'slug' => 'visited-content',
                 'params' => [
                     [
-                        'name' => 'content-id',
+                        'name' => 'contentId',
                         'type' => 'numeric',
                         'required' => true,
                     ],
                     [
-                        'name' => 'content-name',
+                        'name' => 'contentName',
                         'type' => 'string',
                         'required' => true,
                     ],
@@ -103,7 +103,7 @@ class InteractionTypeSeeder extends Seeder
                 'slug' => 'visited-product',
                 'params' => [
                     [
-                        'name' => 'product-id',
+                        'name' => 'productId',
                         'type' => 'numeric',
                         'required' => true,
                     ],
@@ -122,7 +122,7 @@ class InteractionTypeSeeder extends Seeder
                 'slug' => 'added-to-basket',
                 'params' => [
                     [
-                        'name' => 'product-id',
+                        'name' => 'productId',
                         'type' => 'numeric',
                         'required' => true,
                     ],
@@ -146,7 +146,7 @@ class InteractionTypeSeeder extends Seeder
                 'slug' => 'purchased-products',
                 'params' => [
                     [
-                        'name' => 'product-id',
+                        'name' => 'productId',
                         'type' => 'numeric',
                         'required' => true,
                     ],
