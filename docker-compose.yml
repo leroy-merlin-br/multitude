@@ -25,7 +25,7 @@ scheduled:
 mongodata:
   image: mongo:3.2
   volumes:
-    - /data/db
+    - /mnt/sda1/data/mongo/db:/data/db
   command: --break-mongo
 mongo:
   image: mongo:3.2
