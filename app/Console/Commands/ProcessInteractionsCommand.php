@@ -81,9 +81,12 @@ class ProcessInteractionsCommand extends Command
 
             $this->markAsAknowledged($processedIds);
             $this->customerIndexer->index($customers);
-
-            $this->comment("$count interactions processed");
         }
+
+        $message = "$count interactions processed";
+
+        $this->laravel->log->info($message);
+        $this->comment($message);
     }
 
     /**
