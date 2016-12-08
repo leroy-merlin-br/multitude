@@ -21,6 +21,11 @@ RUN sed -i "s/DocumentRoot .*/DocumentRoot \/var\/www\/html\/public/" /etc/apach
 RUN echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /usr/local/etc/php/conf.d/error.ini
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/error.ini
 RUN a2enmod rewrite
+RUN a2enmod headers
+
+# Configure task scheduling
+RUN apt-get install -y cron
+RUN echo "* *     * * *   root    php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> /etc/crontab
 
 # Set storage to writable
 COPY . /var/www/html/

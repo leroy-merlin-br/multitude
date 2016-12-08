@@ -11,6 +11,17 @@ webapp:
     - redis
   environment:
     DB_HOST: mongo
+scheduled:
+  build: .
+  volumes_from:
+    - webapp
+  links:
+    - mongo
+    - elastic
+    - redis
+  environment:
+    DB_HOST: mongo
+  command: cron -f
 mongodata:
   image: mongo:3.2
   volumes:
