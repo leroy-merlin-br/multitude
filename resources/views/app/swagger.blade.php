@@ -68,13 +68,13 @@
                     "customer"
                 ],
                 "summary": "Retrieve a specific customer",
-                "description": "You can retrieve a customer by it's _id.",
+                "description": "You can retrieve a customer by it's _id or email",
                 "operationId": "customer.show",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "_id of the customer to be retrieved",
+                        "description": "_id or email of the customer to be retrieved",
                         "required": true,
                         "type": "string"
                     }
@@ -105,6 +105,61 @@
                     },
                     "404": {
                         "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/customer/query/{segmentQuery}": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Retrieve a list of customers that matches the given segment query",
+                "description": "Retrieve a list of customers that matches with pagination support.",
+                "operationId": "customer.query",
+                "parameters": [
+                    {
+                        "name": "segmentQuery",
+                        "in": "path",
+                        "description": "Segment query to filter customers. In json format",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page to be retrieved",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer data",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Retrieves a list of customers that match the given segment query",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Customer"
+                                    }
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
                     }
                 }
             }
