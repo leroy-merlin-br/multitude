@@ -43,6 +43,7 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     // Customer routes
     $app->get('customer', ['as' => 'customer.index', 'uses' => 'CustomerController@index']);
     $app->get('customer/{id}', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
+    $app->get('customer/query/{segmentQuery}', ['as' => 'customer.query', 'uses' => 'CustomerController@query']);
 });
 
 $app->get('/', ['as' => 'dashboard.home', 'uses' => 'DashboardController@home']);
