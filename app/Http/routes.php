@@ -46,4 +46,5 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     $app->get('customer/query/{segmentQuery}', ['as' => 'customer.query', 'uses' => 'CustomerController@query']);
 });
 
-$app->get('/', ['as' => 'dashboard.home', 'uses' => 'DashboardController@home']);
+$app->get('/', ['as' => 'front.dashboard.home', 'uses' => 'Front\DashboardController@home']);
+$app->get('/customers', ['as' => 'front.customer.index', 'uses' => 'Front\CustomerController@home']);
