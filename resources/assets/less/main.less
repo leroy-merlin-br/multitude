@@ -1,0 +1,31 @@
+@import "vendor/garden";
+
+.header {
+    background-color: #72bf44;
+    padding-bottom: 1.2em;
+    padding-top: 1.2em;
+
+    .logo {
+        float:left;
+        font-size: 2em;
+        color: white;
+    }
+
+    .nav {
+        margin-top: .625em;
+        float:right;
+
+        a {
+            color: rgba(255, 255, 255, 0.75);
+            margin-right: 1.25em;
+
+            &:hover {
+                color: white;
+            }
+
+            &-active {
+                color: white;
+            }
+        }
+    }
+}
