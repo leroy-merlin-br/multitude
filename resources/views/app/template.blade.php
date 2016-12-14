@@ -12,7 +12,7 @@
                 <nav class="nav">
                     <a href="{{ route("front.dashboard.home") }}">Dashboard</a>
                     <a href="{{ route("front.customer.index") }}">Customers</a>
-                    <a href="#">Segments</a>
+                    <a href="{{ route("front.segment.index") }}">Segments</a>
                     <a href="#">Interactions</a>
                 </nav>
             </div>
