@@ -28,6 +28,10 @@ elixir(mix => {
             'resources/assets/js/vendor/md5.js'
         )
         .copy(
+            'node_modules/jQuery-QueryBuilder/dist/js/query-builder.standalone.js',
+            'resources/assets/js/vendor/jquery-querybuilder.js'
+        )
+        .copy(
             'node_modules/garden/dist/js/garden.min.js',
             'resources/assets/js/vendor/garden.js'
         )

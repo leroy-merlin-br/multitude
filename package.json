@@ -8,6 +8,7 @@
     "blueimp-md5": "^2.6.0",
     "garden": "^0.29.1",
     "gulp": "^3.9.1",
+    "jQuery-QueryBuilder": "git+ssh://git@github.com:mistic100/jQuery-QueryBuilder.git#2.4.0",
     "jquery": "^2.0.0",
     "laravel-elixir": "^6.0.0-9",
     "smoothstate": "^0.7.2"
