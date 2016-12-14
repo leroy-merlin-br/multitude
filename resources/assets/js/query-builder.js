@@ -1,28 +1,71 @@
 function QueryBuilder($el) { this.init($el); }
 
-QueryBuilder.prototype.init = function ($el) {
-  console.log('lol');
+/**
+ * Gets the currentQuery
+ * @return {object}           Json object describing jquery-Query-Builde rules.
+ */
+QueryBuilder.prototype.getCurrentQuery = function () {
+  if (typeof window.localStorage !== 'undefined') {
+    var inProgress = window.localStorage.queryInProgress ? JSON.parse(window.localStorage.queryInProgress) : null;
 
-  var rules_basic = {
+    if (inProgress && ! $.isEmptyObject(inProgress)) {
+      return inProgress;
+    }
+  }
+
+  return {
     condition: 'AND',
     rules: [{
-      id: 'price',
-      operator: 'less',
-      value: 10.25
-    }, {
-      condition: 'OR',
-      rules: [{
-        id: 'category',
-        operator: 'equal',
-        value: 2
-      }, {
-        id: 'category',
-        operator: 'equal',
-        value: 1
-      }]
+      id: 'interaction',
+      operator: 'in',
+      value: []
     }]
   };
+}
 
+QueryBuilder.prototype.autoSaveCurrentQuery = function (query) {
+  if (typeof window.localStorage !== 'undefined') {
+    window.localStorage.queryInProgress = JSON.stringify(query);
+  }
+}
+
+QueryBuilder.prototype.init = function ($el) {
+  var currentQuery = this.getCurrentQuery();
+  this.initializeQueryBuilder($el, currentQuery);
+  this.registerEvents($el);
+  this.refreshCheckboxVisuals($el);
+}
+
+QueryBuilder.prototype.registerEvents = function ($el) {
+  var _this = this;
+
+  // Shitty error log
+  $el.on('validationError.queryBuilder', function (event, rule, error, value) {
+    console.log(error);
+    console.log(value);
+  });
+
+  $el.on('afterUpdateRuleValue.queryBuilder', function (event) {
+    var currentQuery = $(event.currentTarget).queryBuilder('getRules')
+
+    _this.autoSaveCurrentQuery(currentQuery);
+    _this.refreshCheckboxVisuals($el)
+  })
+}
+
+QueryBuilder.prototype.refreshCheckboxVisuals = function ($el) {
+  // To update styling of check and radioboxes
+  $el.find('input[type=checkbox],input[type=radio]').each(function () {
+    if (this.checked) {
+      $(this.parentElement).addClass('active');
+      return;
+    }
+
+    $(this.parentElement).removeClass('active');
+  });
+}
+
+QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
   $el.queryBuilder({
     filters: [
       {
@@ -40,7 +83,7 @@ QueryBuilder.prototype.init = function ($el) {
           "purchased": "Purchased"
         },
         multiple: true,
-        operators: ['equal']
+        operators: ['in']
       }, {
         id: 'productId',
         label: 'Product id',
@@ -76,24 +119,14 @@ QueryBuilder.prototype.init = function ($el) {
         operators: ['equal', 'greater_or_equal', 'less_or_equal']
       }
     ],
-    rules: rules_basic,
+    rules: initialQuery,
     lang: {
+      delete_rule: "×",
+      delete_group: "×",
       conditions: {
         "AND": "And <i>(All)</i>",
         "OR": "Or <i>(At least one)</i>"
       }
     }
   });
-
-  // To update styling of check and radioboxes
-  $el.on('afterUpdateRuleValue.queryBuilder', function () {
-    $('input[type=checkbox],input[type=radio]').each(function () {
-      if (this.checked) {
-        $(this.parentElement).addClass('active');
-        return;
-      }
-
-      $(this.parentElement).removeClass('active');
-    })
-  })
 }
