@@ -1,0 +1,249 @@
+.query-builder, .query-builder * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.query-builder .hide {
+  display: none;
+}
+
+.query-builder .pull-right {
+  float: right !important;
+}
+
+.query-builder .btn {
+  border-radius: .25rem;
+  display: inline-block;
+  font-size: 1rem;
+  padding: .68rem .81rem;
+  position: relative;
+  z-index: 10;
+  background-color: #a6a6a6;
+  border: 0;
+  color: #fff;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+
+  /**
+   * Button shadow (Similar to Garden's)
+   */
+  &:before,&:after {
+    border-radius: .25rem;
+    content: " ";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &:before {
+    box-shadow: 0 .12rem .12rem 0 rgba(0,0,0,.16),0 .12rem .5rem 0 rgba(0,0,0,.12);
+  }
+  &:after {
+    box-shadow: 0 1.25rem 1.25rem -.62rem rgba(0,0,0,.2),0 .25rem .81rem 0 rgba(0,0,0,.2);
+    opacity: 0;
+  }
+}
+
+.query-builder .btn.focus, .query-builder .btn:focus, .query-builder .btn:hover {
+  transform: translateY(-.0625rem);
+  text-decoration: none;
+
+  &:before {
+    opacity: 0;
+  }
+
+  &:after {
+    opacity: 1;
+  }
+}
+
+.query-builder .btn.active, .query-builder .btn:active {
+  background-image: none;
+  outline: 0px none;
+}
+
+.query-builder .btn-success {
+  color: #FFF;
+  background-color: #72bf44;
+}
+
+.query-builder .btn-primary {
+  color: #FFF;
+  background-color: #bada2e;
+}
+
+.query-builder .btn-danger {
+  color: #FFF;
+  background-color: #ed1c24;
+}
+
+.query-builder .btn-success.active, .query-builder .btn-success.focus,
+.query-builder .btn-success:active, .query-builder .btn-success:focus,
+// .query-builder .btn-success:hover {
+//   color: #FFF;
+//   background-color: #449D44;
+//   border-color: #398439;
+// }
+
+.query-builder .btn-primary.active, .query-builder .btn-primary.focus,
+.query-builder .btn-primary:active, .query-builder .btn-primary:focus,
+// .query-builder .btn-primary:hover {
+//   color: #FFF;
+//   background-color: #286090;
+//   border-color: #204D74;
+// }
+
+.query-builder .btn-danger.active, .query-builder .btn-danger.focus,
+.query-builder .btn-danger:active, .query-builder .btn-danger:focus,
+// .query-builder .btn-danger:hover {
+//   color: #FFF;
+//   background-color: #C9302C;
+//   border-color: #AC2925;
+// }
+
+.query-builder .btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.query-builder .btn-group > .btn {
+  position: relative;
+  float: left;
+}
+
+// .query-builder .btn-group > .btn:first-child {
+//   margin-left: 0px;
+// }
+
+.query-builder .btn-group > .btn:first-child:not(:last-child) {
+  margin-right: 10px;
+}
+
+.query-builder .btn-group > .btn:last-child:not(:first-child) {
+  margin-left: 10px;
+}
+
+/**
+ * Custom
+ */
+.rules-list {
+  list-style-type: none;
+}
+
+.rules-group-container {
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+}
+
+.rules-group-body {
+  padding: 10px;
+  border: solid 1px #f3f3f3;
+  border-radius: 5px;
+}
+
+.rules-group-header {
+  display: block;
+  padding: 10px;
+  background-color: #cae4b8;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.rule-container {
+  display: block;
+  padding: 10px;
+  min-height: 63px;
+
+  &:not(:last-child) {
+    border-bottom: solid 1px #DDD;
+    margin-top: 5px
+  }
+}
+
+.query-builder input {
+  border: .0625rem solid #a6a6a6;
+  border-radius: .25rem;
+  color: #333;
+  outline: 0;
+  padding: .6rem .4rem;
+  -webkit-transition: border-color .3s ease-in-out;
+  transition: border-color .3s ease-in-out;
+
+  /* As if it was active in garden */
+  border-left-color: #fff;
+  border-right-color: #fff;
+  border-top-color: #fff;
+
+  &[type=number],&[type=text] {
+    width: 100%;
+  }
+}
+
+.query-builder select {
+  border: .0625rem solid #a6a6a6;
+  border-radius: .25rem;
+  color: #333;
+  outline: 0;
+  padding: .6rem .4rem;
+  -webkit-transition: border-color .3s ease-in-out;
+  transition: border-color .3s ease-in-out;
+  width: 100%;
+  background-color: #fff;
+  font-size: 1.1rem;
+  height: 2.5rem;
+
+  /* As if it was active in garden */
+  border-left-color: #fff;
+  border-right-color: #fff;
+  border-top-color: #fff;
+}
+
+.query-builder .rule-filter-container,
+.query-builder .rule-operator-container,
+.query-builder .rule-value-container,
+{
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  vertical-align: middle;
+}
+
+/* Checkboxes */
+.rule-value-container label {
+  background-color: #fff;
+  border: .0625rem solid #a6a6a6;
+  border-radius: .25rem;
+  display: inline-block;
+  padding: .68rem .81rem .68rem .81em;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+
+  color: #666;
+  cursor: text;
+  font-size: .9rem;
+  line-height: 1.5rem;
+
+  /* When checked */
+  &.active {
+    background-color: #72bf44;
+    border-color: #72bf44;
+    color: #fff;
+  }
+}
+
+/* Radio (button conditions) */
+.group-conditions .btn-primary {
+  opacity: 0.5;
+  background-color: #a6a6a6;
+
+  &.active {
+    background-color: #bada2e;
+    opacity: 1;
+  }
+}
