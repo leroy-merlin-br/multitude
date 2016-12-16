@@ -18750,8 +18750,7 @@ QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
         label: 'Total',
         type: 'double',
         validation: {
-          min: 0,
-          step: 10.00
+          min: 0
         },
         operators: ['equal', 'greater_or_equal', 'less_or_equal']
       }, {
@@ -18760,9 +18759,35 @@ QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
         type: 'double',
         validation: {
           min: 0,
-          step: 10.00
         },
         operators: ['equal', 'greater_or_equal', 'less_or_equal']
+      }, {
+        id: 'created_at-h',
+        label: 'Occurred when (in hours ago)',
+        type: 'integer',
+        validation: {
+          min: 0,
+          step: 1,
+        },
+        operators: ['less_or_equal', 'greater_or_equal']
+      }, {
+        id: 'created_at-d',
+        label: 'Occurred when (in days ago)',
+        type: 'integer',
+        validation: {
+          min: 0,
+          step: 1,
+        },
+        operators: ['less_or_equal', 'greater_or_equal']
+      }, {
+        id: 'created_at-m',
+        label: 'Occurred when (in months ago)',
+        type: 'integer',
+        validation: {
+          min: 0,
+          step: 1,
+        },
+        operators: ['less_or_equal', 'greater_or_equal']
       }
     ],
     rules: initialQuery,
