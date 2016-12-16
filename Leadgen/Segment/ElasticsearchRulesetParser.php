@@ -68,6 +68,18 @@ class ElasticsearchRulesetParser
                         "interactions.params.params/{$subrule['field']}/{$subrule['type']}" => $subrule['value']
                     ]
                 ];
+            } else if (strstr($subrule['id'], 'created_at-')) {
+                preg_match('/-(\w)/', $subrule['id'], $matches);
+                $unit = $matches[1] ?? 'd';
+                $rangeOperation = $subrule['operator'] == 'greater_or_equal' ? 'gte' : 'lte';
+
+                $subruleObj = [
+                    'range' => [
+                        "interactions.created_at" => [
+                            $rangeOperation => "now-{$subrule['value']}{$unit}/{$unit}"
+                        ]
+                    ]
+                ];
             } else if ($subrule['operator'] == 'greater_or_equal') {
                 $subruleObj = [
                     'range' => [

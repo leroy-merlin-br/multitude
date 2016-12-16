@@ -25,8 +25,8 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
         return [
             // --------------------
             'empty ruleset' => [
-                'in' => [],
-                'out' => [
+                '$in' => [],
+                '$out' => [
                     'query' => [
                         'constant_score' => [
                             'filter' => [
@@ -39,7 +39,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
 
             // --------------------
             'simple two interactions match' => [
-                'in' => [
+                '$in' => [
                     "condition" => "AND",
                     "rules" => [
                         [
@@ -70,7 +70,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                         ],
                     ]
                 ],
-                'out' => [
+                '$out' => [
                     'query' => [
                         'constant_score' => [
                             'filter' => [
@@ -120,7 +120,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
 
             // --------------------
             'two interactions match with or clause' => [
-                'in' => [
+                '$in' => [
                     "condition" => "OR",
                     "rules" => [
                         [
@@ -151,7 +151,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                         ],
                     ]
                 ],
-                'out' => [
+                '$out' => [
                     'query' => [
                         'constant_score' => [
                             'filter' => [
@@ -201,7 +201,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
 
             // --------------------
             'numeric range and \'or\' in subcondition' => [
-                'in' => [
+                '$in' => [
                     "condition" => "AND",
                     "rules" => [
                         [
@@ -237,7 +237,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                         ]
                     ]
                 ],
-                'out' => [
+                '$out' => [
                     'query' => [
                         'constant_score' => [
                             'filter' => [
@@ -276,6 +276,82 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                     ]
                 ]
             ],
+
+            // --------------------
+            'date range in interaction' => [
+                '$in' => [
+                    "condition" => "AND",
+                    "rules" => [
+                        [
+                            "condition" => "AND",
+                            "rules" => [
+                                [
+                                    "id" => "term",
+                                    "field" => "term",
+                                    "type" => "string",
+                                    "input" => "text",
+                                    "operator" => "equal",
+                                    "value" => "Quality potatoes"
+                                ],
+                                [
+                                    "id" => "created_at-h",
+                                    "field" => "created_at-h",
+                                    "type" => "integer",
+                                    "input" => "text",
+                                    "operator" => "greater_or_equal",
+                                    "value" => "48"
+                                ],
+                                [
+                                    "id" => "created_at-m",
+                                    "field" => "created_at-m",
+                                    "type" => "integer",
+                                    "input" => "text",
+                                    "operator" => "less_or_equal",
+                                    "value" => "6"
+                                ],
+                            ]
+                        ]
+                    ]
+                ],
+                '$out' => [
+                    'query' => [
+                        'constant_score' => [
+                            'filter' => [
+                                'and' => [
+                                    [
+                                        'nested' => [
+                                            'path' => 'interactions',
+                                            'query' => [
+                                                'constant_score' => [
+                                                    'filter' => [
+                                                        'and' => [
+                                                            [
+                                                                'match' => [
+                                                                    'interactions.params.params/term/string' => 'Quality potatoes',
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'range' => [
+                                                                    'interactions.created_at' => ['gte' => "now-48h/h"],
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'range' => [
+                                                                    'interactions.created_at' => ['lte' => "now-6m/m"],
+                                                                ]
+                                                            ],
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
         ];
     }
 }
