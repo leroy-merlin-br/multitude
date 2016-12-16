@@ -10,13 +10,19 @@
             <div data-module="QueryBuilder"></div>
         </div>
         <div class="col-xs-12">
-            <a class="button button-primary"
+            <hr>
+            <a class="button"
                 data-module="PreviewQuery"
                 data-querybuilder="[data-module=QueryBuilder]"
                 data-previewbox="#queryPreview">
                 Preview
             </a>
-            <code id="queryPreview">{foo: bar}</code>
+            <a class="button button-primary"
+                data-module="PreviewQuery"
+                data-querybuilder="[data-module=QueryBuilder]"
+                data-previewbox="#queryPreview">
+                Create new segment
+            </a>
         </div>
     </div>
 @stop

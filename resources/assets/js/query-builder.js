@@ -86,21 +86,25 @@ QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
         operators: ['in']
       }, {
         id: 'productId',
+        field: 'params.params/productId/string',
         label: 'Product id',
         type: 'string',
         operators: ['equal']
       }, {
         id: 'category',
+        field: 'params.params/category/string',
         label: 'Category',
         type: 'string',
         operators: ['equal']
       }, {
         id: 'term',
+        field: 'params.params/term/string',
         label: 'Search term',
         type: 'string',
         operators: ['equal']
       }, {
         id: 'total',
+        field: 'params.params/total/float',
         label: 'Total',
         type: 'double',
         validation: {
@@ -109,6 +113,7 @@ QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
         operators: ['equal', 'greater_or_equal', 'less_or_equal']
       }, {
         id: 'price',
+        field: 'params.params/price/float',
         label: 'Price',
         type: 'double',
         validation: {

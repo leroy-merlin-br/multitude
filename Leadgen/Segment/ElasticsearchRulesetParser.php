@@ -59,13 +59,13 @@ class ElasticsearchRulesetParser
             } else if ($subrule['operator'] == 'equal') {
                 $subruleObj = [
                     'match' => [
-                        "interactions.params.params/{$subrule['field']}/{$subrule['type']}" => $subrule['value']
+                        "interactions.{$subrule['field']}" => $subrule['value']
                     ]
                 ];
             } else if ($subrule['operator'] == 'in') {
                 $subruleObj = [
                     'terms' => [
-                        "interactions.params.params/{$subrule['field']}/{$subrule['type']}" => $subrule['value']
+                        "interactions.{$subrule['field']}" => $subrule['value']
                     ]
                 ];
             } else if (strstr($subrule['id'], 'created_at-')) {
@@ -83,7 +83,7 @@ class ElasticsearchRulesetParser
             } else if ($subrule['operator'] == 'greater_or_equal') {
                 $subruleObj = [
                     'range' => [
-                        "interactions.params.params/{$subrule['field']}/{$subrule['type']}" => [
+                        "interactions.{$subrule['field']}" => [
                             'gte' => (float) $subrule['value']
                         ]
                     ]
@@ -91,7 +91,7 @@ class ElasticsearchRulesetParser
             } else if ($subrule['operator'] == 'less_or_equal') {
                 $subruleObj = [
                     'range' => [
-                        "interactions.params.params/{$subrule['field']}/{$subrule['type']}" => [
+                        "interactions.{$subrule['field']}" => [
                             'lte' => (float) $subrule['value']
                         ]
                     ]

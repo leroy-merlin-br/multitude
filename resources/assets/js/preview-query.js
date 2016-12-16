@@ -19,7 +19,7 @@ PreviewQuery.prototype.registerEvents = function () {
 }
 
 PreviewQuery.prototype.performRequest = function (rules) {
-  var url = 'api/v1/customer/query/' + JSON.stringify(rules);
+  var url = 'api/v1/customer?query=' + JSON.stringify(rules);
 
   // $.ajax({
   //   url: url,

@@ -47,7 +47,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "rules" => [
                                 [
                                     "id" => "category",
-                                    "field" => "category",
+                                    "field" => "params.params/category/string",
                                     "type" => "string",
                                     "input" => "text",
                                     "operator" => "equal",
@@ -60,7 +60,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "rules" => [
                                 [
                                     "id" => "productId",
-                                    "field" => "productId",
+                                    "field" => "params.params/productId/string",
                                     "type" => "string",
                                     "input" => "text",
                                     "operator" => "equal",
@@ -128,7 +128,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "rules" => [
                                 [
                                     "id" => "category",
-                                    "field" => "category",
+                                    "field" => "params.params/category/string",
                                     "type" => "string",
                                     "input" => "text",
                                     "operator" => "equal",
@@ -141,7 +141,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "rules" => [
                                 [
                                     "id" => "productId",
-                                    "field" => "productId",
+                                    "field" => "params.params/productId/string",
                                     "type" => "string",
                                     "input" => "text",
                                     "operator" => "equal",
@@ -208,8 +208,8 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "condition" => "OR",
                             "rules" => [
                                 [
-                                    "id" => "interaction",
                                     "field" => "interaction",
+                                    "id" => "interaction",
                                     "type" => "string",
                                     "input" => "checkbox",
                                     "operator" => "in",
@@ -219,7 +219,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 ],
                                 [
                                     "id" => "price",
-                                    "field" => "price",
+                                    "field" => "params.params/price/float",
                                     "type" => "double",
                                     "input" => "text",
                                     "operator" => "greater_or_equal",
@@ -227,7 +227,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 ],
                                 [
                                     "id" => "price",
-                                    "field" => "price",
+                                    "field" => "params.params/price/float",
                                     "type" => "double",
                                     "input" => "text",
                                     "operator" => "less_or_equal",
@@ -251,17 +251,17 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                         'or' => [
                                                             [
                                                                 'terms' => [
-                                                                    'interactions.params.params/interaction/string' => ["added-to-basket"],
+                                                                    'interactions.interaction' => ["added-to-basket"],
                                                                 ]
                                                             ],
                                                             [
                                                                 'range' => [
-                                                                    'interactions.params.params/price/double' => ['gte' => 190],
+                                                                    'interactions.params.params/price/float' => ['gte' => 190],
                                                                 ]
                                                             ],
                                                             [
                                                                 'range' => [
-                                                                    'interactions.params.params/price/double' => ['lte' => 300],
+                                                                    'interactions.params.params/price/float' => ['lte' => 300],
                                                                 ]
                                                             ],
                                                         ]
@@ -287,7 +287,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                             "rules" => [
                                 [
                                     "id" => "term",
-                                    "field" => "term",
+                                    "field" => "params.params/term/string",
                                     "type" => "string",
                                     "input" => "text",
                                     "operator" => "equal",

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
 use Leadgen\Customer\Repository;
+use Leadgen\Segment\RulesetPreviewService;
 
 /**
  * Controller for Customers entity.
@@ -53,6 +54,13 @@ class CustomerController extends ApiController
      *         type="integer",
      *         default=1,
      *     ),
+     *     @SWG\Parameter(
+     *         name="query",
+     *         in="query",
+     *         description="Segment query to filter customers. In json format",
+     *         required=false,
+     *         type="string",
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Customer data",
@@ -69,9 +77,21 @@ class CustomerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, RulesetPreviewService $previewService)
     {
         $page = $request->get('page', 1);
+
+        if ($query = $request->get('query', null)) {
+            $query = json_decode(urldecode($query), true);
+
+            if (empty($query)) {
+                return $this->responseBuilder
+                    ->respondBadRequest($query, ['Empty or malformated \'query\' parameter']);
+            }
+
+            return $this->responseBuilder
+                ->respond($previewService->preview($query));
+        }
 
         return $this->responseBuilder
             ->respond($this->repo->all($page));
@@ -125,59 +145,5 @@ class CustomerController extends ApiController
 
         return $this->responseBuilder
             ->respond($interactionType);
-    }
-
-    /**
-     * Retrieves a list of customers that match the given segment query
-     *
-     * @SWG\Get(
-     *     path="/customer/query/{segmentQuery}",
-     *     summary="Retrieve a list of customers that matches the given segment query",
-     *     tags={"customer"},
-     *     description="Retrieve a list of customers that matches with pagination support.",
-     *     operationId="customer.query",
-     *     @SWG\Parameter(
-     *         name="segmentQuery",
-     *         in="path",
-     *         description="Segment query to filter customers. In json format",
-     *         required=true,
-     *         type="string",
-     *     ),
-     *     @SWG\Parameter(
-     *         name="page",
-     *         in="query",
-     *         description="Page to be retrieved",
-     *         required=false,
-     *         type="integer",
-     *         default=1,
-     *     ),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Customer data",
-     *         @SWG\Schema(
-     *             type="object",
-     *             @SWG\Property(property="status", type="string", description="Response status"),
-     *             @SWG\Property(property="content", type="array", @SWG\Items(ref="#/definitions/Customer")),
-     *             @SWG\Property(property="errors", type="array", @SWG\Items(type="string"), description="Array of error messages"),
-     *         ),
-     *     )
-     * )
-     *
-     * @param Request $request Client request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function query(Request $request, $segmentQuery)
-    {
-        $segmentQuery = json_decode(urldecode($segmentQuery));
-        $page = $request->get('page', 1);
-
-        if (empty($segmentQuery)) {
-            return $this->responseBuilder
-                ->respondBadRequest($segmentQuery, ['Empty or malformated \'segmentQuery\' parameter']);
-        }
-
-        return $this->responseBuilder
-            ->respond($this->repo->all($page));
     }
 }
