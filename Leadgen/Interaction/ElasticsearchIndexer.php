@@ -34,11 +34,10 @@ class ElasticsearchIndexer
      */
     public function index($interactions)
     {
-        $result = $this->builkIndex($interactions);
-
+        $result = $this->bulkIndex($interactions);
         $acknowledgedItems = [];
         foreach (($result['items'] ?? []) as $sentItem) {
-            if (($sentItem['index']['status'] ?? 400) == 200) {
+            if (($sentItem['index']['status'] ?? 400) < 300) {
                 $acknowledgedItems[] = new ObjectID($sentItem['index']['_id'] ?? null);
             }
         }
@@ -46,7 +45,7 @@ class ElasticsearchIndexer
         return $acknowledgedItems;
     }
 
-    protected function builkIndex($interactions)
+    protected function bulkIndex($interactions)
     {
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
 

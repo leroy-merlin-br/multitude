@@ -65,6 +65,7 @@ class Interaction extends BaseEntity
         if (empty($this->interactionId)) {
             $interactionType = app()->make(InteractionTypeRepo::class)
                 ->findExisting(['slug' => $this->interaction]);
+
             $this->interactionId = $interactionType->_id;
         }
     }
