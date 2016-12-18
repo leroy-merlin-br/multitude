@@ -14,7 +14,6 @@ class CustomerTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         m::close();
-        // app()->forgetInstance(CustomerTypeRepo::class);
     }
 
     public function testShouldHaveCorrectDatabaseSchema()
