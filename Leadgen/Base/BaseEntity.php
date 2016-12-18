@@ -10,6 +10,7 @@ use MongoDB\Collection;
 use MongoDB\Database;
 use Mongolid\ActiveRecord;
 use Mongolid\Connection\Pool;
+use Mongolid\Cursor\CursorInterface;
 
 /**
  * This class extends the Mongolid\ActiveRecord, so, in order
@@ -151,5 +152,33 @@ abstract class BaseEntity extends ActiveRecord
                 unset($this->$confirmationField);
             }
         }
+    }
+
+    /**
+     * Returns the model instance as an Array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $attributes = $this->getAttributes();
+
+        foreach ($attributes as $key => $value) {
+            if ($value instanceof CursorInterface || is_array($value)) {
+                $cursor = [];
+
+                foreach ($value as $subDocument) {
+                    if ($subDocument instanceof ArrayableInterface || method_exists($subDocument, 'toArray')) {
+                        $cursor[] = $subDocument->toArray();
+                    } else {
+                        $cursor[] = $subDocument;
+                    }
+                }
+
+                $attributes[$key] = $cursor;
+            }
+        }
+
+        return $attributes;
     }
 }

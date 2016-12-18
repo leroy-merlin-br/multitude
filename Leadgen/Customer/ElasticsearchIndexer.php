@@ -42,6 +42,8 @@ class ElasticsearchIndexer
             if (($sentItem['index']['status'] ?? 400) > 299) {
                 throw new \Exception("Unable to index Customer ".json_encode($sentItem['index']), 1);
             }
+
+            $acknowledgedItems[] = new ObjectID($sentItem['index']['_id'] ?? null);
         }
 
         return $acknowledgedItems;
