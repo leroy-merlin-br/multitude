@@ -59,7 +59,7 @@ class InteractionTypeTest extends PHPUnit_Framework_TestCase
         $this->assertSame($params, $interactionType->params());
     }
 
-    public function testShouldValidateParams()
+    public function testShouldValidateAttributes()
     {
         // Arrange
         $lumenValidator = m::mock(ValidationFactory::class);
