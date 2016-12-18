@@ -5,6 +5,9 @@ use Leadgen\Base\BaseEntity;
 use Leadgen\Interaction\Interaction;
 use Mongolid\Cursor\CursorInterface;
 
+/**
+ * Represents an individual customer
+ */
 class Customer extends BaseEntity
 {
     /**
@@ -31,23 +34,5 @@ class Customer extends BaseEntity
     public function interactions(): CursorInterface
     {
         return $this->embedsMany(Interaction::class, 'interactions');
-    }
-
-    /**
-     * Checks if the entity is valid
-     *
-     * @return boolean
-     */
-    public function isValid()
-    {
-        foreach ($this->interactions() as $param) {
-            if (! $param->isValid()) {
-                $this->errors()->add('interactions', 'Invalid interaction object');
-                $this->errors()->merge($param->errors());
-                return false;
-            }
-        }
-
-        return parent::isValid();
     }
 }
