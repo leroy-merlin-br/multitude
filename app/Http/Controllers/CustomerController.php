@@ -127,6 +127,11 @@ class CustomerController extends ApiController
      *     @SWG\Response(
      *         response="404",
      *         description="Customer not found",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="status", type="string", description="Response status"),
+     *             @SWG\Property(property="errors", type="array", @SWG\Items(type="string"), description="Array of error messages"),
+     *         ),
      *     )
      * )
      *
