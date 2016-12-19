@@ -1,3 +1,7 @@
+language: php
+php:
+  - '7.0'
+
 sudo: required
 
 services:
@@ -5,6 +9,7 @@ services:
 
 before_script:
   - cp .env.example .env
+  - docker-compose build > /dev/null
   - docker-compose run webapp composer install --no-interaction
 
 script:

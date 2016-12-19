@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install pecl extensions
 RUN pecl install mongodb-1.2.0alpha1 \
-    && pecl install xdebug
-RUN docker-php-ext-enable mongodb xdebug
+    && pecl install xdebug zip
+RUN docker-php-ext-enable mongodb xdebug zip
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer \
