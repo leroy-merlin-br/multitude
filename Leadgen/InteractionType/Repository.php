@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Leadgen\Base\RepositoryInterface;
@@ -7,7 +8,7 @@ use Mongolid\ActiveRecord;
 use Mongolid\Cursor\CursorInterface;
 
 /**
- * Class Repository
+ * Class Repository.
  *
  * The Repository service is responsible for abstracting database queries
  * regarding InteractionType in order to have cleaner controllers and a better
@@ -17,18 +18,20 @@ class Repository implements RepositoryInterface
 {
     /**
      * The entity that the repository manipulates.
+     *
      * @var ActiveRecord
      */
     protected $resource = InteractionType::class;
 
     /**
-     * ResourceRepository used in composition
+     * ResourceRepository used in composition.
+     *
      * @var ResourceRepository
      */
     protected $resourceRepo;
 
     /**
-     * Constructs a new Repository using a ResourceRepository in the composition
+     * Constructs a new Repository using a ResourceRepository in the composition.
      */
     public function __construct()
     {
@@ -38,8 +41,8 @@ class Repository implements RepositoryInterface
     /**
      * Retrieves all resources with support to pagination.
      *
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param int $page    Page number being displayed.
+     * @param int $perPage Results per page.
      *
      * @return CursorInterface
      */
@@ -51,8 +54,8 @@ class Repository implements RepositoryInterface
     /**
      * Retrieves the resources that maches the query. Supports pagination.
      *
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param int $page    Page number being displayed.
+     * @param int $perPage Results per page.
      *
      * @return CursorInterface
      */
@@ -62,11 +65,12 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * Find an resource that exists
+     * Find an resource that exists.
+     *
+     *
+     * @param mixed $id Id of the resource to be found.
      *
      * @throws ModelNotFoundException If no document was found.
-     *
-     * @param  mixed $id Id of the resource to be found.
      *
      * @return ActiveRecord
      */
@@ -79,7 +83,7 @@ class Repository implements RepositoryInterface
      * Creates a new resource based in the given $data. In case of failure
      * the errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  array $data Resource attributes.
+     * @param array $data Resource attributes.
      *
      * @return ActiveRecord|null resource in case of success or false on failure
      */
@@ -92,10 +96,10 @@ class Repository implements RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
-     * @param  array        $data   Resource attributes.
+     * @param ActiveRecord $entity Instance being updated.
+     * @param array        $data   Resource attributes.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function updateExisting(ActiveRecord $entity, array $data): bool
     {
@@ -106,9 +110,9 @@ class Repository implements RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
+     * @param ActiveRecord $entity Instance being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function deleteExisting(ActiveRecord $entity): bool
     {
@@ -116,7 +120,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * Retrieves the error of the last operation
+     * Retrieves the error of the last operation.
      *
      * @return array
      */

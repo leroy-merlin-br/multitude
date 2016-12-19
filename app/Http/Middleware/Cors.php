@@ -3,19 +3,19 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Laravel\Lumen\Http\ResponseFactory;
 use Illuminate\Http\Request;
+use Laravel\Lumen\Http\ResponseFactory;
 
 /**
- * Allows modern browsers to request data from other domains
+ * Allows modern browsers to request data from other domains.
  */
-class Cors {
-
+class Cors
+{
     /**
-     * Handles the response by adding headers that enable CORS
+     * Handles the response by adding headers that enable CORS.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -24,7 +24,7 @@ class Cors {
         $headers = [
             'Access-Control-Allow-Origin'  => $request->header('Origin', '*'),
             'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers' => 'Content-Type, Accept, Authorization, X-Requested-With'
+            'Access-Control-Allow-Headers' => 'Content-Type, Accept, Authorization, X-Requested-With',
         ];
 
         // Using this you don't need an method for 'OPTIONS' on controller

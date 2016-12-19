@@ -3,14 +3,14 @@
 use MongoDB\Database;
 
 /**
- * Base MongoDB migration
+ * Base MongoDB migration.
  */
 class AddIndexToInteractiontypes
 {
     /**
-     * Run the migrations
+     * Run the migrations.
      *
-     * @param  Database $db MongoDB Database
+     * @param Database $db MongoDB Database
      *
      * @return void
      */
@@ -20,9 +20,9 @@ class AddIndexToInteractiontypes
     }
 
     /**
-     * Reverse the migrations
+     * Reverse the migrations.
      *
-     * @param  Database $db MongoDB Database
+     * @param Database $db MongoDB Database
      *
      * @return void
      */

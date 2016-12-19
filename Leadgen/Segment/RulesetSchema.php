@@ -5,7 +5,7 @@ namespace Leadgen\Ruleset;
 use Mongolid\Schema;
 
 /**
- * The RulesetSchema defines how a Ruleset document will look like
+ * The RulesetSchema defines how a Ruleset document will look like.
  *
  * @SWG\Definition(
  *     type="object",
@@ -17,7 +17,7 @@ class RulesetSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
-     * retrieved from
+     * retrieved from.
      *
      * @var string
      */
@@ -41,8 +41,8 @@ class RulesetSchema extends Schema
      *     )
      * )
      */
-    public $fields  = [
+    public $fields = [
         '_id'   => 'objectId',
-        'rules' => 'array'
+        'rules' => 'array',
     ];
 }

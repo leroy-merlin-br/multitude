@@ -1,10 +1,11 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Mongolid\Schema;
 
 /**
- * The InteractionTypeSchema defines how a InteractionType document will look like
+ * The InteractionTypeSchema defines how a InteractionType document will look like.
  *
  * @SWG\Definition(
  *     type="object",
@@ -16,7 +17,7 @@ class InteractionTypeSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
-     * retrieved from
+     * retrieved from.
      *
      * @var string
      */
@@ -58,12 +59,12 @@ class InteractionTypeSchema extends Schema
      *     )
      * )
      */
-    public $fields  = [
-        '_id' => 'objectId',
-        'name' => 'string',
-        'slug' => 'string',
-        'params' => 'schema.'.ParamSchema::class,
+    public $fields = [
+        '_id'        => 'objectId',
+        'name'       => 'string',
+        'slug'       => 'string',
+        'params'     => 'schema.'.ParamSchema::class,
         'created_at' => 'createdAtTimestamp',
-        'updated_at' => 'updatedAtTimestamp'
+        'updated_at' => 'updatedAtTimestamp',
     ];
 }

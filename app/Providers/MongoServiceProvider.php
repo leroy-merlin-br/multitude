@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use Mongolid\Connection\Connection;
 use Mongolid\Connection\Pool;
 use Mongolid\Container\Ioc as MongolidIoc;
 use Mongolid\Event\EventTriggerService;
 use Mongolid\Util\CacheComponent;
 use Mongolid\Util\CacheComponentInterface;
-use Illuminate\Support\ServiceProvider;
 
 /**
- * Provides connection with MongoDB database
+ * Provides connection with MongoDB database.
  */
 class MongoServiceProvider extends ServiceProvider
 {
@@ -46,14 +46,14 @@ class MongoServiceProvider extends ServiceProvider
         MongolidIoc::setContainer($this->app);
 
         $connectionString = $this->buildConnectionString();
-        $connection       = new Connection($connectionString);
-        $pool             = new Pool();
-        $eventService     = new EventTriggerService();
+        $connection = new Connection($connectionString);
+        $pool = new Pool();
+        $eventService = new EventTriggerService();
 
         $pool->addConnection($connection);
         $this->app->instance(Pool::class, $pool);
         $this->app->instance(EventTriggerService::class, $eventService);
-        $this->app->instance(CacheComponentInterface::class, (new CacheComponent));
+        $this->app->instance(CacheComponentInterface::class, (new CacheComponent()));
 
         $connection->defaultDatabase = $config
             ->get('database.mongodb.default.database', 'mongolid');

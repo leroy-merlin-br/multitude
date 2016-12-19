@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use Leadgen\Base\BaseEntity;
@@ -7,14 +8,14 @@ use Leadgen\InteractionType\Repository as InteractionTypeRepo;
 use Mongolid\Exception\ModelNotFoundException;
 
 /**
- * Represents an single interaction by an individual
+ * Represents an single interaction by an individual.
  */
 class Interaction extends BaseEntity
 {
     /**
      * Describes the Schema fields of the model.
      *
-     * @var  string
+     * @var string
      */
     protected $fields = InteractionSchema::class;
 
@@ -22,25 +23,26 @@ class Interaction extends BaseEntity
      * Disables write concern to optimze write performance.
      *
      * @see https://docs.mongodb.com/manual/reference/write-concern/
-     * @var integer
+     *
+     * @var int
      */
     protected $writeConcern = 0;
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        'author'   => 'required',
-        'authorId' => 'required',
+        'author'         => 'required',
+        'authorId'       => 'required',
         'interaction'    => 'required',
         'interactionId'  => 'required',
-        'params'   => 'required|array'
+        'params'         => 'required|array',
     ];
 
     /**
-     * References one interactionType
+     * References one interactionType.
      *
      * @return InteractionType
      */
@@ -50,7 +52,7 @@ class Interaction extends BaseEntity
     }
 
     /**
-     * Sanitizes entity attributes
+     * Sanitizes entity attributes.
      *
      * @return void
      */
@@ -71,16 +73,16 @@ class Interaction extends BaseEntity
     }
 
     /**
-     * Checks if the entity is valid
+     * Checks if the entity is valid.
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid()
     {
         try {
             $this->sanitize();
 
-            if (! $result = parent::isValid()) {
+            if (!$result = parent::isValid()) {
                 return $result;
             }
 
@@ -89,8 +91,9 @@ class Interaction extends BaseEntity
             $errors = ["interactionId doesn't corresponds to an existing InteractionType"];
         }
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             $this->errors()->merge($errors);
+
             return false;
         }
 
@@ -103,9 +106,9 @@ class Interaction extends BaseEntity
      * if the entity was good enought to be sent to the database and not the
      * real database save return.
      *
-     * @param boolean $force Force save even if the object is invalid.
+     * @param bool $force Force save even if the object is invalid.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function save(bool $force = false)
     {

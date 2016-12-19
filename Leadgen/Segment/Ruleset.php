@@ -7,19 +7,19 @@ use Leadgen\Base\BaseEntity;
 class Ruleset extends BaseEntity
 {
     /**
-     * Describes the schema of the entity
+     * Describes the schema of the entity.
      *
      * @var string
      */
     protected $fields = RulesetSchema::class;
 
     /**
-     * Basic validation rules of a ruleset
+     * Basic validation rules of a ruleset.
      *
      * @var array
      */
     public static $rules = [
         'name'  => 'required',
-        'rules' => 'required|array'
+        'rules' => 'required|array',
     ];
 }

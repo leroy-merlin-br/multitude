@@ -1,10 +1,11 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Mongolid\Schema;
 
 /**
- * Schema of an Param entity
+ * Schema of an Param entity.
  *
  * @SWG\Definition(
  *     type="object",
@@ -47,7 +48,7 @@ class ParamSchema extends Schema
      *     description="Tells if the parameter is required."
      * )
      */
-    public $fields  = [
+    public $fields = [
         '_id'      => 'objectId',
         'name'     => 'string',
         'type'     => 'string',

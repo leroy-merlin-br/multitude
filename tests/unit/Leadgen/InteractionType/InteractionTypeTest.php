@@ -1,8 +1,9 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
-use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Support\MessageBag;
 use Mockery as m;
 use Mongolid\Cursor\CursorInterface;
 use PHPUnit_Framework_TestCase;
@@ -25,7 +26,7 @@ class InteractionTypeTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(
             InteractionTypeSchema::class,
             'fields',
-            (new InteractionType)
+            (new InteractionType())
         );
     }
 
@@ -63,7 +64,7 @@ class InteractionTypeTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         $lumenValidator = m::mock(ValidationFactory::class);
-        $interactionType = new InteractionType;
+        $interactionType = new InteractionType();
         $params = [
             m::mock(Param::class),
             m::mock(Param::class),

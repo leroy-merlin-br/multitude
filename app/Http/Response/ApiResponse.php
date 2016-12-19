@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Response;
 
 use Illuminate\Http\Response;
 
 /**
- * Response for API calls
+ * Response for API calls.
  */
 class ApiResponse extends Response
 {
@@ -29,7 +30,7 @@ class ApiResponse extends Response
     /**
      * Morph the given content into Array.
      *
-     * @param  mixed $content Content that will be morphed into array.
+     * @param mixed $content Content that will be morphed into array.
      *
      * @return string
      */

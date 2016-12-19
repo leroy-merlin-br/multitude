@@ -1,11 +1,10 @@
 <?php
+
 namespace Leadgen\Base;
 
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\MessageBag;
-use Mockery;
-use Mockery\Expectation;
 use MongoDB\Collection;
 use MongoDB\Database;
 use Mongolid\ActiveRecord;
@@ -44,9 +43,9 @@ abstract class BaseEntity extends ActiveRecord
     /**
      * Save the model to the database if it's valid.
      *
-     * @param boolean $force Force save even if the object is invalid.
+     * @param bool $force Force save even if the object is invalid.
      *
-     * @return boolean
+     * @return bool
      */
     public function save(bool $force = false)
     {
@@ -63,7 +62,7 @@ abstract class BaseEntity extends ActiveRecord
      * Verify if the model is valid by running its validation rules,
      * defined on static attribute `$rules`.
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid()
     {

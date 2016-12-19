@@ -1,9 +1,10 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
-use MongoDB\BSON\ObjectID;
 use Elasticsearch\Client;
 use Mockery as m;
+use MongoDB\BSON\ObjectID;
 use PHPUnit_Framework_TestCase;
 
 class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
@@ -16,8 +17,8 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
     public function testShouldHaveAnAliasToMapInteractionsAndCustomers()
     {
         // Arrange
-        $elasticsearch   = m::mock(Client::class);
-        $esMapper        = m::mock(ElasticsearchMapper::class.'[mapInteractions,mapCustomers]', [$elasticsearch]);
+        $elasticsearch = m::mock(Client::class);
+        $esMapper = m::mock(ElasticsearchMapper::class.'[mapInteractions,mapCustomers]', [$elasticsearch]);
         $interactionType = $this->sampleInteractionType();
 
         // Act
@@ -38,51 +39,51 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
     public function testShouldMapInteractions()
     {
         // Arrange
-        $elasticsearch   = m::mock(Client::class);
-        $esMapper        = new ElasticsearchMapper($elasticsearch);
+        $elasticsearch = m::mock(Client::class);
+        $esMapper = new ElasticsearchMapper($elasticsearch);
         $interactionType = $this->sampleInteractionType();
 
         $expectedMapping = [
             'index' => 'leadgen',
-            'type' => 'Interaction',
-            'body' => [
+            'type'  => 'Interaction',
+            'body'  => [
                 'Interaction' => [
                     'properties' => [
                         'params/product-id/float' => [
-                            'type' => 'float',
-                            'index' => 'not_analyzed'
+                            'type'  => 'float',
+                            'index' => 'not_analyzed',
                         ],
                         'params/total/float' => [
-                            'type' => 'float',
-                            'index' => 'not_analyzed'
+                            'type'  => 'float',
+                            'index' => 'not_analyzed',
                         ],
                         'params/details/string' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'author' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'authorId' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'interaction' => [
-                            'type' =>  'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'channel' => [
-                            'type' =>  'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'created_at' => [
-                            'type' => 'date',
-                            'format' => 'date_hour_minute'
+                            'type'   => 'date',
+                            'format' => 'date_hour_minute',
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
 
         // Act
@@ -91,7 +92,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
 
         $elasticsearch->shouldReceive('putMapping')
             ->once()
-            ->andReturnUsing(function($mapping) use ($expectedMapping) {
+            ->andReturnUsing(function ($mapping) use ($expectedMapping) {
                 $this->assertEquals($expectedMapping, $mapping);
 
                 return ['acknowledged' => true];
@@ -104,72 +105,72 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
     public function testShouldMapCustomers()
     {
         // Arrange
-        $elasticsearch   = m::mock(Client::class);
-        $esMapper        = new ElasticsearchMapper($elasticsearch);
+        $elasticsearch = m::mock(Client::class);
+        $esMapper = new ElasticsearchMapper($elasticsearch);
         $interactionType = $this->sampleInteractionType();
 
         $expectedMapping = [
             'index' => 'leadgen',
-            'type' => 'Customer',
-            'body' => [
+            'type'  => 'Customer',
+            'body'  => [
                 'Customer' => [
                     'properties' => [
                         'docNumber' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'email' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'name' => [
-                            'type' =>  'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'location' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'interactions' => [
-                            'type' =>  'nested',
+                            'type'       => 'nested',
                             'properties' => [
                                 'params/product-id/float' => [
-                                    'type' => 'float',
-                                    'index' => 'not_analyzed'
+                                    'type'  => 'float',
+                                    'index' => 'not_analyzed',
                                 ],
                                 'params/total/float' => [
-                                    'type' => 'float',
-                                    'index' => 'not_analyzed'
+                                    'type'  => 'float',
+                                    'index' => 'not_analyzed',
                                 ],
                                 'params/details/string' => [
-                                    'type' => 'string',
-                                    'index' => 'not_analyzed'
+                                    'type'  => 'string',
+                                    'index' => 'not_analyzed',
                                 ],
                                 'interaction' => [
-                                    'type' =>  'string',
-                                    'index' => 'not_analyzed'
+                                    'type'  => 'string',
+                                    'index' => 'not_analyzed',
                                 ],
                                 'channel' => [
-                                    'type' =>  'string',
-                                    'index' => 'not_analyzed'
+                                    'type'  => 'string',
+                                    'index' => 'not_analyzed',
                                 ],
                                 'created_at' => [
-                                    'type' => 'date',
-                                    'format' => 'date_hour_minute'
+                                    'type'   => 'date',
+                                    'format' => 'date_hour_minute',
                                 ],
-                            ]
+                            ],
                         ],
                         'created_at' => [
-                            'type' => 'date',
-                            'format' => 'date_hour_minute'
+                            'type'   => 'date',
+                            'format' => 'date_hour_minute',
                         ],
                         'updated_at' => [
-                            'type' => 'date',
-                            'format' => 'date_hour_minute'
-                        ]
-                    ]
-                ]
-            ]
+                            'type'   => 'date',
+                            'format' => 'date_hour_minute',
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         // Act
@@ -178,7 +179,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
 
         $elasticsearch->shouldReceive('putMapping')
             ->once()
-            ->andReturnUsing(function($mapping) use ($expectedMapping) {
+            ->andReturnUsing(function ($mapping) use ($expectedMapping) {
                 $this->assertEquals($expectedMapping, $mapping);
 
                 return ['acknowledged' => true];
@@ -190,29 +191,29 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
 
     protected function sampleInteractionType()
     {
-        $interactionType = new InteractionType;
+        $interactionType = new InteractionType();
 
         $interactionType->fill([
-            '_id' => new ObjectID('57aa822f0374211d65333958'),
-            'name' => "Purchased products",
-            'slug' => 'purchased-products',
+            '_id'    => new ObjectID('57aa822f0374211d65333958'),
+            'name'   => 'Purchased products',
+            'slug'   => 'purchased-products',
             'params' => [
                 [
-                    'name' => 'product-id',
-                    'type' => 'numeric',
+                    'name'     => 'product-id',
+                    'type'     => 'numeric',
                     'required' => true,
                 ],
                 [
-                    'name' => 'total',
-                    'type' => 'numeric',
+                    'name'     => 'total',
+                    'type'     => 'numeric',
                     'required' => true,
                 ],
                 [
-                    'name' => 'details',
-                    'type' => 'string',
+                    'name'     => 'details',
+                    'type'     => 'string',
                     'required' => false,
                 ],
-            ]
+            ],
         ]);
 
         return $interactionType;

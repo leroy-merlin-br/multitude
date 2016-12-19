@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use PHPUnit_Framework_TestCase;
@@ -10,7 +11,7 @@ class InteractionSchemaTest extends PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(
             [],
-            (new InteractionSchema)->interactionFields()
+            (new InteractionSchema())->interactionFields()
         );
     }
 
@@ -19,7 +20,7 @@ class InteractionSchemaTest extends PHPUnit_Framework_TestCase
         // Assert
         $this->assertSame(
             false,
-            (new InteractionSchema)->bool(null)
+            (new InteractionSchema())->bool(null)
         );
     }
 }

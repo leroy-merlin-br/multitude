@@ -1,24 +1,26 @@
 <?php
+
 namespace Leadgen\Customer;
 
 use Elasticsearch\Client;
-use MongoDB\Driver\WriteConcern;
-use MongoDB\BSON\ObjectID;
 use Leadgen\Interaction\ElasticsearchCaster;
+use MongoDB\BSON\ObjectID;
 
 /**
- * Index `Customer`s into Elasticsearch
+ * Index `Customer`s into Elasticsearch.
  */
 class ElasticsearchIndexer
 {
     /**
-     * Elasticsearch client
+     * Elasticsearch client.
+     *
      * @var Client
      */
     protected $elasticsearch;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
+     *
      * @param Client $elasticsearch Elasticsearch Client to be injected.
      */
     public function __construct(Client $elasticsearch)
@@ -27,11 +29,11 @@ class ElasticsearchIndexer
     }
 
     /**
-     * Index a set of customers into elasticsearch
+     * Index a set of customers into elasticsearch.
      *
-     * @param  Customer[] $customers Customers to be indexed
+     * @param Customer[] $customers Customers to be indexed
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function index($customers)
     {
@@ -40,7 +42,7 @@ class ElasticsearchIndexer
         $acknowledgedItems = [];
         foreach (($result['items'] ?? []) as $sentItem) {
             if (($sentItem['index']['status'] ?? 400) > 299) {
-                throw new \Exception("Unable to index Customer ".json_encode($sentItem['index']), 1);
+                throw new \Exception('Unable to index Customer '.json_encode($sentItem['index']), 1);
             }
 
             $acknowledgedItems[] = new ObjectID($sentItem['index']['_id'] ?? null);
@@ -59,9 +61,9 @@ class ElasticsearchIndexer
             $params['body'][] = [
                 'index' => [
                     '_index' => $indexName,
-                    '_type' => 'Customer',
-                    '_id' => (string) $customer->_id,
-                ]
+                    '_type'  => 'Customer',
+                    '_id'    => (string) $customer->_id,
+                ],
             ];
 
             $params['body'][] = $this->parseCustomer($customer);
@@ -71,9 +73,9 @@ class ElasticsearchIndexer
     }
 
     /**
-     * Parses the fields of an Customer in order to retrieve
+     * Parses the fields of an Customer in order to retrieve.
      *
-     * @param  Customer $customer Customer that will have it's attributes retrieved
+     * @param Customer $customer Customer that will have it's attributes retrieved
      *
      * @return array
      */
@@ -84,7 +86,7 @@ class ElasticsearchIndexer
         $document['updated_at'] = $customer->updated_at->toDateTime()->format('Y-m-d\Th:i');
         $document['interactions'] = [];
 
-        foreach($customer->interactions() as $interaction) {
+        foreach ($customer->interactions() as $interaction) {
             $document['interactions'][] = ElasticsearchCaster::castToEs($interaction);
         }
 

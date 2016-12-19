@@ -18,10 +18,10 @@ class SegmentSeeder extends Seeder
                 continue;
             }
 
-            $interactionType = new Segment;
+            $interactionType = new Segment();
             $interactionType->fill($document);
 
-            if (! $interactionType->save()) {
+            if (!$interactionType->save()) {
                 $this->command->error($interactionType->errors()->__toString());
             }
         }
@@ -32,17 +32,16 @@ class SegmentSeeder extends Seeder
         return [
             // ----------------------
             'bathroomProjetc' => [
-                '_id' => new ObjectID('57aa7f2c037421193c333952'),
-                'name' => "Bathroom Project",
-                'slug' => 'bathroom-projetc',
+                '_id'   => new ObjectID('57aa7f2c037421193c333952'),
+                'name'  => 'Bathroom Project',
+                'slug'  => 'bathroom-projetc',
                 'rules' => [
                     'find' => [
                         'interaction' => 'added-to-basket',
-                        'category' => ['Banheira', 'Vasos Sanitários']
+                        'category'    => ['Banheira', 'Vasos Sanitários'],
                     ],
-                ]
+                ],
             ],
         ];
     }
 }
-

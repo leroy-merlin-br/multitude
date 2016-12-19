@@ -1,9 +1,10 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Leadgen\Interaction\Interaction;
 use Leadgen\Base\BaseEntity;
+use Leadgen\Interaction\Interaction;
 use Mongolid\Cursor\CursorInterface;
 
 /**
@@ -14,12 +15,12 @@ class InteractionType extends BaseEntity
     /**
      * Describes the Schema fields of the model.
      *
-     * @var  string
+     * @var string
      */
     protected $fields = InteractionTypeSchema::class;
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
@@ -30,7 +31,7 @@ class InteractionType extends BaseEntity
     ];
 
     /**
-     * InteractionType embeds many Param objects
+     * InteractionType embeds many Param objects.
      *
      * @return CursorInterface
      */
@@ -40,16 +41,17 @@ class InteractionType extends BaseEntity
     }
 
     /**
-     * Checks if the entity is valid
+     * Checks if the entity is valid.
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid()
     {
         foreach ($this->params() as $param) {
-            if (! $param->isValid()) {
+            if (!$param->isValid()) {
                 $this->errors()->add('params', 'Invalid param object');
                 $this->errors()->merge($param->errors());
+
                 return false;
             }
         }
@@ -58,11 +60,11 @@ class InteractionType extends BaseEntity
     }
 
     /**
-     * Save the interaction type and updates it's mapping
+     * Save the interaction type and updates it's mapping.
      *
-     * @param boolean $force Force save even if the object is invalid.
+     * @param bool $force Force save even if the object is invalid.
      *
-     * @return boolean
+     * @return bool
      */
     public function save(bool $force = false)
     {
@@ -75,9 +77,9 @@ class InteractionType extends BaseEntity
 
     /**
      * Check if there is any error in the given Interaction based on the current
-     * InteractionType
+     * InteractionType.
      *
-     * @param  Interaction $interaction Interaction object being evaluated.
+     * @param Interaction $interaction Interaction object being evaluated.
      *
      * @return array Errors
      */
@@ -91,10 +93,11 @@ class InteractionType extends BaseEntity
                 $paramName .= '.*';
             }
 
-            $rules[$paramName] = $param->type . ($param->required ? '|required' : '');
+            $rules[$paramName] = $param->type.($param->required ? '|required' : '');
         }
 
         $validator = app(ValidationFactory::class)->make($interaction->params, $rules);
+
         return $validator->errors()->all();
     }
 
@@ -102,7 +105,7 @@ class InteractionType extends BaseEntity
      * Prepare the Interaction mapping in Elasticsearch. This allow that new interactions
      * can be indexed with the params of the InteractionType.
      *
-     * @return boolean
+     * @return bool
      */
     public function prepareMapping()
     {

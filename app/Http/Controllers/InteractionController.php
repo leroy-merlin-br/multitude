@@ -2,42 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
 use Leadgen\Interaction\Repository;
 
 /**
- * Controller to handle the creation of Interactions
+ * Controller to handle the creation of Interactions.
  */
 class InteractionController extends ApiController
 {
     /**
-     * Interaction repository
+     * Interaction repository.
+     *
      * @var Repository
      */
     protected $repo;
 
     /**
-     * To build the server response
+     * To build the server response.
+     *
      * @var ResponseBuilder;
      */
     protected $responseBuilder;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Repository      $repo            Interaction repository.
      * @param ResponseBuilder $responseBuilder To build the server response.
      */
     public function __construct(Repository $repo, ResponseBuilder $responseBuilder)
     {
-        $this->repo            = $repo;
+        $this->repo = $repo;
         $this->responseBuilder = $responseBuilder;
     }
 
     /**
-     * Stores a new resource
+     * Stores a new resource.
      *
      * @SWG\Post(
      *     path="/interaction",
@@ -75,7 +76,7 @@ class InteractionController extends ApiController
      *     )
      * )
      *
-     * @param  Request $request Client request.
+     * @param Request $request Client request.
      *
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +84,7 @@ class InteractionController extends ApiController
     {
         $interaction = $this->repo->createNew($request->all());
 
-        if (! $interaction) {
+        if (!$interaction) {
             return $this->responseBuilder
                 ->respondBadRequest($request->all(), $this->repo->getLastErrors());
         }

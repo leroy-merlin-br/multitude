@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Segment;
 
 use Leadgen\Customer\ElasticsearchQuery;
@@ -15,7 +16,8 @@ class RulesetPreviewService
     protected $customerEsQuery;
 
     /**
-     * Injects dependencies
+     * Injects dependencies.
+     *
      * @param ElasticsearchQuery $customerEsQuery
      */
     public function __construct(ElasticsearchQuery $customerEsQuery)
@@ -27,15 +29,15 @@ class RulesetPreviewService
      * Parse Ruleset objects into Elasticsearch queries in form of
      * associative arrays.
      *
-     * @param  string $rules Rulesets object containing the rules
+     * @param string $rules Rulesets object containing the rules
      *
-     * @return array   Elasticsearch query (in form of an associative array)
+     * @return array Elasticsearch query (in form of an associative array)
      */
     public function preview($rules): array
     {
         // Set
-        $parser = new ElasticsearchRulesetParser;
-        $ruleset = new Ruleset;
+        $parser = new ElasticsearchRulesetParser();
+        $ruleset = new Ruleset();
         $ruleset->rules = $rules;
 
         return  $this->customerEsQuery->get($parser->parse($ruleset));

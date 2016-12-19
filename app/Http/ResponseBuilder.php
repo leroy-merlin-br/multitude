@@ -1,50 +1,54 @@
 <?php
+
 namespace App\Http;
 
 use App\Http\Response\ApiResponse;
 use Illuminate\Http\Response;
 
 /**
- * Can be used to builds response objects
+ * Can be used to builds response objects.
  */
 class ResponseBuilder
 {
     /**
-     * The status code that will be responded
-     * @var integer
+     * The status code that will be responded.
+     *
+     * @var int
      */
     protected $statusCode = 200;
 
     /**
-     * The status message that will be visible in the response
+     * The status message that will be visible in the response.
+     *
      * @var string
      */
-    protected $statusMessage = "success";
+    protected $statusMessage = 'success';
 
     /**
-     * Errors array that will be visible in the response
+     * Errors array that will be visible in the response.
+     *
      * @var string
      */
     protected $errors = [];
 
     /**
-     * Set the status code of the response
+     * Set the status code of the response.
      *
-     * @param integer $statusCode Code of the response.
-     * @param string  $message    Status message that will be displayed along the response.
+     * @param int    $statusCode Code of the response.
+     * @param string $message    Status message that will be displayed along the response.
      *
      * @return this
      */
     public function setStatusCode(int $statusCode, string $message = null)
     {
-        $this->statusCode    = $statusCode;
+        $this->statusCode = $statusCode;
         $this->statusMessage = $message ?? $this->generateErrorMessage($statusCode);
 
         return $this;
     }
 
     /**
-     * Add a new error message to the list of errors that will be responded
+     * Add a new error message to the list of errors that will be responded.
      *
      * @param string $errorMessage Error message to be displayed.
      *
@@ -58,7 +62,7 @@ class ResponseBuilder
     }
 
     /**
-     * Set all the error messages that will be responded
+     * Set all the error messages that will be responded.
      *
      * @param string[] $errorMessages Array of error messages.
      *
@@ -72,18 +76,18 @@ class ResponseBuilder
     }
 
     /**
-     * Return the response
+     * Return the response.
      *
-     * @param  mixed $data Data of the response.
+     * @param mixed $data Data of the response.
      *
      * @return Response
      */
     public function respond($data = null): Response
     {
         $content = [
-            'status' => $this->statusMessage,
+            'status'  => $this->statusMessage,
             'content' => $data,
-            'errors' => $this->errors,
+            'errors'  => $this->errors,
         ];
 
         $response = app(ApiResponse::class);
@@ -96,7 +100,7 @@ class ResponseBuilder
     /**
      * Return the response related to a resource not being found.
      *
-     * @param  mixed $data Data of the response.
+     * @param mixed $data Data of the response.
      *
      * @return Response
      */
@@ -108,10 +112,10 @@ class ResponseBuilder
     }
 
     /**
-     * Return the response related a validation error
+     * Return the response related a validation error.
      *
-     * @param  mixed    $data   Data of the response.
-     * @param  string[] $errors Array of error messages.
+     * @param mixed    $data   Data of the response.
+     * @param string[] $errors Array of error messages.
      *
      * @return Response
      */
@@ -123,11 +127,11 @@ class ResponseBuilder
     }
 
     /**
-     * Return a default response message for the given status code
+     * Return a default response message for the given status code.
      *
-     * @param  integer $statusCode Referent to the message.
+     * @param int $statusCode Referent to the message.
      *
-     * @return string             The default message
+     * @return string The default message
      */
     protected function generateErrorMessage(int $statusCode): string
     {

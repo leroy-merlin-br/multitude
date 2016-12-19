@@ -19,7 +19,7 @@ $resource = function ($name, $controller) use ($app) {
     $app->delete("$name/{id}", ['as' => "$name.delete", 'uses' => "$controller@destroy"]);
 };
 
-/**
+/*
  * @SWG\Swagger(
  *     host="{{ $host }}",
  *     basePath="/api/v1",

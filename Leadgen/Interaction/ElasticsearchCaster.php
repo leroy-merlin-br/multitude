@@ -8,15 +8,15 @@ class ElasticsearchCaster
      * Cast an Interaction object to an associative array ready to be indexed
      * in Elasticsearch.
      *
-     * @param  Interaction $interaction Interaction to be casted.
+     * @param Interaction $interaction Interaction to be casted.
      *
      * @return array Resulting associative array of Interaction.
      */
-    static public function castToEs(Interaction $interaction)
+    public static function castToEs(Interaction $interaction)
     {
         $document = array_diff_key($interaction->attributes, ['_id' => 1, 'params' => 1]);
 
-        foreach(['created_at', 'updated_at'] as $dateField) {
+        foreach (['created_at', 'updated_at'] as $dateField) {
             $document[$dateField] = $interaction
                 ->$dateField
                 ->toDateTime()

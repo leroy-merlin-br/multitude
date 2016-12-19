@@ -1,11 +1,12 @@
 <?php
+
 namespace Leadgen\Base;
 
 use Mongolid\ActiveRecord;
 use Mongolid\Cursor\CursorInterface;
 
 /**
- * Class ResourceRepository
+ * Class ResourceRepository.
  *
  * The resource repository contains the base implementation of a service that
  * is responsible for abstracting database queries regarding a given resource
@@ -15,18 +16,20 @@ class ResourceRepository implements RepositoryInterface
 {
     /**
      * The entity that the repository manipulates.
+     *
      * @var ActiveRecord
      */
     protected $resource;
 
     /**
-     * Errors of the last operation
+     * Errors of the last operation.
+     *
      * @var array
      */
     protected $errors = [];
 
     /**
-     * Constructor for a Repository for the given resource
+     * Constructor for a Repository for the given resource.
      *
      * @param string $resourceClass Resource class.
      */
@@ -38,8 +41,8 @@ class ResourceRepository implements RepositoryInterface
     /**
      * Retrieves all resources with support to pagination.
      *
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param int $page    Page number being displayed.
+     * @param int $perPage Results per page.
      *
      * @return CursorInterface
      */
@@ -57,9 +60,9 @@ class ResourceRepository implements RepositoryInterface
     /**
      * Retrieves the resources that maches the query. Supports pagination.
      *
-     * @param  array   $query   Mongo query
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param array $query   Mongo query
+     * @param int   $page    Page number being displayed.
+     * @param int   $perPage Results per page.
      *
      * @return CursorInterface
      */
@@ -75,11 +78,12 @@ class ResourceRepository implements RepositoryInterface
     }
 
     /**
-     * Find an resource that exists
+     * Find an resource that exists.
+     *
+     *
+     * @param mixed $id Id of the resource to be found.
      *
      * @throws ModelNotFoundException If no document was found.
-     *
-     * @param  mixed $id Id of the resource to be found.
      *
      * @return ActiveRecord
      */
@@ -92,13 +96,13 @@ class ResourceRepository implements RepositoryInterface
      * Creates a new resource based in the given $data. In case of failure
      * the errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  array $data Resource attributes.
+     * @param array $data Resource attributes.
      *
      * @return ActiveRecord|null resource in case of success or false on failure
      */
     public function createNew(array $data)
     {
-        $entity = new $this->resource;
+        $entity = new $this->resource();
         $entity->fill($data);
 
         if ($entity->save() && $entity->errors()->isEmpty()) {
@@ -114,10 +118,10 @@ class ResourceRepository implements RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
-     * @param  array        $data   Resource attributes.
+     * @param ActiveRecord $entity Instance being updated.
+     * @param array        $data   Resource attributes.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function updateExisting(ActiveRecord $entity, array $data): bool
     {
@@ -136,9 +140,9 @@ class ResourceRepository implements RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
+     * @param ActiveRecord $entity Instance being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function deleteExisting(ActiveRecord $entity): bool
     {
@@ -152,7 +156,7 @@ class ResourceRepository implements RepositoryInterface
     }
 
     /**
-     * Retrieves the error of the last operation
+     * Retrieves the error of the last operation.
      *
      * @return array
      */

@@ -1,8 +1,6 @@
 <?php
-namespace Leadgen\Customer;
 
-use Leadgen\Customer\Customer;
-use Leadgen\Customer\Repository;
+namespace Leadgen\Customer;
 
 /**
  * A service that, by receiving a list of interactions, will embed then to the
@@ -12,19 +10,21 @@ use Leadgen\Customer\Repository;
 class InteractionsParser
 {
     /**
-     * Repository of customer
+     * Repository of customer.
+     *
      * @var Repository
      */
     protected $customerRepo;
 
     /**
-     * Array of Customers that were modified by the InteractionsParser
+     * Array of Customers that were modified by the InteractionsParser.
+     *
      * @var array
      */
     protected $touchedCustomers = [];
 
     /**
-     * Constructs and inject dependencies
+     * Constructs and inject dependencies.
      *
      * @param Repository $customerRepo Customer repository instance.
      */
@@ -38,7 +38,7 @@ class InteractionsParser
      * parsing, the customers that were affected (that have made those
      * interactions) will be returned.
      *
-     * @param  Interaction[] $interactions A list of `Interaction` objects.
+     * @param Interaction[] $interactions A list of `Interaction` objects.
      *
      * @return Customer[] An array contatining all the customers that have made the interactions that were parsed.
      */
@@ -82,7 +82,7 @@ class InteractionsParser
     protected function generateCustomersForInteractions($interactions)
     {
         foreach ($interactions as $interaction) {
-            $customer = Customer::first($interaction->authorId) ?: new Customer;
+            $customer = Customer::first($interaction->authorId) ?: new Customer();
             $customer->_id = $interaction->authorId;
             if (strstr($interaction->author, '@')) {
                 $customer->email = $interaction->author ?: null;

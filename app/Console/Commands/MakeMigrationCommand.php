@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -8,6 +9,7 @@ class MakeMigrationCommand extends Command
 {
     /**
      * Command Name.
+     *
      * @var string
      */
     protected $name = 'make:migration';
@@ -47,9 +49,9 @@ class MakeMigrationCommand extends Command
 
     public function fire()
     {
-        $name           = $this->argument('name');
+        $name = $this->argument('name');
         $migrationsPath = $this->laravel->path().'/../database/migrations/';
-        $filename       = date('Y_m_d_His').'_'.$name.'.php';
+        $filename = date('Y_m_d_His').'_'.$name.'.php';
 
         $this->filesystem->put($migrationsPath.$filename, $this->renderMigration($name));
         $this->line("<info>Created Migration:</info> $filename");
@@ -58,6 +60,7 @@ class MakeMigrationCommand extends Command
     protected function renderMigration($name)
     {
         $className = studly_case($name);
+
         return <<<EOD
 <?php
 

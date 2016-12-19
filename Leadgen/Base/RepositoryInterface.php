@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Base;
 
 use Mongolid\ActiveRecord;
@@ -14,8 +15,8 @@ interface RepositoryInterface
     /**
      * Retrieves all resources with support to pagination.
      *
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param int $page    Page number being displayed.
+     * @param int $perPage Results per page.
      *
      * @return CursorInterface
      */
@@ -24,20 +25,21 @@ interface RepositoryInterface
     /**
      * Retrieves the resources that maches the query. Supports pagination.
      *
-     * @param  array   $query   Mongo query
-     * @param  integer $page    Page number being displayed.
-     * @param  integer $perPage Results per page.
+     * @param array $query   Mongo query
+     * @param int   $page    Page number being displayed.
+     * @param int   $perPage Results per page.
      *
      * @return CursorInterface
      */
     public function where($query = [], int $page = 1, int $perPage = 10): CursorInterface;
 
     /**
-     * Find an resource that exists
+     * Find an resource that exists.
+     *
+     *
+     * @param mixed $id Id of the resource to be found.
      *
      * @throws ModelNotFoundException If no document was found.
-     *
-     * @param  mixed $id Id of the resource to be found.
      *
      * @return ActiveRecord
      */
@@ -47,7 +49,7 @@ interface RepositoryInterface
      * Creates a new resource based in the given $data. In case of failure
      * the errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  array $data Resource attributes.
+     * @param array $data Resource attributes.
      *
      * @return ActiveRecord|null resource in case of success or false on failure
      */
@@ -57,10 +59,10 @@ interface RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
-     * @param  array        $data   Resource attributes.
+     * @param ActiveRecord $entity Instance being updated.
+     * @param array        $data   Resource attributes.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function updateExisting(ActiveRecord $entity, array $data): bool;
 
@@ -68,14 +70,14 @@ interface RepositoryInterface
      * Updated the given resource based in $data. In case of failure the
      * errors can be retrieved calling 'getLastErrors'.
      *
-     * @param  ActiveRecord $entity Instance being updated.
+     * @param ActiveRecord $entity Instance being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function deleteExisting(ActiveRecord $entity): bool;
 
     /**
-     * Retrieves the error of the last operation
+     * Retrieves the error of the last operation.
      *
      * @return array
      */
