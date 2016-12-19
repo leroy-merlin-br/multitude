@@ -14,7 +14,8 @@
         "cviebrock/laravel-elasticsearch": "^1.2",
         "phpfluent/elastic-query-builder": "^1.0",
         "zircote/swagger-php": "^2.0",
-        "mockery/mockery": "^0.9.5"
+        "mockery/mockery": "^0.9.5",
+        "codacy/coverage": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

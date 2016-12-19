@@ -16,4 +16,7 @@ before_script:
   - docker-compose run webapp php artisan db:seed
 
 script:
-  - make test
+  - make test-ci
+
+after_script:
+  - docker-compose run -e CODACY_PROJECT_TOKEN=4171a045b65d4b4a9a89686b66720e32 webapp vendor/bin/codacycoverage clover ./.coverage/coverage-clover.xml
