@@ -1,8 +1,7 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
+    "name": "leroy-merlin-br/multitude",
+    "description": "A Leroy Merlin's project",
     "keywords": ["framework", "laravel", "lumen"],
-    "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
