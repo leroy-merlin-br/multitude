@@ -111,7 +111,23 @@
                         }
                     },
                     "404": {
-                        "description": "Customer not found"
+                        "description": "Customer not found",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
                     }
                 }
             }
@@ -145,7 +161,7 @@
                                     "type": "string"
                                 },
                                 "content": {
-                                    "description": "Stores a new resource",
+                                    "description": "Stores a new resource.",
                                     "$ref": "#/definitions/Interaction"
                                 },
                                 "errors": {
@@ -161,6 +177,326 @@
                     },
                     "400": {
                         "description": "Bad request",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/segment": {
+            "get": {
+                "tags": [
+                    "segment"
+                ],
+                "summary": "Retrieve a list of segments",
+                "description": "Retrieves a list of segments with pagination support.",
+                "operationId": "segment.index",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page to be retrieved",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of existent segments",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Segment"
+                                    }
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "segment"
+                ],
+                "summary": "Creates a new segment",
+                "description": "Creates a new segment entity.",
+                "operationId": "segment.store",
+                "parameters": [
+                    {
+                        "name": "segment",
+                        "in": "body",
+                        "description": "Segment to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Segment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The newly created segment",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "$ref": "#/definitions/Segment"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/segment/{id}": {
+            "get": {
+                "tags": [
+                    "segment"
+                ],
+                "summary": "Retrieve a specific segment",
+                "description": "You can retrieve a segment by it's _id or email",
+                "operationId": "segment.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the segment to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Segment data",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Display the specified resource.",
+                                    "$ref": "#/definitions/Segment"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Segment not found",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "segment"
+                ],
+                "summary": "Updates a segment",
+                "description": "Updates a segment entity.",
+                "operationId": "segment.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the segment to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "segment",
+                        "in": "body",
+                        "description": "Values that will overwrite the attributes of the segment if the id on the url.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Segment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The updated segment in it's new state.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Update the specified resource in storage.",
+                                    "$ref": "#/definitions/Segment"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Segment not found. A segment with the given id was not found to be updated.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. If was not possible to update the segment.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "segment"
+                ],
+                "summary": "Deletes an existing segment",
+                "description": "Deletes a segment.",
+                "operationId": "segment.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the segment to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Segment not found. A segment with the given id was not found to be deleted.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. If was not possible to delete the segment.",
                         "schema": {
                             "properties": {
                                 "status": {
@@ -342,6 +678,16 @@
                     "description": "The ruleset that determines if a customers is part of the segment.",
                     "type": "object",
                     "$ref": "#/definitions/Ruleset"
+                },
+                "additionInterval": {
+                    "description": "Interval (in cron-job format) to test and add new customers are part of the given segment.",
+                    "type": "string",
+                    "default": "30 0 * * * *"
+                },
+                "removalInterval": {
+                    "description": "Interval (in cron-job format) to re-test and remove users from the segment.",
+                    "type": "string",
+                    "default": "0 0 * * * *"
                 }
             },
             "type": "object"
