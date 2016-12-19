@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Leadgen\Base\BaseEntity;
@@ -11,12 +12,12 @@ class Param extends BaseEntity
     /**
      * Describes the Schema fields of the model.
      *
-     * @var  string
+     * @var string
      */
     protected $fields = ParamSchema::class;
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */

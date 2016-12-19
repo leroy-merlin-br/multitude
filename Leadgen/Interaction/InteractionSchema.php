@@ -1,10 +1,11 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use Mongolid\Schema;
 
 /**
- * Describes the schema of an Interaction document
+ * Describes the schema of an Interaction document.
  *
  * @SWG\Definition(
  *     type="object",
@@ -16,7 +17,7 @@ class InteractionSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
-     * retrieved from
+     * retrieved from.
      *
      * @var string
      */
@@ -66,7 +67,7 @@ class InteractionSchema extends Schema
      *     description="Tells if the given `Interaction` have already been indexed in Elasticsearch."
      * ),
      */
-    public $fields  = [
+    public $fields = [
         '_id'          => 'objectId',
         'author'       => 'string',
         'authorId'     => 'string',
@@ -74,13 +75,13 @@ class InteractionSchema extends Schema
         'params'       => 'interactionFields',
         'acknowledged' => 'bool',
         'created_at'   => 'createdAtTimestamp',
-        'updated_at'   => 'updatedAtTimestamp'
+        'updated_at'   => 'updatedAtTimestamp',
     ];
 
     /**
      * Prepares the field to be the interaction fields.
      *
-     * @param  mixed $value Value that will be evaluated.
+     * @param mixed $value Value that will be evaluated.
      *
      * @return array
      */
@@ -90,9 +91,11 @@ class InteractionSchema extends Schema
     }
 
     /**
-     * Prepares a boolean field
-     * @param  boolean $value Input
-     * @return boolean
+     * Prepares a boolean field.
+     *
+     * @param bool $value Input
+     *
+     * @return bool
      */
     public function bool($value = false): bool
     {

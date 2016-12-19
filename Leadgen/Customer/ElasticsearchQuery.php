@@ -1,23 +1,24 @@
 <?php
+
 namespace Leadgen\Customer;
 
 use Elasticsearch\Client;
-use MongoDB\Driver\WriteConcern;
-use MongoDB\BSON\ObjectID;
 
 /**
- * Perform queries into Elasticsearch
+ * Perform queries into Elasticsearch.
  */
 class ElasticsearchQuery
 {
     /**
-     * Elasticsearch client
+     * Elasticsearch client.
+     *
      * @var Client
      */
     protected $elasticsearch;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
+     *
      * @param Client $elasticsearch Elasticsearch Client to be injected.
      */
     public function __construct(Client $elasticsearch)
@@ -26,9 +27,9 @@ class ElasticsearchQuery
     }
 
     /**
-     * Retrieves customers from Elasticsearch matching the given query
+     * Retrieves customers from Elasticsearch matching the given query.
      *
-     * @param  array $query Elasticsearch query body
+     * @param array $query Elasticsearch query body
      *
      * @return array results
      */
@@ -38,8 +39,8 @@ class ElasticsearchQuery
 
         $params = [
             'index' => $indexName,
-            'type' => 'Customer',
-            'body' => $query
+            'type'  => 'Customer',
+            'body'  => $query,
         ];
 
         // return $params;

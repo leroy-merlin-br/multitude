@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Segment;
 
 /**
@@ -11,9 +12,9 @@ class ElasticsearchRulesetParser
      * Parse Ruleset objects into Elasticsearch queries in form of
      * associative arrays.
      *
-     * @param  Ruleset $ruleset Rulesets object containing the rules
+     * @param Ruleset $ruleset Rulesets object containing the rules
      *
-     * @return array   Elasticsearch query (in form of an associative array)
+     * @return array Elasticsearch query (in form of an associative array)
      */
     public function parse(Ruleset $ruleset): array
     {
@@ -32,10 +33,10 @@ class ElasticsearchRulesetParser
             'query' => [
                 'constant_score' => [
                     'filter' => [
-                        'match_all' => []
-                    ]
-                ]
-            ]
+                        'match_all' => [],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -48,53 +49,53 @@ class ElasticsearchRulesetParser
             if (isset($subrule['rules'])) {
                 $subruleObj = [
                     'nested' => [
-                        'path' => 'interactions',
+                        'path'  => 'interactions',
                         'query' => [
                             'constant_score' => [
-                                'filter' => $this->prepareFilterQuery($subrule)
-                            ]
-                        ]
-                    ]
+                                'filter' => $this->prepareFilterQuery($subrule),
+                            ],
+                        ],
+                    ],
                 ];
-            } else if ($subrule['operator'] == 'equal') {
+            } elseif ($subrule['operator'] == 'equal') {
                 $subruleObj = [
                     'match' => [
-                        "interactions.{$subrule['field']}" => $subrule['value']
-                    ]
+                        "interactions.{$subrule['field']}" => $subrule['value'],
+                    ],
                 ];
-            } else if ($subrule['operator'] == 'in') {
+            } elseif ($subrule['operator'] == 'in') {
                 $subruleObj = [
                     'terms' => [
-                        "interactions.{$subrule['field']}" => $subrule['value']
-                    ]
+                        "interactions.{$subrule['field']}" => $subrule['value'],
+                    ],
                 ];
-            } else if (strstr($subrule['id'], 'created_at-')) {
+            } elseif (strstr($subrule['id'], 'created_at-')) {
                 preg_match('/-(\w)/', $subrule['id'], $matches);
                 $unit = $matches[1] ?? 'd';
                 $rangeOperation = $subrule['operator'] == 'greater_or_equal' ? 'gte' : 'lte';
 
                 $subruleObj = [
                     'range' => [
-                        "interactions.created_at" => [
-                            $rangeOperation => "now-{$subrule['value']}{$unit}/{$unit}"
-                        ]
-                    ]
+                        'interactions.created_at' => [
+                            $rangeOperation => "now-{$subrule['value']}{$unit}/{$unit}",
+                        ],
+                    ],
                 ];
-            } else if ($subrule['operator'] == 'greater_or_equal') {
+            } elseif ($subrule['operator'] == 'greater_or_equal') {
                 $subruleObj = [
                     'range' => [
                         "interactions.{$subrule['field']}" => [
-                            'gte' => (float) $subrule['value']
-                        ]
-                    ]
+                            'gte' => (float) $subrule['value'],
+                        ],
+                    ],
                 ];
-            } else if ($subrule['operator'] == 'less_or_equal') {
+            } elseif ($subrule['operator'] == 'less_or_equal') {
                 $subruleObj = [
                     'range' => [
                         "interactions.{$subrule['field']}" => [
-                            'lte' => (float) $subrule['value']
-                        ]
-                    ]
+                            'lte' => (float) $subrule['value'],
+                        ],
+                    ],
                 ];
             }
 
@@ -113,13 +114,14 @@ class ElasticsearchRulesetParser
      *
      * @return array BaseQuery
      */
-    protected function baseQueryBody($filterQuery):array {
+    protected function baseQueryBody($filterQuery):array
+    {
         return [
             'query' => [
                 'constant_score' => [
-                    'filter' => $filterQuery
-                ]
-            ]
+                    'filter' => $filterQuery,
+                ],
+            ],
         ];
     }
 }

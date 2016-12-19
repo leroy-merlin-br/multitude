@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Segment;
 
 use PHPUnit_Framework_TestCase;
@@ -12,8 +13,8 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
     public function testShouldParseRulesetIntoElasticsearchQueries($in, $expectedOut)
     {
         // Set
-        $parser = new ElasticsearchRulesetParser;
-        $ruleset = new Ruleset;
+        $parser = new ElasticsearchRulesetParser();
+        $ruleset = new Ruleset();
         $ruleset->rules = $in;
 
         // Assert
@@ -25,50 +26,50 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
         return [
             // --------------------
             'empty ruleset' => [
-                '$in' => [],
+                '$in'  => [],
                 '$out' => [
                     'query' => [
                         'constant_score' => [
                             'filter' => [
-                                'match_all' => []
-                            ]
-                        ]
-                    ]
-                ]
+                                'match_all' => [],
+                            ],
+                        ],
+                    ],
+                ],
             ],
 
             // --------------------
             'simple two interactions match' => [
                 '$in' => [
-                    "condition" => "AND",
-                    "rules" => [
+                    'condition' => 'AND',
+                    'rules'     => [
                         [
-                            "condition" => "AND",
-                            "rules" => [
+                            'condition' => 'AND',
+                            'rules'     => [
                                 [
-                                    "id" => "category",
-                                    "field" => "params.params/category/string",
-                                    "type" => "string",
-                                    "input" => "text",
-                                    "operator" => "equal",
-                                    "value" => "banheiros"
-                                ]
-                            ]
+                                    'id'       => 'category',
+                                    'field'    => 'params.params/category/string',
+                                    'type'     => 'string',
+                                    'input'    => 'text',
+                                    'operator' => 'equal',
+                                    'value'    => 'banheiros',
+                                ],
+                            ],
                         ],
                         [
-                            "condition" => "AND",
-                            "rules" => [
+                            'condition' => 'AND',
+                            'rules'     => [
                                 [
-                                    "id" => "productId",
-                                    "field" => "params.params/productId/string",
-                                    "type" => "string",
-                                    "input" => "text",
-                                    "operator" => "equal",
-                                    "value" => "88880123"
-                                ]
-                            ]
+                                    'id'       => 'productId',
+                                    'field'    => 'params.params/productId/string',
+                                    'type'     => 'string',
+                                    'input'    => 'text',
+                                    'operator' => 'equal',
+                                    'value'    => '88880123',
+                                ],
+                            ],
                         ],
-                    ]
+                    ],
                 ],
                 '$out' => [
                     'query' => [
@@ -77,7 +78,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 'and' => [
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
@@ -85,17 +86,17 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                             [
                                                                 'match' => [
                                                                     'interactions.params.params/category/string' => 'banheiros',
-                                                                ]
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
@@ -103,53 +104,53 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                             [
                                                                 'match' => [
                                                                     'interactions.params.params/productId/string' => '88880123',
-                                                                ]
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
 
             // --------------------
             'two interactions match with or clause' => [
                 '$in' => [
-                    "condition" => "OR",
-                    "rules" => [
+                    'condition' => 'OR',
+                    'rules'     => [
                         [
-                            "condition" => "AND",
-                            "rules" => [
+                            'condition' => 'AND',
+                            'rules'     => [
                                 [
-                                    "id" => "category",
-                                    "field" => "params.params/category/string",
-                                    "type" => "string",
-                                    "input" => "text",
-                                    "operator" => "equal",
-                                    "value" => "banheiros"
-                                ]
-                            ]
+                                    'id'       => 'category',
+                                    'field'    => 'params.params/category/string',
+                                    'type'     => 'string',
+                                    'input'    => 'text',
+                                    'operator' => 'equal',
+                                    'value'    => 'banheiros',
+                                ],
+                            ],
                         ],
                         [
-                            "condition" => "AND",
-                            "rules" => [
+                            'condition' => 'AND',
+                            'rules'     => [
                                 [
-                                    "id" => "productId",
-                                    "field" => "params.params/productId/string",
-                                    "type" => "string",
-                                    "input" => "text",
-                                    "operator" => "equal",
-                                    "value" => "88880123"
-                                ]
-                            ]
+                                    'id'       => 'productId',
+                                    'field'    => 'params.params/productId/string',
+                                    'type'     => 'string',
+                                    'input'    => 'text',
+                                    'operator' => 'equal',
+                                    'value'    => '88880123',
+                                ],
+                            ],
                         ],
-                    ]
+                    ],
                 ],
                 '$out' => [
                     'query' => [
@@ -158,7 +159,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 'or' => [
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
@@ -166,17 +167,17 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                             [
                                                                 'match' => [
                                                                     'interactions.params.params/category/string' => 'banheiros',
-                                                                ]
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
@@ -184,58 +185,58 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                             [
                                                                 'match' => [
                                                                     'interactions.params.params/productId/string' => '88880123',
-                                                                ]
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
 
             // --------------------
             'numeric range and \'or\' in subcondition' => [
                 '$in' => [
-                    "condition" => "AND",
-                    "rules" => [
+                    'condition' => 'AND',
+                    'rules'     => [
                         [
-                            "condition" => "OR",
-                            "rules" => [
+                            'condition' => 'OR',
+                            'rules'     => [
                                 [
-                                    "field" => "interaction",
-                                    "id" => "interaction",
-                                    "type" => "string",
-                                    "input" => "checkbox",
-                                    "operator" => "in",
-                                    "value" => [
-                                        "added-to-basket"
-                                    ]
+                                    'field'    => 'interaction',
+                                    'id'       => 'interaction',
+                                    'type'     => 'string',
+                                    'input'    => 'checkbox',
+                                    'operator' => 'in',
+                                    'value'    => [
+                                        'added-to-basket',
+                                    ],
                                 ],
                                 [
-                                    "id" => "price",
-                                    "field" => "params.params/price/float",
-                                    "type" => "double",
-                                    "input" => "text",
-                                    "operator" => "greater_or_equal",
-                                    "value" => "190"
+                                    'id'       => 'price',
+                                    'field'    => 'params.params/price/float',
+                                    'type'     => 'double',
+                                    'input'    => 'text',
+                                    'operator' => 'greater_or_equal',
+                                    'value'    => '190',
                                 ],
                                 [
-                                    "id" => "price",
-                                    "field" => "params.params/price/float",
-                                    "type" => "double",
-                                    "input" => "text",
-                                    "operator" => "less_or_equal",
-                                    "value" => "300"
-                                ]
-                            ]
-                        ]
-                    ]
+                                    'id'       => 'price',
+                                    'field'    => 'params.params/price/float',
+                                    'type'     => 'double',
+                                    'input'    => 'text',
+                                    'operator' => 'less_or_equal',
+                                    'value'    => '300',
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
                 '$out' => [
                     'query' => [
@@ -244,74 +245,74 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 'and' => [
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
                                                         'or' => [
                                                             [
                                                                 'terms' => [
-                                                                    'interactions.interaction' => ["added-to-basket"],
-                                                                ]
+                                                                    'interactions.interaction' => ['added-to-basket'],
+                                                                ],
                                                             ],
                                                             [
                                                                 'range' => [
                                                                     'interactions.params.params/price/float' => ['gte' => 190],
-                                                                ]
+                                                                ],
                                                             ],
                                                             [
                                                                 'range' => [
                                                                     'interactions.params.params/price/float' => ['lte' => 300],
-                                                                ]
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
 
             // --------------------
             'date range in interaction' => [
                 '$in' => [
-                    "condition" => "AND",
-                    "rules" => [
+                    'condition' => 'AND',
+                    'rules'     => [
                         [
-                            "condition" => "AND",
-                            "rules" => [
+                            'condition' => 'AND',
+                            'rules'     => [
                                 [
-                                    "id" => "term",
-                                    "field" => "params.params/term/string",
-                                    "type" => "string",
-                                    "input" => "text",
-                                    "operator" => "equal",
-                                    "value" => "Quality potatoes"
+                                    'id'       => 'term',
+                                    'field'    => 'params.params/term/string',
+                                    'type'     => 'string',
+                                    'input'    => 'text',
+                                    'operator' => 'equal',
+                                    'value'    => 'Quality potatoes',
                                 ],
                                 [
-                                    "id" => "created_at-h",
-                                    "field" => "created_at-h",
-                                    "type" => "integer",
-                                    "input" => "text",
-                                    "operator" => "greater_or_equal",
-                                    "value" => "48"
+                                    'id'       => 'created_at-h',
+                                    'field'    => 'created_at-h',
+                                    'type'     => 'integer',
+                                    'input'    => 'text',
+                                    'operator' => 'greater_or_equal',
+                                    'value'    => '48',
                                 ],
                                 [
-                                    "id" => "created_at-m",
-                                    "field" => "created_at-m",
-                                    "type" => "integer",
-                                    "input" => "text",
-                                    "operator" => "less_or_equal",
-                                    "value" => "6"
+                                    'id'       => 'created_at-m',
+                                    'field'    => 'created_at-m',
+                                    'type'     => 'integer',
+                                    'input'    => 'text',
+                                    'operator' => 'less_or_equal',
+                                    'value'    => '6',
                                 ],
-                            ]
-                        ]
-                    ]
+                            ],
+                        ],
+                    ],
                 ],
                 '$out' => [
                     'query' => [
@@ -320,7 +321,7 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                 'and' => [
                                     [
                                         'nested' => [
-                                            'path' => 'interactions',
+                                            'path'  => 'interactions',
                                             'query' => [
                                                 'constant_score' => [
                                                     'filter' => [
@@ -328,30 +329,30 @@ class ElasticsearchRulesetParserTest extends PHPUnit_Framework_TestCase
                                                             [
                                                                 'match' => [
                                                                     'interactions.params.params/term/string' => 'Quality potatoes',
-                                                                ]
+                                                                ],
                                                             ],
                                                             [
                                                                 'range' => [
-                                                                    'interactions.created_at' => ['gte' => "now-48h/h"],
-                                                                ]
+                                                                    'interactions.created_at' => ['gte' => 'now-48h/h'],
+                                                                ],
                                                             ],
                                                             [
                                                                 'range' => [
-                                                                    'interactions.created_at' => ['lte' => "now-6m/m"],
-                                                                ]
+                                                                    'interactions.created_at' => ['lte' => 'now-6m/m'],
+                                                                ],
                                                             ],
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                     ],
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }

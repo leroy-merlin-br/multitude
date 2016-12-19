@@ -1,9 +1,10 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Leadgen\Base\ResourceRepository;
-use Mongolid\Cursor\CursorInterface;
 use Mockery as m;
+use Mongolid\Cursor\CursorInterface;
 use PHPUnit_Framework_TestCase;
 
 class RepositoryTest extends PHPUnit_Framework_TestCase
@@ -25,7 +26,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldGetAll()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $result = m::mock(CursorInterface::class);
 
         // Act
@@ -41,7 +42,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldQueryWhere()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $result = m::mock(CursorInterface::class);
 
         // Act
@@ -60,7 +61,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldFindExisting()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $result = m::mock(InteractionType::class);
 
         // Act
@@ -76,7 +77,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldCreateNew()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $result = m::mock(InteractionType::class);
 
         // Act
@@ -92,7 +93,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldUpdateExisting()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $interactionType = m::mock(InteractionType::class);
         $result = true;
 
@@ -109,7 +110,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldDeleteExisting()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $interactionType = m::mock(InteractionType::class);
         $result = true;
 
@@ -126,7 +127,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
     public function testShouldGetLastErrors()
     {
         // Arrange
-        $repo = new Repository;
+        $repo = new Repository();
         $errors = ['foo', 'bar'];
 
         // Act

@@ -1,17 +1,19 @@
 <?php
+
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use MongoDB\BSON\ObjectID;
 use Mongolid\Connection\Pool;
 use stdClass;
-use Exception;
 
 class MigrationCommand extends Command
 {
     /**
      * Command Name.
+     *
      * @var string
      */
     protected $name = 'migrate';
@@ -65,6 +67,7 @@ class MigrationCommand extends Command
 
         if ($this->option('rollback')) {
             $this->migrateDown($migrations, $this->option('steps'));
+
             return;
         }
 
@@ -72,10 +75,10 @@ class MigrationCommand extends Command
     }
 
     /**
-     * Migrate up $steps
+     * Migrate up $steps.
      *
-     * @param  array   $migrations List of migration files
-     * @param  integer $steps      Amount of migration files to run
+     * @param array $migrations List of migration files
+     * @param int   $steps      Amount of migration files to run
      *
      * @return void
      */
@@ -97,10 +100,10 @@ class MigrationCommand extends Command
     }
 
     /**
-     * Migrate down $steps
+     * Migrate down $steps.
      *
-     * @param  array   $migrations List of migration files
-     * @param  integer $steps      Amount of migration files to run
+     * @param array $migrations List of migration files
+     * @param int   $steps      Amount of migration files to run
      *
      * @return void
      */
@@ -125,9 +128,9 @@ class MigrationCommand extends Command
     }
 
     /**
-     * Figure out the class name by looking at the filename
+     * Figure out the class name by looking at the filename.
      *
-     * @param  string $filename Name of the migration file
+     * @param string $filename Name of the migration file
      *
      * @return string Class name
      */
@@ -135,7 +138,7 @@ class MigrationCommand extends Command
     {
         preg_match("/[\d_]+(\D+)/", $filename, $matches);
 
-        if (! $matches[1] ?? null) {
+        if (!$matches[1] ?? null) {
             throw new Exception("Unable to resolve class name for migration $filename.", 25);
         }
 
@@ -143,22 +146,21 @@ class MigrationCommand extends Command
     }
 
     /**
-     * Run the migration
+     * Run the migration.
      *
-     * @param  string $className Migration class
-     * @param  string $direction Method to be called. Usually 'up' or 'down'.
+     * @param string $className Migration class
+     * @param string $direction Method to be called. Usually 'up' or 'down'.
      *
      * @return void
      */
     protected function runMigration($className, $direction = 'up')
     {
-        $migrationObject = new $className;
+        $migrationObject = new $className();
         $migrationObject->$direction($this->db);
     }
 
-
     /**
-     * Gets the name of the latest runned migration
+     * Gets the name of the latest runned migration.
      *
      * @return string
      */
@@ -170,18 +172,18 @@ class MigrationCommand extends Command
     }
 
     /**
-     * Stores the name of the latest runned migration
+     * Stores the name of the latest runned migration.
      *
      * @param void
      */
     protected function setLastRunnedMigration($migrationName)
     {
-        $document = $this->db->migrations->findOne() ?: new stdClass;
+        $document = $this->db->migrations->findOne() ?: new stdClass();
 
         $document->filename = $migrationName;
 
         $this->db->migrations->replaceOne(
-            ['_id' => $document->_id ?? new ObjectID],
+            ['_id' => $document->_id ?? new ObjectID()],
             $document,
             ['upsert' => true]
         );

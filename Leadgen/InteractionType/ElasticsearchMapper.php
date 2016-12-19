@@ -1,21 +1,24 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
 use Elasticsearch\Client;
 
 /**
- * Updates the Mapping of an InteractionType in Elasticsearch
+ * Updates the Mapping of an InteractionType in Elasticsearch.
  */
 class ElasticsearchMapper
 {
     /**
-     * Elasticsearch client
+     * Elasticsearch client.
+     *
      * @var Client
      */
     protected $elasticsearch;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
+     *
      * @param Client $elasticsearch Elasticsearch Client to be injected.
      */
     public function __construct(Client $elasticsearch)
@@ -26,9 +29,9 @@ class ElasticsearchMapper
     /**
      * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  InteractionType $interactionType InteractionType being updated.
+     * @param InteractionType $interactionType InteractionType being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function map(InteractionType $interactionType)
     {
@@ -39,9 +42,9 @@ class ElasticsearchMapper
     /**
      * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  InteractionType $interactionType InteractionType being updated.
+     * @param InteractionType $interactionType InteractionType being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function mapInteractions(InteractionType $interactionType)
     {
@@ -49,36 +52,36 @@ class ElasticsearchMapper
 
         $mapping = [
             'index' => $indexName,
-            'type' => 'Interaction',
-            'body' => [
+            'type'  => 'Interaction',
+            'body'  => [
                 'Interaction' => [
                     'properties' => array_merge(
                         $this->buildProperties($interactionType),
                         [
                             'author' => [
-                                'type' => 'string',
-                                'index' => 'not_analyzed'
+                                'type'  => 'string',
+                                'index' => 'not_analyzed',
                             ],
                             'authorId' => [
-                                'type' => 'string',
-                                'index' => 'not_analyzed'
+                                'type'  => 'string',
+                                'index' => 'not_analyzed',
                             ],
                             'interaction' => [
-                                'type' =>  'string',
-                                'index' => 'not_analyzed'
+                                'type'  => 'string',
+                                'index' => 'not_analyzed',
                             ],
                             'channel' => [
-                                'type' =>  'string',
-                                'index' => 'not_analyzed'
+                                'type'  => 'string',
+                                'index' => 'not_analyzed',
                             ],
                             'created_at' => [
-                                'type' => 'date',
-                                'format' => 'date_hour_minute'
+                                'type'   => 'date',
+                                'format' => 'date_hour_minute',
                             ],
                         ]
                     ),
-                ]
-            ]
+                ],
+            ],
         ];
 
         // Update the index mapping
@@ -90,9 +93,9 @@ class ElasticsearchMapper
     /**
      * Updates the mapping of the given InteractionType in ES.
      *
-     * @param  InteractionType $interactionType InteractionType being updated.
+     * @param InteractionType $interactionType InteractionType being updated.
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function mapCustomers(InteractionType $interactionType)
     {
@@ -100,57 +103,57 @@ class ElasticsearchMapper
 
         $mapping = [
             'index' => $indexName,
-            'type' => 'Customer',
-            'body' => [
+            'type'  => 'Customer',
+            'body'  => [
                 'Customer' => [
                     'properties' => [
                         'docNumber' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'email' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'name' => [
-                            'type' =>  'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'location' => [
-                            'type' => 'string',
-                            'index' => 'not_analyzed'
+                            'type'  => 'string',
+                            'index' => 'not_analyzed',
                         ],
                         'interactions' => [
-                            'type' =>  'nested',
+                            'type'       => 'nested',
                             'properties' => array_merge(
                                 $this->buildProperties($interactionType),
                                 [
                                     'interaction' => [
-                                        'type' =>  'string',
-                                        'index' => 'not_analyzed'
+                                        'type'  => 'string',
+                                        'index' => 'not_analyzed',
                                     ],
                                     'channel' => [
-                                        'type' =>  'string',
-                                        'index' => 'not_analyzed'
+                                        'type'  => 'string',
+                                        'index' => 'not_analyzed',
                                     ],
                                     'created_at' => [
-                                        'type' => 'date',
-                                        'format' => 'date_hour_minute'
+                                        'type'   => 'date',
+                                        'format' => 'date_hour_minute',
                                     ],
                                 ]
-                            )
+                            ),
                         ],
                         'created_at' => [
-                            'type' => 'date',
-                            'format' => 'date_hour_minute'
+                            'type'   => 'date',
+                            'format' => 'date_hour_minute',
                         ],
                         'updated_at' => [
-                            'type' => 'date',
-                            'format' => 'date_hour_minute'
+                            'type'   => 'date',
+                            'format' => 'date_hour_minute',
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
 
         // Update the index mapping
@@ -160,9 +163,9 @@ class ElasticsearchMapper
     }
 
     /**
-     * Build the properties of the given interactionType to be mapped in elasticsearch
+     * Build the properties of the given interactionType to be mapped in elasticsearch.
      *
-     * @param  InteractionType $interactionType That will have its properties parsed for es.
+     * @param InteractionType $interactionType That will have its properties parsed for es.
      *
      * @return array
      */
@@ -173,8 +176,8 @@ class ElasticsearchMapper
         foreach ($interactionType->params() as $param) {
             $paramEsType = $param->type == 'string' ? 'string' : 'float';
             $properties['params/'.$param->name."/$paramEsType"] = [
-                'type' => $paramEsType,
-                'index' => 'not_analyzed'
+                'type'  => $paramEsType,
+                'index' => 'not_analyzed',
             ];
         }
 

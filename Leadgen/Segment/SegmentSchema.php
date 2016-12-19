@@ -5,7 +5,7 @@ namespace Leadgen\Segment;
 use Mongolid\Schema;
 
 /**
- * The SegmentSchema defines how a Segment document will look like
+ * The SegmentSchema defines how a Segment document will look like.
  *
  * @SWG\Definition(
  *     type="object",
@@ -17,7 +17,7 @@ class SegmentSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
-     * retrieved from
+     * retrieved from.
      *
      * @var string
      */
@@ -57,12 +57,12 @@ class SegmentSchema extends Schema
      *     ref="#/definitions/Ruleset"
      * )
      */
-    public $fields  = [
-        '_id'   => 'objectId',
-        'name'  => 'string',
-        'slug'  => 'string',
-        'rules' => 'schema.'.RulesetSchema::class,
+    public $fields = [
+        '_id'        => 'objectId',
+        'name'       => 'string',
+        'slug'       => 'string',
+        'rules'      => 'schema.'.RulesetSchema::class,
         'created_at' => 'createdAtTimestamp',
-        'updated_at' => 'updatedAtTimestamp'
+        'updated_at' => 'updatedAtTimestamp',
     ];
 }

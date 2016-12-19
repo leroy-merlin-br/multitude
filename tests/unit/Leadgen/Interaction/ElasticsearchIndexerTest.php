@@ -1,37 +1,37 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use Elasticsearch\Client;
-use Leadgen\Interaction\ElasticsearchCaster;
+use Mockery as m;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDateTime;
 use PHPUnit_Framework_TestCase;
-use Mockery as m;
 
 /**
- * Index `Interaction`s into Elasticsearch
+ * Index `Interaction`s into Elasticsearch.
  */
 class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
 {
     public function bulkIndexDataProvider()
     {
-        $interactionA = new Interaction;
+        $interactionA = new Interaction();
         $interactionA->fill([
-            '_id' => new ObjectId('507f1f77bcf86cd799439011'),
+            '_id'    => new ObjectId('507f1f77bcf86cd799439011'),
             'params' => [
-                'something' => 'somevalue',
-                'somenumber' => 2.3
+                'something'  => 'somevalue',
+                'somenumber' => 2.3,
             ],
             'created_at' => new UTCDateTime(new \DateTime('2016-12-17')),
             'updated_at' => new UTCDateTime(new \DateTime('2016-12-18')),
         ]);
 
-        $interactionB = new Interaction;
+        $interactionB = new Interaction();
         $interactionB->fill([
-            '_id' => new ObjectId('507f191e810c19729de860ea'),
+            '_id'    => new ObjectId('507f191e810c19729de860ea'),
             'params' => [
-                'something' => 'somevalue',
-                'somenumber' => 2.3
+                'something'  => 'somevalue',
+                'somenumber' => 2.3,
             ],
             'created_at' => new UTCDateTime(new \DateTime('2016-12-17')),
             'updated_at' => new UTCDateTime(new \DateTime('2016-12-18')),
@@ -41,40 +41,40 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
             // ---------------
             'single interaction' => [
                 '$interactions' => [
-                    $interactionA
+                    $interactionA,
                 ],
                 '$indexExpectation' => [
                     'body' => [
                         [
                             'index' => [
                                 '_index' => 'leadgen',
-                                '_type' => 'Interaction',
-                                '_id' => '507f1f77bcf86cd799439011'
-                            ]
+                                '_type'  => 'Interaction',
+                                '_id'    => '507f1f77bcf86cd799439011',
+                            ],
                         ],
                         [
                             'params' => [
-                                'params/something/string' => 'somevalue',
-                                'params/somenumber/float' => 2.3,
-                                'params/somenumber/string' => 2.3
+                                'params/something/string'  => 'somevalue',
+                                'params/somenumber/float'  => 2.3,
+                                'params/somenumber/string' => 2.3,
                             ],
                             'created_at' => '2016-12-17T12:00',
-                            'updated_at' => '2016-12-18T12:00'
+                            'updated_at' => '2016-12-18T12:00',
                         ],
-                    ]
+                    ],
                 ],
                 '$indexResponse' => [
                     'items' => [
                         [
                             'index' => [
                                 'status' => 201,
-                                '_id' => '507f1f77bcf86cd799439011'
-                            ]
-                        ]
-                    ]
+                                '_id'    => '507f1f77bcf86cd799439011',
+                            ],
+                        ],
+                    ],
                 ],
                 '$outputExpectation' => [
-                    new ObjectID('507f1f77bcf86cd799439011')
+                    new ObjectID('507f1f77bcf86cd799439011'),
                 ],
 
             ],
@@ -83,56 +83,56 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
             'multiple interactions' => [
                 '$interactions' => [
                     $interactionA,
-                    $interactionB
+                    $interactionB,
                 ],
                 '$indexExpectation' => [
                     'body' => [
                         [
                             'index' => [
                                 '_index' => 'leadgen',
-                                '_type' => 'Interaction',
-                                '_id' => '507f1f77bcf86cd799439011'
-                            ]
+                                '_type'  => 'Interaction',
+                                '_id'    => '507f1f77bcf86cd799439011',
+                            ],
                         ],
                         [
                             'params' => [
-                                'params/something/string' => 'somevalue',
-                                'params/somenumber/float' => 2.3,
-                                'params/somenumber/string' => 2.3
+                                'params/something/string'  => 'somevalue',
+                                'params/somenumber/float'  => 2.3,
+                                'params/somenumber/string' => 2.3,
                             ],
                             'created_at' => '2016-12-17T12:00',
-                            'updated_at' => '2016-12-18T12:00'
+                            'updated_at' => '2016-12-18T12:00',
                         ],
                         [
                             'index' => [
                                 '_index' => 'leadgen',
-                                '_type' => 'Interaction',
-                                '_id' => '507f191e810c19729de860ea'
-                            ]
+                                '_type'  => 'Interaction',
+                                '_id'    => '507f191e810c19729de860ea',
+                            ],
                         ],
                         [
                             'params' => [
-                                'params/something/string' => 'somevalue',
-                                'params/somenumber/float' => 2.3,
-                                'params/somenumber/string' => 2.3
+                                'params/something/string'  => 'somevalue',
+                                'params/somenumber/float'  => 2.3,
+                                'params/somenumber/string' => 2.3,
                             ],
                             'created_at' => '2016-12-17T12:00',
-                            'updated_at' => '2016-12-18T12:00'
+                            'updated_at' => '2016-12-18T12:00',
                         ],
-                    ]
+                    ],
                 ],
                 '$indexResponse' => [
                     'items' => [
                         [
                             'index' => [
                                 'status' => 201,
-                                '_id' => '507f191e810c19729de860ea'
-                            ]
-                        ]
-                    ]
+                                '_id'    => '507f191e810c19729de860ea',
+                            ],
+                        ],
+                    ],
                 ],
                 '$outputExpectation' => [
-                    new ObjectID('507f191e810c19729de860ea')
+                    new ObjectID('507f191e810c19729de860ea'),
                 ],
             ],
 
@@ -154,6 +154,7 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
         $elasticsearch->shouldReceive('bulk')
             ->andReturnUsing(function ($params) use ($test, $indexExpectation, $indexResponse) {
                 $this->assertEquals($indexExpectation, $params);
+
                 return $indexResponse;
             });
 

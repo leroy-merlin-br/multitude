@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
@@ -27,7 +28,7 @@ class InteractionTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(
             InteractionSchema::class,
             'fields',
-            (new Interaction)
+            (new Interaction())
         );
     }
 
@@ -52,13 +53,13 @@ class InteractionTest extends PHPUnit_Framework_TestCase
     public function testShouldSanitizeItsFields()
     {
         // Arrange
-        $interaction = new Interaction;
+        $interaction = new Interaction();
         $interactionTypeRepo = m::mock();
         $interactionType = (object) ['_id' => 123];
 
         $interaction->fill([
-            'author' => 'foo%40bar.com',
-            'interaction' => 'done-something'
+            'author'      => 'foo%40bar.com',
+            'interaction' => 'done-something',
         ], true);
 
         // Act
@@ -73,9 +74,9 @@ class InteractionTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                'author' => 'foo@bar.com',
-                'authorId' => md5('foo@bar.com'),
-                'interaction' => 'done-something',
+                'author'        => 'foo@bar.com',
+                'authorId'      => md5('foo@bar.com'),
+                'interaction'   => 'done-something',
                 'interactionId' => 123,
             ],
             $interaction->attributes
@@ -87,31 +88,31 @@ class InteractionTest extends PHPUnit_Framework_TestCase
         return [
             // ----------------------
             'all valid' => [
-                '$areAttributesValid' => true,
+                '$areAttributesValid'             => true,
                 '$interactionTypeAttributeErrors' => [],
-                '$expected' => true
+                '$expected'                       => true,
             ],
 
             // // ----------------------
             'base validation failed' => [
-                '$areAttributesValid' => false,
+                '$areAttributesValid'             => false,
                 '$interactionTypeAttributeErrors' => [],
-                '$expected' => false
+                '$expected'                       => false,
             ],
 
             // ----------------------
             'interaction type validation fails' => [
-                '$areAttributesValid' => false,
+                '$areAttributesValid'             => false,
                 '$interactionTypeAttributeErrors' => ['There is a problem with the interaction paramas'],
-                '$expected' => false
+                '$expected'                       => false,
             ],
 
             // ----------------------
             'with model not found exception' => [
-                '$areAttributesValid' => true,
+                '$areAttributesValid'             => true,
                 '$interactionTypeAttributeErrors' => [],
-                '$expected' => false,
-                '$exception' => true
+                '$expected'                       => false,
+                '$exception'                      => true,
             ],
         ];
     }
@@ -119,7 +120,7 @@ class InteractionTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider validationDataProvider
      */
-    public function testShouldValidateAttributes($areAttributesValid ,$interactionTypeAttributeErrors, $expected, $exception = false)
+    public function testShouldValidateAttributes($areAttributesValid, $interactionTypeAttributeErrors, $expected, $exception = false)
     {
         // Arrange
         $interaction = m::mock(Interaction::class.'[interactionType,sanitize]');
@@ -136,7 +137,7 @@ class InteractionTest extends PHPUnit_Framework_TestCase
             ->andReturn($lumenValidation);
 
         $lumenValidation->shouldReceive('fails')
-            ->andReturn(! $areAttributesValid);
+            ->andReturn(!$areAttributesValid);
 
         $lumenValidation->shouldReceive('errors')
             ->andReturn(new MessageBag(['damn']));
@@ -162,14 +163,14 @@ class InteractionTest extends PHPUnit_Framework_TestCase
         return [
             // ----------------------
             'no errors' => [
-                '$errors' => [],
-                '$expected' => true
+                '$errors'   => [],
+                '$expected' => true,
             ],
 
             // ----------------------
             'with errors' => [
-                '$errors' => ['foo', 'bar'],
-                '$expected' => false
+                '$errors'   => ['foo', 'bar'],
+                '$expected' => false,
             ],
         ];
     }

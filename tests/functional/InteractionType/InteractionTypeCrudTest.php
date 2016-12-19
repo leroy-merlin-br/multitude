@@ -1,9 +1,10 @@
 <?php
+
 namespace Leadgen\InteractionType;
 
+use InteractionTypeSeeder;
 use MongoDB\BSON\ObjectID;
 use TestCase;
-use InteractionTypeSeeder;
 
 class InteractionTypeCrudTest extends TestCase
 {
@@ -40,12 +41,12 @@ class InteractionTypeCrudTest extends TestCase
                             '*' => [
                                 '_id',
                                 'name',
-                                'type'
-                            ]
-                        ]
-                    ]
+                                'type',
+                            ],
+                        ],
+                    ],
                 ],
-                'errors'
+                'errors',
             ])
             ->seeStatusCode(200);
     }
@@ -54,21 +55,21 @@ class InteractionTypeCrudTest extends TestCase
     {
         // Given
         $interactionTypeData = [
-            '_id' => new ObjectID('57aa81fb0374aa1940330001'),
-            'name' => "Posted a review",
-            'slug' => 'posted-review',
+            '_id'    => new ObjectID('57aa81fb0374aa1940330001'),
+            'name'   => 'Posted a review',
+            'slug'   => 'posted-review',
             'params' => [
                 [
-                    'name' => 'product-id',
-                    'type' => 'numeric',
+                    'name'     => 'product-id',
+                    'type'     => 'numeric',
                     'required' => true,
                 ],
                 [
-                    'name' => 'rating',
-                    'type' => 'numeric',
+                    'name'     => 'rating',
+                    'type'     => 'numeric',
                     'required' => false,
                 ],
-            ]
+            ],
         ];
 
         // When
@@ -86,11 +87,11 @@ class InteractionTypeCrudTest extends TestCase
                         '*' => [
                             '_id',
                             'name',
-                            'type'
-                        ]
-                    ]
+                            'type',
+                        ],
+                    ],
                 ],
-                'errors'
+                'errors',
             ])
             ->seeStatusCode(201);
 
@@ -110,11 +111,11 @@ class InteractionTypeCrudTest extends TestCase
                         '*' => [
                             '_id',
                             'name',
-                            'type'
-                        ]
-                    ]
+                            'type',
+                        ],
+                    ],
                 ],
-                'errors'
+                'errors',
             ]);
     }
 
@@ -122,16 +123,16 @@ class InteractionTypeCrudTest extends TestCase
     {
         // Given
         $interactionTypeData = [
-            '_id' => new ObjectID('57aa81fb0374aa1940330001'),
-            'name' => "Posted a review",
-            'slug' => null, // Invalid
+            '_id'    => new ObjectID('57aa81fb0374aa1940330001'),
+            'name'   => 'Posted a review',
+            'slug'   => null, // Invalid
             'params' => [
                 [
-                    'name' => 'product-id',
-                    'type' => 'numeric',
+                    'name'     => 'product-id',
+                    'type'     => 'numeric',
                     'required' => true,
                 ],
-            ]
+            ],
         ];
 
         // When
@@ -140,7 +141,7 @@ class InteractionTypeCrudTest extends TestCase
         // Then
         $this->seeJson([
                 'status' => 'bad request',
-                'errors' => ['The slug field is required.']
+                'errors' => ['The slug field is required.'],
             ])
             ->seeStatusCode(400);
     }
@@ -150,8 +151,8 @@ class InteractionTypeCrudTest extends TestCase
         // Given
         $this->haveInteractionsIntoDatabase();
         $newData = [
-            '_id' => '57aa7f2c037421193c333952',
-            'name' => "Looked for",
+            '_id'  => '57aa7f2c037421193c333952',
+            'name' => 'Looked for',
             'slug' => 'looked-for',
         ];
 
@@ -170,11 +171,11 @@ class InteractionTypeCrudTest extends TestCase
                         '*' => [
                             '_id',
                             'name',
-                            'type'
-                        ]
-                    ]
+                            'type',
+                        ],
+                    ],
                 ],
-                'errors'
+                'errors',
             ])
             ->seeStatusCode(200);
 
@@ -188,7 +189,7 @@ class InteractionTypeCrudTest extends TestCase
 
     protected function haveInteractionsIntoDatabase()
     {
-        (new InteractionTypeSeeder)->run();
+        (new InteractionTypeSeeder())->run();
     }
 
     protected function see($content)

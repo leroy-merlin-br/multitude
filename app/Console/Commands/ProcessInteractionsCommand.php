@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -8,8 +9,6 @@ use Leadgen\Interaction\ElasticsearchIndexer as InteractionIndexer;
 use Leadgen\Interaction\Interaction;
 use Leadgen\Interaction\Repository;
 use MongoDB\Driver\WriteConcern;
-use Swagger;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * This command have the purpose of "crunching" the data of the latest
@@ -19,6 +18,7 @@ class ProcessInteractionsCommand extends Command
 {
     /**
      * Command Name.
+     *
      * @var string
      */
     protected $name = 'leadgen:proc-interaction';
@@ -31,25 +31,29 @@ class ProcessInteractionsCommand extends Command
     protected $description = 'Process newly added interactions.';
 
     /**
-     * Repository of interactions that will be used
+     * Repository of interactions that will be used.
+     *
      * @var Repository
      */
     protected $interactionRepo;
 
     /**
-     * Indexer instance that will be used to index interactions into Elasticsearch
+     * Indexer instance that will be used to index interactions into Elasticsearch.
+     *
      * @var \Leadgen\Interaction\ElasticsearchIndexer
      */
     protected $interactionIndexer;
 
     /**
-     * Indexer instance that will be used to index sustomers into Elasticsearch
+     * Indexer instance that will be used to index sustomers into Elasticsearch.
+     *
      * @var \Leadgen\Customer\ElasticsearchIndexer
      */
     protected $customerIndexer;
 
     /**
      * Customer interaction parser instance that will be used process interactions to the Customers.
+     *
      * @var InteractionParser
      */
     protected $interactionParser;
@@ -69,7 +73,7 @@ class ProcessInteractionsCommand extends Command
     }
 
     /**
-     * Performs the command
+     * Performs the command.
      */
     public function fire()
     {
@@ -77,7 +81,7 @@ class ProcessInteractionsCommand extends Command
 
         if ($count = count($interactions)) {
             $processedIds = $this->interactionIndexer->index($interactions);
-            $customers    = $this->interactionParser->parse($interactions);
+            $customers = $this->interactionParser->parse($interactions);
 
             $this->markAsAknowledged($processedIds);
             $this->customerIndexer->index($customers);
@@ -90,15 +94,15 @@ class ProcessInteractionsCommand extends Command
     }
 
     /**
-     * Mark a series of `Interaction`s as aknowledged
+     * Mark a series of `Interaction`s as aknowledged.
      *
-     * @param  array  $idList List of _id of interactions
+     * @param array $idList List of _id of interactions
      *
-     * @return boolean  Success
+     * @return bool Success
      */
     protected function markAsAknowledged(array $idList)
     {
-        (new Interaction)->collection()->updateMany(
+        (new Interaction())->collection()->updateMany(
             [
                 '_id' => [
                     '$in' => $idList,

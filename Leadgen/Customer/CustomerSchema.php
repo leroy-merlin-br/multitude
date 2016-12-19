@@ -1,11 +1,12 @@
 <?php
+
 namespace Leadgen\Customer;
 
 use Leadgen\Interaction\InteractionSchema;
 use Mongolid\Schema;
 
 /**
- * The CustomerSchema defines how a Customer document will look like
+ * The CustomerSchema defines how a Customer document will look like.
  *
  * @SWG\Definition(
  *     type="object",
@@ -16,7 +17,7 @@ class CustomerSchema extends Schema
 {
     /**
      * Name of the collection where this kind of Entity is going to be saved or
-     * retrieved from
+     * retrieved from.
      *
      * @var string
      */
@@ -63,13 +64,13 @@ class CustomerSchema extends Schema
      *     )
      * )
      */
-    public $fields  = [
-        '_id' => 'string',
-        'docNumber' => 'string',
-        'email' => 'string',
-        'name' => 'string',
+    public $fields = [
+        '_id'          => 'string',
+        'docNumber'    => 'string',
+        'email'        => 'string',
+        'name'         => 'string',
         'interactions' => 'schema.'.InteractionSchema::class,
-        'created_at' => 'createdAtTimestamp',
-        'updated_at' => 'updatedAtTimestamp'
+        'created_at'   => 'createdAtTimestamp',
+        'updated_at'   => 'updatedAtTimestamp',
     ];
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Leadgen\Customer;
 
 use Leadgen\Interaction\Interaction;
@@ -22,7 +23,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(
             CustomerSchema::class,
             'fields',
-            (new Customer)
+            (new Customer())
         );
     }
 
@@ -30,7 +31,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         $expected = [
-            'email'   => 'email'
+            'email'   => 'email',
         ];
 
         // Assert

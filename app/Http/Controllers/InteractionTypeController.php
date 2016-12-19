@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,26 +14,28 @@ use Leadgen\InteractionType\Repository;
 class InteractionTypeController extends ApiController
 {
     /**
-     * InteractionType repository
+     * InteractionType repository.
+     *
      * @var Repository
      */
     protected $repo;
 
     /**
-     * To build the server response
+     * To build the server response.
+     *
      * @var ResponseBuilder;
      */
     protected $responseBuilder;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Repository      $repo            InteractionType repository.
      * @param ResponseBuilder $responseBuilder To build the server response.
      */
     public function __construct(Repository $repo, ResponseBuilder $responseBuilder)
     {
-        $this->repo            = $repo;
+        $this->repo = $repo;
         $this->responseBuilder = $responseBuilder;
     }
 
@@ -64,7 +65,7 @@ class InteractionTypeController extends ApiController
     {
         $interactionType = $this->repo->createNew($request->all());
 
-        if (! $interactionType) {
+        if (!$interactionType) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
@@ -77,7 +78,7 @@ class InteractionTypeController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  mixed $id Id of the resource.
+     * @param mixed $id Id of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -101,7 +102,7 @@ class InteractionTypeController extends ApiController
     {
         $interactionType = $this->repo->findExisting($id);
 
-        if (! $this->repo->updateExisting($interactionType, $request->all())) {
+        if (!$this->repo->updateExisting($interactionType, $request->all())) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }
@@ -121,7 +122,7 @@ class InteractionTypeController extends ApiController
     {
         $interactionType = $this->repo->findExisting($id);
 
-        if (! $this->repo->deleteExisting($interactionType)) {
+        if (!$this->repo->deleteExisting($interactionType)) {
             return $this->responseBuilder
                 ->respondBadRequest(null, $this->repo->getLastErrors());
         }

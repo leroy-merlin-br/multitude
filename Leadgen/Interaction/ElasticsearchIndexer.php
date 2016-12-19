@@ -1,23 +1,25 @@
 <?php
+
 namespace Leadgen\Interaction;
 
 use Elasticsearch\Client;
-use Leadgen\Interaction\ElasticsearchCaster;
 use MongoDB\BSON\ObjectID;
 
 /**
- * Index `Interaction`s into Elasticsearch
+ * Index `Interaction`s into Elasticsearch.
  */
 class ElasticsearchIndexer
 {
     /**
-     * Elasticsearch client
+     * Elasticsearch client.
+     *
      * @var Client
      */
     protected $elasticsearch;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
+     *
      * @param Client $elasticsearch Elasticsearch Client to be injected.
      */
     public function __construct(Client $elasticsearch)
@@ -26,11 +28,11 @@ class ElasticsearchIndexer
     }
 
     /**
-     * Index a set of interactions into elasticsearch
+     * Index a set of interactions into elasticsearch.
      *
-     * @param  Interaction[] $interactions Interactions to be indexed
+     * @param Interaction[] $interactions Interactions to be indexed
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function index($interactions)
     {
@@ -55,9 +57,9 @@ class ElasticsearchIndexer
             $params['body'][] = [
                 'index' => [
                     '_index' => $indexName,
-                    '_type' => 'Interaction',
-                    '_id' => (string) $interaction->_id,
-                ]
+                    '_type'  => 'Interaction',
+                    '_id'    => (string) $interaction->_id,
+                ],
             ];
 
             $params['body'][] = $this->parseInteraction($interaction);
@@ -67,9 +69,9 @@ class ElasticsearchIndexer
     }
 
     /**
-     * Parses the fields of an Interaction in order to retrieve
+     * Parses the fields of an Interaction in order to retrieve.
      *
-     * @param  Interaction $interaction Interacrion that will have it's attributes retrieved
+     * @param Interaction $interaction Interacrion that will have it's attributes retrieved
      *
      * @return array
      */

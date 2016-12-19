@@ -1,8 +1,7 @@
 <?php
+
 namespace Leadgen\Customer;
 
-use Leadgen\Customer\Customer;
-use Leadgen\Customer\Repository;
 use Leadgen\Interaction\Interaction;
 use Mockery as m;
 use Mongolid\Cursor\EmbeddedCursor;
@@ -24,82 +23,82 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
             'interactions a customer that exists' => [
                 '$customersInDatabase' => [
                     [
-                        '_id' => 123,
-                        'email' => 'johndoe@example.com'
+                        '_id'   => 123,
+                        'email' => 'johndoe@example.com',
                     ],
                 ],
                 '$interactionsToBeParsed' => [
                     ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                     ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c']
+                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
                 ],
                 '$expectedTouchedCustomers' => [
                     [
-                        '_id' => 123,
-                        'email' => 'johndoe@example.com',
+                        '_id'          => 123,
+                        'email'        => 'johndoe@example.com',
                         'interactions' => [
                             ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                             ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c']
-                        ]
+                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
+                        ],
                     ],
-                ]
+                ],
             ],
 
             // ----------------
             'interactions a customer that don\'t exists yet' => [
-                '$customersInDatabase' => [],
+                '$customersInDatabase'    => [],
                 '$interactionsToBeParsed' => [
                     ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                     ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c']
+                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
                 ],
                 '$expectedTouchedCustomers' => [
                     [
-                        '_id' => 123,
-                        'docNumber' => null,
+                        '_id'          => 123,
+                        'docNumber'    => null,
                         'interactions' => [
                             ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                             ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c']
-                        ]
+                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
+                        ],
                     ],
-                ]
+                ],
             ],
 
             // ----------------
             'mixed interactions' => [
                 '$customersInDatabase' => [
                     [
-                        '_id' => 123,
-                        'email' => 'johndoe@example.com'
+                        '_id'   => 123,
+                        'email' => 'johndoe@example.com',
                     ],
                 ],
                 '$interactionsToBeParsed' => [
                     ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                     ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
                     ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
-                    ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net']
+                    ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
                 ],
                 '$expectedTouchedCustomers' => [
                     [
-                        '_id' => 123,
-                        'email' => 'johndoe@example.com',
+                        '_id'          => 123,
+                        'email'        => 'johndoe@example.com',
                         'interactions' => [
                             ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
                             ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                        ]
+                        ],
                     ],
                     [
-                        '_id' => 456,
-                        'docNumber' => null,
-                        'email' => 'example@zizaco.net',
+                        '_id'          => 456,
+                        'docNumber'    => null,
+                        'email'        => 'example@zizaco.net',
                         'interactions' => [
                             ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
                             ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
-                        ]
+                        ],
                     ],
-                ]
+                ],
             ],
             // ----------------
         ];
@@ -121,7 +120,7 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
         $interactions = [];
         $customerIds = [];
         foreach ($interactionsToBeParsed as $key => $entityAttributes) {
-            $interactions[$key] = new Interaction;
+            $interactions[$key] = new Interaction();
             $interactions[$key]->fill($entityAttributes);
             $customerIds[] = $entityAttributes['authorId'];
         }

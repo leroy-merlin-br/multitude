@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
 use Leadgen\Customer\Repository;
@@ -14,26 +13,28 @@ use Leadgen\Segment\RulesetPreviewService;
 class CustomerController extends ApiController
 {
     /**
-     * InteractionType repository
+     * InteractionType repository.
+     *
      * @var Repository
      */
     protected $repo;
 
     /**
-     * To build the server response
+     * To build the server response.
+     *
      * @var ResponseBuilder;
      */
     protected $responseBuilder;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Repository      $repo            InteractionType repository.
      * @param ResponseBuilder $responseBuilder To build the server response.
      */
     public function __construct(Repository $repo, ResponseBuilder $responseBuilder)
     {
-        $this->repo            = $repo;
+        $this->repo = $repo;
         $this->responseBuilder = $responseBuilder;
     }
 
@@ -129,7 +130,7 @@ class CustomerController extends ApiController
      *     )
      * )
      *
-     * @param  mixed $id Id of the resource.
+     * @param mixed $id Id of the resource.
      *
      * @return \Illuminate\Http\Response
      */
