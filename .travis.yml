@@ -1,0 +1,11 @@
+sudo: required
+
+services:
+  - docker
+
+before_script:
+  - cp .env.example .env
+  - docker-compose run webapp composer install --no-interaction
+
+script:
+  - make test
