@@ -11,6 +11,9 @@ before_script:
   - cp .env.example .env
   - docker-compose build > /dev/null
   - docker-compose run webapp composer install --no-interaction
+  - docker-compose run webapp php artisan migrate
+  - docker-compose run webapp php artisan db:searchindex
+  - docker-compose run webapp php artisan db:seed
 
 script:
   - make test

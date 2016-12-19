@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\MakeMigrationCommand;
 use App\Console\Commands\MigrationCommand;
 use App\Console\Commands\ProcessInteractionsCommand;
+use App\Console\Commands\SearchIndexCommand;
 use App\Console\Commands\SwaggerGenerateCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         ProcessInteractionsCommand::class,
         MigrationCommand::class,
         MakeMigrationCommand::class,
+        SearchIndexCommand::class,
     ];
 
     /**
