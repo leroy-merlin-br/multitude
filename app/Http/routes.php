@@ -19,7 +19,7 @@ $resource = function ($name, $controller) use ($app) {
     $app->delete("$name/{id}", ['as' => "$name.delete", 'uses' => "$controller@destroy"]);
 };
 
-/*
+/**
  * @SWG\Swagger(
  *     host="{{ $host }}",
  *     basePath="/api/v1",
@@ -39,6 +39,9 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
 
     // Interaction routes
     $app->post('interaction', ['as' => 'interaction.store', 'uses' => 'InteractionController@store']);
+
+    // Segment routes
+    $resource('segment', 'SegmentController');
 
     // Customer routes
     $app->get('customer', ['as' => 'customer.index', 'uses' => 'CustomerController@index']);
