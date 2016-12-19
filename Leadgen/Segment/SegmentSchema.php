@@ -60,13 +60,13 @@ class SegmentSchema extends Schema
      * @SWG\Property(
      *     property="additionInterval",
      *     type="string",
-     *     description="Interval (in cron-job format) to test and add new customers are part of the given segment."
+     *     description="Interval (in cron-job format) to test and add new customers are part of the given segment.",
      *     default="30 0 * * * *"
      * ),
      * @SWG\Property(
      *     property="removalInterval",
      *     type="string",
-     *     description="Interval (in cron-job format) to re-test and remove users from the segment."
+     *     description="Interval (in cron-job format) to re-test and remove users from the segment.",
      *     default="0 0 * * * *"
      * ),
      */
