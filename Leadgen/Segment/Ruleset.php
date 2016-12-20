@@ -19,7 +19,6 @@ class Ruleset extends BaseEntity
      * @var array
      */
     public static $rules = [
-        'name'  => 'required',
         'rules' => 'required|array',
     ];
 }
