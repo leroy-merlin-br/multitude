@@ -4,9 +4,9 @@ namespace Leadgen\InteractionType;
 
 use InteractionTypeSeeder;
 use MongoDB\BSON\ObjectID;
-use TestCase;
+use FunctionalTestCase;
 
-class InteractionTypeCrudTest extends TestCase
+class InteractionTypeCrudTest extends FunctionalTestCase
 {
     public function tearDown()
     {

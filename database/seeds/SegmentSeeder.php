@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Leadgen\Segment\Segment;
-use Mongolid\Serializer\Type\ObjectID;
+use MongoDB\BSON\ObjectID;
 
 class SegmentSeeder extends Seeder
 {
@@ -41,6 +41,8 @@ class SegmentSeeder extends Seeder
                         'category'    => ['Banheira', 'Vasos Sanitários'],
                     ],
                 ],
+                'additionInterval' => '30 0 * * * *',
+                'removalInterval'  => '0 0 * * * *',
             ],
         ];
     }
