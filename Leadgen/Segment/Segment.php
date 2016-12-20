@@ -5,7 +5,12 @@ namespace Leadgen\Segment;
 use Leadgen\Base\BaseEntity;
 
 /**
- * Represents a customer segmentation.
+ * Represents a customer segmentation. An segmentation have an identification (
+ * name, _id, and slug), but also an Ruleset that matches some customers.
+ *
+ * The 'additionInterval' and 'removalInterval' are the frequency in which the
+ * segment will test look for new customers that are part of it, and to remove
+ * customers that are no longer matches by the Ruleset (respectivelly).
  */
 class Segment extends BaseEntity
 {
@@ -49,7 +54,6 @@ class Segment extends BaseEntity
         }
 
         if ($this->ruleset()->isValid()) {
-
             return true;
         }
 
