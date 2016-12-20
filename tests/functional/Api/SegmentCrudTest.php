@@ -1,10 +1,11 @@
 <?php
 
-namespace Leadgen\Segment;
+namespace Leadgen\FunctionalTest\Api;
 
-use SegmentSeeder;
-use MongoDB\BSON\ObjectID;
 use FunctionalTestCase;
+use Leadgen\Segment\Segment;
+use MongoDB\BSON\ObjectID;
+use SegmentSeeder;
 
 class SegmentCrudTest extends FunctionalTestCase
 {

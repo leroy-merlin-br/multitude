@@ -1,10 +1,11 @@
 <?php
 
-namespace Leadgen\InteractionType;
+namespace Leadgen\FunctionalTest\Api;
 
-use InteractionTypeSeeder;
-use MongoDB\BSON\ObjectID;
 use FunctionalTestCase;
+use InteractionTypeSeeder;
+use Leadgen\InteractionType\InteractionType;
+use MongoDB\BSON\ObjectID;
 
 class InteractionTypeCrudTest extends FunctionalTestCase
 {
