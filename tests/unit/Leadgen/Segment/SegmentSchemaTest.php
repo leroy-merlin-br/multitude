@@ -1,7 +1,7 @@
 <?php
 namespace Leadgen\Segment;
 
-use Leadgen\Ruleset\RulesetSchema;
+use Leadgen\Segment\RulesetSchema;
 use PHPUnit_Framework_TestCase;
 
 class SegmentSchemaTest extends PHPUnit_Framework_TestCase

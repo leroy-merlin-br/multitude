@@ -1,6 +1,6 @@
 <?php
 
-namespace Leadgen\Ruleset;
+namespace Leadgen\Segment;
 
 use Mongolid\Schema;
 

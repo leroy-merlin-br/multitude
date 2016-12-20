@@ -3,7 +3,6 @@
 namespace Leadgen\Segment;
 
 use Mongolid\Schema;
-use Leadgen\Ruleset\RulesetSchema;
 
 /**
  * The SegmentSchema defines how a Segment document will look like.
