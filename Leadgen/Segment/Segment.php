@@ -22,24 +22,24 @@ class Segment extends BaseEntity
     protected $fields = SegmentSchema::class;
 
     /**
-     * Basic validation rules of a segment.
+     * Basic validation of a segment attributes
      *
      * @var array
      */
     public static $rules = [
         'name'  => 'required',
         'slug'  => 'required|alpha_dash',
-        'rules' => 'required',
+        'ruleset' => 'required',
     ];
 
     /**
-     * Embeds one Ruleset entity within the rules field
+     * Embeds one Ruleset entity within the ruleset field
      *
      * @return Ruleset Embedded document
      */
     public function ruleset()
     {
-        return $this->embedsOne(Ruleset::class, 'rules');
+        return $this->embedsOne(Ruleset::class, 'ruleset');
     }
 
     /**

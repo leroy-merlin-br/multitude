@@ -13,7 +13,7 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
                 '_id'              => 'objectId',
                 'name'             => 'string',
                 'slug'             => 'string',
-                'rules'            => 'schema.'.RulesetSchema::class,
+                'ruleset'          => 'schema.'.RulesetSchema::class,
                 'additionInterval' => 'cron',
                 'removalInterval'  => 'cron',
                 'created_at'       => 'createdAtTimestamp',

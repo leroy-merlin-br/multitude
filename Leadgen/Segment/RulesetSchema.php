@@ -24,6 +24,14 @@ class RulesetSchema extends Schema
     public $collection = null;
 
     /**
+     * Name of the class that will be used to represent a document of this
+     * Schema when retrieve from the database.
+     *
+     * @var string
+     */
+    public $entityClass = Ruleset::class;
+
+    /**
      * Tells how a document should look like.
      *
      * @var string[]

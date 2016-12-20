@@ -38,7 +38,7 @@ class SegmentCrudTest extends FunctionalTestCase
                         '_id',
                         'name',
                         'slug',
-                        'rules',
+                        'ruleset',
                         'additionInterval',
                         'removalInterval'
                     ],
@@ -55,11 +55,12 @@ class SegmentCrudTest extends FunctionalTestCase
             '_id'   => new ObjectID('57aa7f2c037421193c333952'),
             'name'  => 'Bathroom Project',
             'slug'  => 'bathroom-projetc',
-            'rules' => [
-                'find' => [
+            'ruleset' => [
+                '_id' => new ObjectID('58596c000374213cb9219751'),
+                'rules' => [
                     'interaction' => 'added-to-basket',
                     'category'    => ['Banheira', 'Vasos Sanitários'],
-                ],
+                ]
             ],
             'additionInterval' => '30 0 * * * *',
             'removalInterval'  => '0 0 * * * *',
@@ -76,7 +77,7 @@ class SegmentCrudTest extends FunctionalTestCase
                     '_id',
                     'name',
                     'slug',
-                    'rules',
+                    'ruleset',
                     'additionInterval',
                     'removalInterval'
                 ],
@@ -97,7 +98,7 @@ class SegmentCrudTest extends FunctionalTestCase
                     '_id',
                     'name',
                     'slug',
-                    'rules',
+                    'ruleset',
                     'additionInterval',
                     'removalInterval'
                 ],
@@ -112,7 +113,7 @@ class SegmentCrudTest extends FunctionalTestCase
             '_id'   => new ObjectID('57aa7f2c037421193c333952'),
             'name'  => 'Bathroom Project',
             'slug'  => 'bathroom-projetc',
-            'rules' => null, // Invalid
+            'ruleset' => null, // Invalid
             'additionInterval' => '30 0 * * * *',
             'removalInterval'  => '0 0 * * * *',
         ];
@@ -123,7 +124,7 @@ class SegmentCrudTest extends FunctionalTestCase
         // Then
         $this->seeJson([
                 'status' => 'bad request',
-                'errors' => ['The rules field is required.'],
+                'errors' => ['The ruleset field is required.'],
             ])
             ->seeStatusCode(400);
     }
@@ -149,7 +150,7 @@ class SegmentCrudTest extends FunctionalTestCase
                     '_id',
                     'name',
                     'slug',
-                    'rules',
+                    'ruleset',
                     'additionInterval',
                     'removalInterval'
                 ],

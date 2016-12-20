@@ -35,7 +35,7 @@ class SegmentTest extends PHPUnit_Framework_TestCase
 
         $segment->shouldReceive('embedsOne')
             ->once()
-            ->with(Ruleset::class, 'rules')
+            ->with(Ruleset::class, 'ruleset')
             ->andReturn($ruleset);
 
         // Assert
@@ -73,7 +73,7 @@ class SegmentTest extends PHPUnit_Framework_TestCase
         $segment->fill([
             'name'  => 'Bathroom Project',
             'slug'  => 'bathroom-projetc',
-            'rules' => [$ruleset],
+            'ruleset' => [$ruleset],
             'additionInterval' => '30 0 * * * *',
             'removalInterval'  => '0 0 * * * *',
         ]);

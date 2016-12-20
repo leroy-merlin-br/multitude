@@ -10,7 +10,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="Segment",
- *     required={"name", "slug", "rules"}
+ *     required={"name", "slug", "ruleset"}
  * )
  */
 class SegmentSchema extends Schema
@@ -51,7 +51,7 @@ class SegmentSchema extends Schema
      *     description="A clean string to identify the segment."
      * ),
      * @SWG\Property(
-     *     property="rules",
+     *     property="ruleset",
      *     type="object",
      *     description="The ruleset that determines if a customers is part of the segment.",
      *     ref="#/definitions/Ruleset"
@@ -73,7 +73,7 @@ class SegmentSchema extends Schema
         '_id'              => 'objectId',
         'name'             => 'string',
         'slug'             => 'string',
-        'rules'            => 'schema.'.RulesetSchema::class,
+        'ruleset'          => 'schema.'.RulesetSchema::class,
         'additionInterval' => 'cron',
         'removalInterval'  => 'cron',
         'created_at'       => 'createdAtTimestamp',

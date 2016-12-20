@@ -18,11 +18,11 @@ class SegmentSeeder extends Seeder
                 continue;
             }
 
-            $interactionType = new Segment();
-            $interactionType->fill($document);
+            $segment = new Segment();
+            $segment->fill($document);
 
-            if (!$interactionType->save()) {
-                $this->command->error($interactionType->errors()->__toString());
+            if (!$segment->save()) {
+                $this->command->error($segment->errors()->__toString());
             }
         }
     }
@@ -35,11 +35,12 @@ class SegmentSeeder extends Seeder
                 '_id'   => new ObjectID('57aa7f2c037421193c333952'),
                 'name'  => 'Bathroom Project',
                 'slug'  => 'bathroom-projetc',
-                'rules' => [
-                    'find' => [
+                'ruleset' => [
+                    '_id' => new ObjectID('58596c000374213cb9219751'),
+                    'rules' => [
                         'interaction' => 'added-to-basket',
                         'category'    => ['Banheira', 'Vasos Sanitários'],
-                    ],
+                    ]
                 ],
                 'additionInterval' => '30 0 * * * *',
                 'removalInterval'  => '0 0 * * * *',
