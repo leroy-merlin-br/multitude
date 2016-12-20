@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Leadgen App</title>
-    <script type="text/javascript" src="js/all.js" async></script>
+    <script type="text/javascript" src="/js/all.js" async></script>
 </head>
 <body>
     <div id="page" data-module="PageTransition">
@@ -21,6 +21,6 @@
             @yield('content')
         </div>
     </div>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 </body>
 </html>

@@ -11,12 +11,17 @@
 |
 */
 
-$resource = function ($name, $controller) use ($app) {
-    $app->get($name, ['as' => "$name.index", 'uses' => "$controller@index"]);
-    $app->post($name, ['as' => "$name.store", 'uses' => "$controller@store"]);
-    $app->get("$name/{id}", ['as' => "$name.show", 'uses' => "$controller@show"]);
-    $app->put("$name/{id}", ['as' => "$name.update", 'uses' => "$controller@update"]);
-    $app->delete("$name/{id}", ['as' => "$name.delete", 'uses' => "$controller@destroy"]);
+$resource = function ($name, $controller, $namePrefix = '', $api = true) use ($app) {
+    if (! $api) {
+        $app->get("$name/create", ['as' => "$namePrefix$name.create", 'uses' => "$controller@create"]);
+        $app->get("$name/edit", ['as' => "$namePrefix$name.edit", 'uses' => "$controller@edit"]);
+    }
+
+    $app->get($name, ['as' => "$namePrefix$name.index", 'uses' => "$controller@index"]);
+    $app->post($name, ['as' => "$namePrefix$name.store", 'uses' => "$controller@store"]);
+    $app->get("$name/{id}", ['as' => "$namePrefix$name.show", 'uses' => "$controller@show"]);
+    $app->put("$name/{id}", ['as' => "$namePrefix$name.update", 'uses' => "$controller@update"]);
+    $app->delete("$name/{id}", ['as' => "$namePrefix$name.delete", 'uses' => "$controller@destroy"]);
 };
 
 /**
@@ -49,6 +54,13 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     $app->get('customer/query/{segmentQuery}', ['as' => 'customer.query', 'uses' => 'CustomerController@query']);
 });
 
+// End-user routes
+
+// Dashboard
 $app->get('/', ['as' => 'front.dashboard.home', 'uses' => 'Front\DashboardController@home']);
+
+// Customers routes
 $app->get('/customers', ['as' => 'front.customer.index', 'uses' => 'Front\CustomerController@home']);
-$app->get('/segments', ['as' => 'front.segment.index', 'uses' => 'Front\SegmentController@home']);
+
+// Segment routes
+$resource('segment', 'Front\SegmentController', 'front.', false);
