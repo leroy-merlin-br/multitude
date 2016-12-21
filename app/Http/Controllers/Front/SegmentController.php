@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use Leadgen\Segment\Repository;
+use Mongolid\Cursor\EmbeddedCursor;
 
 /**
  * Handles the requests regarding Segments with a user facing front-end
@@ -36,7 +37,11 @@ class SegmentController
      */
     public function index(Request $request)
     {
-        return view('app.segment.index');
+        $apiResponse = $this->api()->index($request)->getOriginalContent();
+
+        $apiResponse['segments'] = $apiResponse['content'];
+
+        return view('app.segment.index', $apiResponse);
     }
 
     /**
@@ -75,6 +80,11 @@ class SegmentController
      */
     public function show(string $id)
     {
+        $apiResponse = $this->api()->show($id)->getOriginalContent();
+
+        $apiResponse['segment'] = $apiResponse['content'];
+
+        return view('app.segment.show', $apiResponse);
     }
 
     /**
@@ -98,5 +108,15 @@ class SegmentController
      */
     public function destroy(string $id)
     {
+    }
+
+    /**
+     * Returns the API Segment controller.
+     *
+     * @return \App\Http\Controllers\SegmentController
+     */
+    protected function api()
+    {
+        return app()->make(\App\Http\Controllers\SegmentController::class);
     }
 }
