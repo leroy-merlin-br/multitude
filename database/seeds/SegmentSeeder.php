@@ -34,7 +34,7 @@ class SegmentSeeder extends Seeder
             'bathroomProjetc' => [
                 '_id'   => new ObjectID('57aa7f2c037421193c333952'),
                 'name'  => 'Bathroom Project',
-                'slug'  => 'bathroom-projetc',
+                'slug'  => 'bathroom-project',
                 'ruleset' => [
                     '_id' => new ObjectID('58596c000374213cb9219751'),
                     'rules' => [
