@@ -56,15 +56,12 @@ class Handler extends ExceptionHandler
     {
 
         switch (true) {
-            // In case of model not found
+            // In case of not found
             case $e instanceof ModelNotFoundException:
+            case $e instanceof NotFoundHttpException:
                 if ($this->shouldRespondJson($request)) {
                     return app(ResponseBuilder::class)->respondNotFound();
                 }
-                $e = new NotFoundHttpException($e->getMessage(), $e);
-
-            // In case of route not found (or model not found in a non json request)
-            case $e instanceof NotFoundHttpException:
                 return new Response(view('errors.404'), 404);
         }
 
