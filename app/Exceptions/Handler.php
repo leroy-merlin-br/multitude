@@ -5,12 +5,17 @@ namespace App\Exceptions;
 use App\Http\ResponseBuilder;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Mongolid\Exception\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Handles errors and exceptions in the system
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -49,11 +54,33 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+
         switch (true) {
+            // In case of model not found
             case $e instanceof ModelNotFoundException:
-                return app(ResponseBuilder::class)->respondNotFound();
+                if ($this->shouldRespondJson($request)) {
+                    return app(ResponseBuilder::class)->respondNotFound();
+                }
+                $e = new NotFoundHttpException($e->getMessage(), $e);
+
+            // In case of route not found (or model not found in a non json request)
+            case $e instanceof NotFoundHttpException:
+                return new Response(view('errors.404'), 404);
         }
 
         return parent::render($request, $e);
+    }
+
+    /**
+     * Tells whenever a request should be responded with json.
+     *
+     * @param  Request $request
+     *
+     * @return boolean
+     */
+    protected function shouldRespondJson(Request $request)
+    {
+        return in_array('application/json', $request->getAcceptableContentTypes()) ||
+            strstr($request->getRequestUri(), '/api/');
     }
 }
