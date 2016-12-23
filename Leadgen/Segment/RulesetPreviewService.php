@@ -2,7 +2,9 @@
 
 namespace Leadgen\Segment;
 
-use Leadgen\Customer\ElasticsearchQuery;
+use Infrastructure\Search\ElasticsearchQuery;
+use Leadgen\Customer\Customer;
+use Mongolid\Cursor\CursorInterface;
 
 /**
  * A service class (has no state) that aims to test the given rules array, in
@@ -18,7 +20,7 @@ class RulesetPreviewService
     /**
      * Injects dependencies.
      *
-     * @param ElasticsearchQuery $customerEsQuery
+     * @param ElasticsearchQuery $customerEsQuery Query instance.
      */
     public function __construct(ElasticsearchQuery $customerEsQuery)
     {
@@ -29,17 +31,21 @@ class RulesetPreviewService
      * Parse Ruleset objects into Elasticsearch queries in form of
      * associative arrays.
      *
-     * @param string $rules Rulesets object containing the rules
+     * @param array $rules Rulesets object containing the rules.
      *
-     * @return array Elasticsearch query (in form of an associative array)
+     * @return CursorInterface Elasticsearch query result
      */
-    public function preview($rules): array
+    public function preview(array $rules): CursorInterface
     {
         // Set
         $parser = new ElasticsearchRulesetParser();
         $ruleset = new Ruleset();
         $ruleset->rules = $rules;
 
-        return  $this->customerEsQuery->get($parser->parse($ruleset));
+        return  $this->customerEsQuery->get(
+            $parser->parse($ruleset),
+            Customer::class,
+            false
+        );
     }
 }
