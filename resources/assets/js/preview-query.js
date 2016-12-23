@@ -21,13 +21,21 @@ PreviewQuery.prototype.registerEvents = function () {
 }
 
 PreviewQuery.prototype.performRequest = function (rules) {
+  var _this = this;
   var url = this.endpoint + '?query=' + JSON.stringify(rules);
 
-  // $.ajax({
-  //   url: url,
-  //   contentType: {
-  //     json: "application/json"
-  //   }
-  // });
-  window.open(url, '_blank');
+  this.$previewbox.hide();
+
+  $.ajax({
+    url: url,
+    method: 'get',
+    contentType: "application/json; charset=utf-8",
+
+  }).done(function(responseMarkup) {
+    _this.renderPreview(responseMarkup);
+  });
+}
+
+PreviewQuery.prototype.renderPreview = function (markup) {
+  this.$previewbox.html($(markup).find('#customerList')).fadeIn();
 }
