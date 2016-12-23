@@ -55,7 +55,8 @@ class SegmentController
     public function create(Request $request)
     {
         $viewVars = [
-            'segment' => new Segment
+            'segment' => new Segment,
+            'formSubmit' => route('front.segment.store')
         ];
 
         return view('app.segment.create', $viewVars);
@@ -70,6 +71,7 @@ class SegmentController
      */
     public function store(Request $request)
     {
+        return $this->api()->store($request)->getOriginalContent();
     }
 
     /**
@@ -100,6 +102,8 @@ class SegmentController
         $apiResponse = $this->api()->show($id)->getOriginalContent();
 
         $apiResponse['segment'] = $apiResponse['content'];
+        $apiResponse['formSubmit'] = route('front.segment.update', ['id' => $id]);
+        $apiResponse['formAction'] = 'put';
 
         return view('app.segment.edit', $apiResponse);
     }
@@ -114,6 +118,7 @@ class SegmentController
      */
     public function update(Request $request, string $id)
     {
+        return $this->api()->update($request, $id)->getOriginalContent();
     }
 
     /**
