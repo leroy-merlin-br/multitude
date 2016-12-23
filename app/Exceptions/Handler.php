@@ -54,7 +54,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-
         switch (true) {
             // In case of not found
             case $e instanceof ModelNotFoundException:
