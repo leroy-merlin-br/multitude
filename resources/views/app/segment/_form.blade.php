@@ -66,12 +66,15 @@
         <button class="button"
             data-module="PreviewQuery"
             data-querybuilder="[data-module=QueryBuilder]"
-            data-endpoint="{{ route("customer.index") }}"
+            data-endpoint="{{ route("front.customer.index") }}"
             data-previewbox="#queryPreview">
             Preview
         </button>
         <button class="button button-primary" data-xd>
             Save
         </button>
+    </div>
+    <div class="col-xs-12">
+        <div class='field previewbox' id="queryPreview" style="display:none;"></div>
     </div>
 </form>
