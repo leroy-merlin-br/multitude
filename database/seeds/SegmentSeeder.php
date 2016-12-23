@@ -38,8 +38,24 @@ class SegmentSeeder extends Seeder
                 'ruleset' => [
                     '_id' => new ObjectID('58596c000374213cb9219751'),
                     'rules' => [
-                        'interaction' => 'added-to-basket',
-                        'category'    => ['Banheira', 'Vasos Sanitários'],
+                        "condition" => "AND",
+                        "rules" => [
+                            [
+                                "condition" => "AND",
+                                "rules" => [
+                                    [
+                                        "id" => "interaction",
+                                        "field" => "interaction",
+                                        "type" => "string",
+                                        "input" => "checkbox",
+                                        "operator" => "in",
+                                        "value" => [
+                                            "visited-category"
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
                     ]
                 ],
                 'additionInterval' => '30 0 * * * *',
