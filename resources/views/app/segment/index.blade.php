@@ -32,5 +32,9 @@
                 </tbody>
             </table>
         </div>
+        <hr>
+        <div class="col-xs-12">
+            <a href="{{ route("front.segment.create") }}" class="button button-primary">Create new</a>
+        </div>
     </div>
 @stop
