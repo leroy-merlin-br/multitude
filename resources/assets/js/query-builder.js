@@ -4,7 +4,13 @@ function QueryBuilder($el) { this.init($el); }
  * Gets the currentQuery
  * @return {object}           Json object describing jquery-Query-Builde rules.
  */
-QueryBuilder.prototype.getCurrentQuery = function () {
+QueryBuilder.prototype.getCurrentQuery = function ($el) {
+  var initialQuery = $el.data('initialQuery');
+
+  if (initialQuery && ! $.isEmptyObject(initialQuery)) {
+    return initialQuery;
+  }
+
   if (typeof window.localStorage !== 'undefined') {
     var inProgress = window.localStorage.queryInProgress ? JSON.parse(window.localStorage.queryInProgress) : null;
 
@@ -30,7 +36,7 @@ QueryBuilder.prototype.autoSaveCurrentQuery = function (query) {
 }
 
 QueryBuilder.prototype.init = function ($el) {
-  var currentQuery = this.getCurrentQuery();
+  var currentQuery = this.getCurrentQuery($el);
   this.initializeQueryBuilder($el, currentQuery);
   this.registerEvents($el);
   this.refreshCheckboxVisuals($el);

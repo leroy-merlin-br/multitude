@@ -1,4 +1,4 @@
-<div data-module="GardenForm">
+<form data-module="GardenForm SegmentForm" action="{{ $formSubmit }}" method="{{ $formAction ?? 'post' }}">
     <div class="col-xs-12 col-md-6">
         <legend class="legend">Dados Básicos</legend>
         <div class="field">
@@ -57,25 +57,21 @@
         <legend class="legend">Rules</legend>
         <div class="field">
             <span class="label">Ruleset to match Customers</span>
-            <div data-module="QueryBuilder"></div>
+            <div data-module="QueryBuilder" data-initial-query='{!! $segment->ruleset() ? json_encode($segment->ruleset()->rules) : "{}" !!}'></div>
             <span class="helper">This is the ruleset that will be used to evaluate which Customers are part of the segment.</span>
         </div>
     </div>
     <div class="col-xs-12">
         <hr>
-        <a class="button"
+        <button class="button"
             data-module="PreviewQuery"
             data-querybuilder="[data-module=QueryBuilder]"
             data-endpoint="{{ route("customer.index") }}"
             data-previewbox="#queryPreview">
             Preview
-        </a>
-        <a class="button button-primary"
-            data-module="PreviewQuery"
-            data-querybuilder="[data-module=QueryBuilder]"
-            data-endpoint="{{ route("customer.index") }}"
-            data-previewbox="#queryPreview">
-            Create new segment
-        </a>
+        </button>
+        <button class="button button-primary" data-xd>
+            Save
+        </button>
     </div>
-</div>
+</form>
