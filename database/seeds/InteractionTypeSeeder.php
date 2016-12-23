@@ -55,6 +55,11 @@ class InteractionTypeSeeder extends Seeder
                         'type'     => 'string',
                         'required' => false,
                     ],
+                    [
+                        'name'     => 'campaign',
+                        'type'     => 'string',
+                        'required' => false,
+                    ],
                 ],
             ],
 
