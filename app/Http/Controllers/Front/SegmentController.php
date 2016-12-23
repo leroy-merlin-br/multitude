@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use Leadgen\Segment\Repository;
+use Leadgen\Segment\Segment;
 use Mongolid\Cursor\EmbeddedCursor;
 
 /**
@@ -54,7 +55,7 @@ class SegmentController
     public function create(Request $request)
     {
         $viewVars = [
-            'search' => $request->input('search', ''),
+            'segment' => new Segment
         ];
 
         return view('app.segment.create', $viewVars);
@@ -85,6 +86,22 @@ class SegmentController
         $apiResponse['segment'] = $apiResponse['content'];
 
         return view('app.segment.show', $apiResponse);
+    }
+
+    /**
+     * Shows the edit form for the given segment
+     *
+     * @param string $id Id of the segment being edited.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(string $id)
+    {
+        $apiResponse = $this->api()->show($id)->getOriginalContent();
+
+        $apiResponse['segment'] = $apiResponse['content'];
+
+        return view('app.segment.edit', $apiResponse);
     }
 
     /**

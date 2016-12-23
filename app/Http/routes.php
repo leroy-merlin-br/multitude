@@ -14,7 +14,7 @@
 $resource = function ($name, $controller, $namePrefix = '', $api = true) use ($app) {
     if (! $api) {
         $app->get("$name/create", ['as' => "$namePrefix$name.create", 'uses' => "$controller@create"]);
-        $app->get("$name/edit", ['as' => "$namePrefix$name.edit", 'uses' => "$controller@edit"]);
+        $app->get("$name/{id}/edit", ['as' => "$namePrefix$name.edit", 'uses' => "$controller@edit"]);
     }
 
     $app->get($name, ['as' => "$namePrefix$name.index", 'uses' => "$controller@index"]);
