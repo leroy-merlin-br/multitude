@@ -12,5 +12,6 @@
         </div>
         <hr>
         @include('app.segment._form')
+        @include('app.segment._link-index')
     </div>
 @stop

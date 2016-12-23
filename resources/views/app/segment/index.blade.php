@@ -23,8 +23,13 @@
                             <td>{{ $segment->name }}</td>
                             <td>0</td>
                             <td>
-                                <a href="{{ route("front.segment.show", ['id' => $segment->_id]) }}">
+                                <a class="button button-neutral" href="{{ route("front.segment.show", ['id' => $segment->_id]) }}">
+                                    <span class="glyph glyph-eye"></span>
                                     View
+                                </a>
+                                <a class="button button-neutral" href="{{ route("front.segment.edit", ['id' => $segment->_id]) }}">
+                                    <span class="glyph glyph-pencil"></span>
+                                    Edit
                                 </a>
                             </td>
                         </tr>
