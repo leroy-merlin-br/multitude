@@ -87,10 +87,7 @@ class ProcessInteractionsCommand extends Command
             $this->customerIndexer->index($customers);
         }
 
-        $message = "$count interactions processed";
-
-        $this->laravel->log->info($message);
-        $this->comment($message);
+        $this->log("$count interactions processed");
     }
 
     /**
@@ -117,5 +114,19 @@ class ProcessInteractionsCommand extends Command
         );
 
         return true;
+    }
+
+    /**
+     * Prints output to terminal and to log
+     *
+     * @param  string $message String to be printed.
+     * @param  string $style   Style of the output.
+     *
+     * @return void
+     */
+    protected function log(string $message, string $style = "comment")
+    {
+        $this->laravel->log->info("{$this->name} - $message");
+        $this->line("<$style>$message<$style>");
     }
 }
