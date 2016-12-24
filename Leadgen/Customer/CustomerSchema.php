@@ -75,8 +75,26 @@ class CustomerSchema extends Schema
         'email'        => 'string',
         'name'         => 'string',
         'interactions' => 'schema.'.InteractionSchema::class,
-        'segments'     => 'array',
+        'segments'     => 'forceArray',
         'created_at'   => 'createdAtTimestamp',
         'updated_at'   => 'updatedAtTimestamp',
     ];
+
+    /**
+     * Forces that the field is an array
+     *
+     * @param  mixed $value Original (or non existent) value.
+     *
+     * @return array
+     */
+    public function forceArray($value): array
+    {
+        if (is_string($value)) {
+            return [$value];
+        }
+
+        if (! is_array($value)) {
+            return [];
+        }
+    }
 }
