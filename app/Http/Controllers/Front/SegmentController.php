@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Leadgen\Segment\Repository;
 use Leadgen\Segment\Segment;
 use Mongolid\Cursor\EmbeddedCursor;
+use Leadgen\Customer\Repository as CustomerRepository;
 
 /**
  * Handles the requests regarding Segments with a user facing front-end
@@ -77,17 +78,23 @@ class SegmentController
     /**
      * Show the given segment
      *
-     * @param string $id Id of the segment being showed.
+     * @param CustomerRepository $customerRepo Instance that will be used to retrieve sample customers of the segment.
+     * @param string             $id           Id of the segment being showed.
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show(CustomerRepository $customerRepo, string $id)
     {
         $apiResponse = $this->api()->show($id)->getOriginalContent();
 
-        $apiResponse['segment'] = $apiResponse['content'];
+        $segment = $apiResponse['content'];
 
-        return view('app.segment.show', $apiResponse);
+        $viewVars = [
+            'segment' => $segment,
+            'customers' => $customerRepo->where(['segments' => $segment->slug], 1, -1)
+        ];
+
+        return view('app.segment.show', $viewVars);
     }
 
     /**
