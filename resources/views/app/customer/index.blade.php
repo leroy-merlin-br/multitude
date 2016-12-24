@@ -8,7 +8,7 @@
         <hr>
         <div class="col-xs-12">
             <div id="customerList">
-                <legend class="legend">{{ $customers->count() }} Customers found.</legend>
+                <legend class="legend">{{ $customerTotal }} Customers found.</legend>
                 <table class="table table-zebra">
                     <thead>
                         <tr>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
+use Infrastructure\Search\ElasticsearchCursor;
+use Leadgen\Customer\Customer;
 use Leadgen\Segment\RulesetPreviewService;
 
 /**
@@ -22,9 +24,12 @@ class CustomerController
     {
         $apiResponse = $this->api()->index($request, $previewService)->getOriginalContent();
 
-        $apiResponse['customers'] = $apiResponse['content'];
+        $viewVars = [
+            'customers' => $apiResponse['content'],
+            'customerTotal' => $apiResponse['content'] instanceof ElasticsearchCursor ? $apiResponse['content']->countPossible() : Customer::all()->count(),
+        ];
 
-        return view('app.customer.index', $apiResponse);
+        return view('app.customer.index', $viewVars);
     }
 
     /**
