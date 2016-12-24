@@ -12,6 +12,10 @@
                     <span class="glyph glyph-pencil"></span>
                     Edit
                 </a>
+                <a class="button button-danger" href="{{ route("front.segment.exportCsv", ['id' => $segment->_id]) }}" target="_blank">
+                    <span class="glyph glyph-double-arrow-down"></span>
+                    Export CSV
+                </a>
             </h1>
         </div>
         <hr>

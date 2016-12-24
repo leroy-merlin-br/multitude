@@ -98,6 +98,34 @@ class SegmentController
     }
 
     /**
+     * Renders an CSV file with the customers of the given segment.
+     *
+     * @param CustomerRepository $customerRepo Instance that will be used to retrieve sample customers of the segment.
+     * @param string             $id           Id of the segment being showed.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportCsv(CustomerRepository $customerRepo, string $id)
+    {
+        $apiResponse = $this->api()->show($id)->getOriginalContent();
+
+        $segment = $apiResponse['content'];
+
+        $viewVars = [
+            'segment' => $segment,
+            'customers' => $customerRepo->where(['segments' => $segment->slug], 1, -1)
+        ];
+
+        return response(view('app.segment.export-csv', $viewVars))
+            ->withHeaders([
+                'Content-Description' => 'File Transfer',
+                'Content-Type' => 'application/octet-stream',
+                'Content-Disposition' => "attachment; filename={$segment->slug}.csv",
+                'Content-Transfer-Encoding' => 'binary'
+            ]);
+    }
+
+    /**
      * Shows the edit form for the given segment
      *
      * @param string $id Id of the segment being edited.
@@ -137,6 +165,7 @@ class SegmentController
      */
     public function destroy(string $id)
     {
+        return '.';
     }
 
     /**
