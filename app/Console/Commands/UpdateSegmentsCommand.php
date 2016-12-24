@@ -57,11 +57,16 @@ class UpdateSegmentsCommand extends Command
             $operation = 'remove';
         }
 
-        $this->log("Finding new customers that match $segmentSlug...");
+        $this->log("Finding new customers that match '$segmentSlug'...");
 
         $count = $this->segmentParser->parse(Segment::first(['slug' => $segmentSlug]));
 
-        $this->log("$count customers are now part of $segmentSlug", 'info');
+        if ($count < 1) {
+            $this->log("No new customer for '$segmentSlug'", 'info');
+            return;
+        }
+
+        $this->log("$count customers were added to '$segmentSlug'", 'info');
     }
 
     /**

@@ -66,7 +66,8 @@ class SegmentParser
                 ],
                 'segments' => [
                     '$exists' => true,
-                    '$gte' => [] // Checks if type is array
+                    '$gte' => [], // Checks if type is array
+                    '$ne' => $this->segment->slug // To avoid redundancy
                 ]
             ],
             [
