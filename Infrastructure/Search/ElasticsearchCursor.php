@@ -36,7 +36,7 @@ class ElasticsearchCursor extends EmbeddedCursor implements CursorInterface
      *
      * @return integer
      */
-    public function countPossible(): array
+    public function countPossible(): int
     {
         return array_get($this->rawEsReturn, 'hits.total', 0);
     }
@@ -81,7 +81,7 @@ class ElasticsearchCursor extends EmbeddedCursor implements CursorInterface
         $ids = [];
 
         foreach ($this->rawEsReturn['hits']['hits'] as $hit) {
-            if (isset($hit['_source'])) {
+            if (isset($hit['_id'])) {
                 $ids[] = ObjectIdUtils::isObjectId($hit['_id']) ? new ObjectId($hit['_id']) : $hit['_id'];
             }
         }
