@@ -103,7 +103,7 @@ class SearchIndexCommand extends Command
      */
     protected function log(string $message, $style = "comment")
     {
-        $this->laravel->log->info("db:searchindex - $message");
+        $this->laravel->log->info("{$this->name} - $message");
         $this->line("<$style>$message<$style>");
     }
 }
