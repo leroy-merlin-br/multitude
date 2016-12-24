@@ -87,15 +87,15 @@ class SegmentSchema extends Schema
      *
      * @return string
      */
-    public function cron($value = '0 0 * * *')
+    public function cron($value = '0 0 * * * *')
     {
         $value = trim($value);
-        $cronPattern = '/^(\d+|\*) (\d+|\*) (\d+|\*) (\d+|\*) (\d+|\*) (\d+|\*)$/';
+        $cronPattern = '/^(\S+) (\S+) (\S+) (\S+) (\S+) (\S+)$/';
 
         if (preg_match($cronPattern, $value)) {
             return $value;
         };
 
-        return null;
+        return '0 0 * * * *';
     }
 }

@@ -21,14 +21,14 @@
         <div class="field">
             <select class="select" name="additionInterval" id="select">
                 <option value="{{ $segment->additionInterval }}">{{ $segment->additionInterval }}</option>
-                <option value="*/5 * * * *">Every 5 minutes</option>
-                <option value="*/30 * * * *">Every 30 minutes</option>
-                <option value="0 * * * *">Every hour</option>
-                <option value="0 */3 * * *">Every 3 hours</option>
-                <option value="0 */12 * * *">Every 12 hours</option>
-                <option value="0 2 * * *">Every day</option>
-                <option value="0 2 */3 * *">Every 3 days</option>
-                <option value="0 2 */7 * *">Every week</option>
+                <option value="*/5 * * * * *">Every 5 minutes</option>
+                <option value="*/30 * * * * *">Every 30 minutes</option>
+                <option value="0 * * * * *">Every hour</option>
+                <option value="0 */3 * * * *">Every 3 hours</option>
+                <option value="0 */12 * * * *">Every 12 hours</option>
+                <option value="0 2 * * * *">Every day</option>
+                <option value="0 2 */3 * * *">Every 3 days</option>
+                <option value="0 2 */7 * * *">Every week</option>
             </select>
             <label for="additionInterval" class="label">Interval to add new Customers</label>
             <span class="helper" aria-describedby="additionInterval">The interval in which the segment will evaluate and add new Customers.</span>
@@ -36,18 +36,18 @@
         <div class="field">
             <select class="select" name="removalInterval" id="select">
                 <option value="{{ $segment->removalInterval }}">{{ $segment->removalInterval }}</option>
-                <option value="*/5 * * * *">Every 5 minutes</option>
-                <option value="*/30 * * * *">Every 30 minutes</option>
-                <option value="0 * * * *">Every hour</option>
-                <option value="0 */3 * * *">Every 3 hours</option>
-                <option value="0 */12 * * *">Every 12 hours</option>
-                <option value="0 2 * * *">Every day</option>
-                <option value="0 2 */3 * *">Every 3 days</option>
-                <option value="0 2 */7 * *">Every week</option>
-                <option value="0 2 1 * *">Every month</option>
-                <option value="0 2 1 */3 *">Every 3 months</option>
-                <option value="0 2 1 */6 *">Every 6 months</option>
-                <option value="0 2 1 1 *">Every year</option>
+                <option value="*/5 * * * * *">Every 5 minutes</option>
+                <option value="*/30 * * * * *">Every 30 minutes</option>
+                <option value="0 * * * * *">Every hour</option>
+                <option value="0 */3 * * * *">Every 3 hours</option>
+                <option value="0 */12 * * * *">Every 12 hours</option>
+                <option value="0 2 * * * *">Every day</option>
+                <option value="0 2 */3 * * *">Every 3 days</option>
+                <option value="0 2 */7 * * *">Every week</option>
+                <option value="0 2 1 * * *">Every month</option>
+                <option value="0 2 1 */3 * *">Every 3 months</option>
+                <option value="0 2 1 */6 * *">Every 6 months</option>
+                <option value="0 2 1 1 * *">Every year</option>
             </select>
             <label for="removalInterval" class="label">Interval to remove Customers</label>
             <span class="helper" aria-describedby="removalInterval">The interval in which the segment will re-evaluate it's Customers and remove the ones that don't match anymore.</span>
