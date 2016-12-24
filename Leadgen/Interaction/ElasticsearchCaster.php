@@ -23,13 +23,11 @@ class ElasticsearchCaster
                 ->format('Y-m-d\Th:i');
         }
 
-        $document['params'] = [];
-
         foreach ($interaction->params as $key => $value) {
             if (is_numeric($value)) {
-                $document['params']["params/$key/float"] = $value;
+                $document["params/$key/float"] = $value;
             }
-            $document['params']["params/$key/string"] = $value;
+            $document["params/$key/string"] = $value;
         }
 
         return $document;

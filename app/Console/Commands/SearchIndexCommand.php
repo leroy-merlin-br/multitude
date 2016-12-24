@@ -55,7 +55,14 @@ class SearchIndexCommand extends Command
     {
         $indiceExists = true;
         $indexName = app('config')->get('elasticsearch.defaultIndex', 'main');
-        $params = ['index' => $indexName];
+        $params = [
+            'index' => $indexName,
+            'body' => [
+                'settings' => [
+                    'index.mapper.dynamic' => false
+                ]
+            ]
+        ];
 
         if (! $this->indiceExists($indexName)) {
             $this->log("index '$indexName' does not exist yet.");

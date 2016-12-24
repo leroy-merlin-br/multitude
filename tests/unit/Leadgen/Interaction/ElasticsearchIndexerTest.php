@@ -53,11 +53,9 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                             ],
                         ],
                         [
-                            'params' => [
-                                'params/something/string'  => 'somevalue',
-                                'params/somenumber/float'  => 2.3,
-                                'params/somenumber/string' => 2.3,
-                            ],
+                            'params/something/string'  => 'somevalue',
+                            'params/somenumber/float'  => 2.3,
+                            'params/somenumber/string' => 2.3,
                             'created_at' => '2016-12-17T12:00',
                             'updated_at' => '2016-12-18T12:00',
                         ],
@@ -95,11 +93,9 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                             ],
                         ],
                         [
-                            'params' => [
-                                'params/something/string'  => 'somevalue',
-                                'params/somenumber/float'  => 2.3,
-                                'params/somenumber/string' => 2.3,
-                            ],
+                            'params/something/string'  => 'somevalue',
+                            'params/somenumber/float'  => 2.3,
+                            'params/somenumber/string' => 2.3,
                             'created_at' => '2016-12-17T12:00',
                             'updated_at' => '2016-12-18T12:00',
                         ],
@@ -111,11 +107,9 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                             ],
                         ],
                         [
-                            'params' => [
-                                'params/something/string'  => 'somevalue',
-                                'params/somenumber/float'  => 2.3,
-                                'params/somenumber/string' => 2.3,
-                            ],
+                            'params/something/string'  => 'somevalue',
+                            'params/somenumber/float'  => 2.3,
+                            'params/somenumber/string' => 2.3,
                             'created_at' => '2016-12-17T12:00',
                             'updated_at' => '2016-12-18T12:00',
                         ],

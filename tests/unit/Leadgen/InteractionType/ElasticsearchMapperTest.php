@@ -114,6 +114,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
             'type'  => 'Customer',
             'body'  => [
                 'Customer' => [
+                    'dynamic' => false,
                     'properties' => [
                         'docNumber' => [
                             'type'  => 'string',

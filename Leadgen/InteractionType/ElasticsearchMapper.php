@@ -106,6 +106,7 @@ class ElasticsearchMapper
             'type'  => 'Customer',
             'body'  => [
                 'Customer' => [
+                    'dynamic' => false,
                     'properties' => [
                         'docNumber' => [
                             'type'  => 'string',

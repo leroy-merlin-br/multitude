@@ -22,6 +22,8 @@ class ElasticsearchRulesetParser
             return $this->matchAllQuery();
         }
 
+        // dd($this->prepareFilterQuery($ruleset->rules));
+
         return $this->baseQueryBody(
             $this->prepareFilterQuery($ruleset->rules)
         );
