@@ -5,6 +5,7 @@ namespace Leadgen\Customer;
 use Elasticsearch\Client;
 use Leadgen\Interaction\ElasticsearchCaster;
 use MongoDB\BSON\ObjectID;
+use Mongolid\Util\ObjectIdUtils;
 
 /**
  * Index `Customer`s into Elasticsearch.
@@ -45,7 +46,11 @@ class ElasticsearchIndexer
                 throw new \Exception('Unable to index Customer '.json_encode($sentItem['index']), 1);
             }
 
-            $acknowledgedItems[] = new ObjectID($sentItem['index']['_id'] ?? null);
+            if (ObjectIdUtils::isObjectId($sentItem['index']['_id'])) {
+                $acknowledgedItems[] = new ObjectID($sentItem['index']['_id']);
+            } else {
+                $acknowledgedItems[] = $sentItem['index']['_id'];
+            }
         }
 
         return $acknowledgedItems;
