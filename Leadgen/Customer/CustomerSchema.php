@@ -96,5 +96,7 @@ class CustomerSchema extends Schema
         if (! is_array($value)) {
             return [];
         }
+
+        return [];
     }
 }
