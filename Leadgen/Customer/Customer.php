@@ -4,6 +4,7 @@ namespace Leadgen\Customer;
 
 use Leadgen\Base\BaseEntity;
 use Leadgen\Interaction\Interaction;
+use Leadgen\Segment\Segment;
 use Mongolid\Cursor\CursorInterface;
 
 /**
@@ -35,5 +36,15 @@ class Customer extends BaseEntity
     public function interactions(): CursorInterface
     {
         return $this->embedsMany(Interaction::class, 'interactions');
+    }
+
+    /**
+     * Customer belongs to many segments.
+     *
+     * @return CursorInterface
+     */
+    public function segments(): CursorInterface
+    {
+        return $this->referencesMany(Segment::class, 'segments');
     }
 }

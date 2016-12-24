@@ -62,7 +62,12 @@ class CustomerSchema extends Schema
      *     @SWG\Items(
      *         ref="#/definitions/Interaction",
      *     )
-     * )
+     * ),
+     * @SWG\Property(
+     *     property="segments",
+     *     type="array",
+     *     description="_id of the segments that the customer is part of."
+     * ),
      */
     public $fields = [
         '_id'          => 'string',
@@ -70,6 +75,7 @@ class CustomerSchema extends Schema
         'email'        => 'string',
         'name'         => 'string',
         'interactions' => 'schema.'.InteractionSchema::class,
+        'segments'     => 'array',
         'created_at'   => 'createdAtTimestamp',
         'updated_at'   => 'updatedAtTimestamp',
     ];
