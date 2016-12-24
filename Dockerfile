@@ -1,5 +1,8 @@
 FROM php:7.0-apache
 
+# Increase memory limit
+RUN echo "memory_limit=4096M" > $PHP_INI_DIR/conf.d/memory-limit.ini
+
 # Install modules
 RUN apt-get update && apt-get install -y \
         git \
