@@ -87,8 +87,10 @@ class ElasticsearchIndexer
     protected function parseCustomer(Customer $customer)
     {
         $document = array_diff_key($customer->attributes, ['_id' => 1, 'customers' => 1]);
-        $document['created_at'] = $customer->created_at->toDateTime()->format('Y-m-d\Th:i');
-        $document['updated_at'] = $customer->updated_at->toDateTime()->format('Y-m-d\Th:i');
+        if ($customer->created_at && $customer->updated_at) {
+            $document['created_at'] = $customer->created_at->toDateTime()->format('Y-m-d\Th:i');
+            $document['updated_at'] = $customer->updated_at->toDateTime()->format('Y-m-d\Th:i');
+        }
         $document['interactions'] = [];
 
         foreach ($customer->interactions() as $interaction) {
