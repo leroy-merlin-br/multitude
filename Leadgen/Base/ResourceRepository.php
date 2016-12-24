@@ -68,7 +68,11 @@ class ResourceRepository implements RepositoryInterface
      */
     public function where($query = [], int $page = 1, int $perPage = 10): CursorInterface
     {
-        $cursor = $this->resource::where($query)->limit($perPage);
+        $cursor = $this->resource::where($query);
+
+        if ($perPage > 0) {
+            $cursor->limit($perPage);
+        }
 
         if ($page > 1) {
             $cursor->skip(($page - 1) * $perPage);
