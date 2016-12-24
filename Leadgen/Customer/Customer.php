@@ -4,7 +4,7 @@ namespace Leadgen\Customer;
 
 use Leadgen\Base\BaseEntity;
 use Leadgen\Interaction\Interaction;
-use Leadgen\Segment\Segment;
+use Leadgen\Segment\Repository as SegmentRepository;
 use Mongolid\Cursor\CursorInterface;
 
 /**
@@ -45,6 +45,7 @@ class Customer extends BaseEntity
      */
     public function segments(): CursorInterface
     {
-        return $this->referencesMany(Segment::class, 'segments');
+        return app()->make(SegmentRepository::class)
+            ->where(['slug' => ['$in' => array_values($this->segments)]]);
     }
 }

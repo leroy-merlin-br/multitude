@@ -4,6 +4,7 @@ namespace Leadgen\Customer;
 
 use Leadgen\Interaction\Interaction;
 use Leadgen\Segment\Segment;
+use Leadgen\Segment\Repository as SegmentRepository;
 use Mockery as m;
 use Mongolid\Cursor\Cursor;
 use Mongolid\Cursor\EmbeddedCursor;
@@ -17,6 +18,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         m::close();
+        app()->forgetInstance(SegmentRepository::class);
     }
 
     public function testShouldHaveCorrectDatabaseSchema()
@@ -58,21 +60,24 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertSame($interactionCursor, $customer->interactions());
     }
 
-    public function testShouldReferenceManySegments()
+    public function testShouldReferenceManySegmentsBySlug()
     {
         // Arrange
-        $customer = m::mock(Customer::class.'[referencesMany]');
-        $interactionCursor = m::mock(Cursor::class);
+        $customer = new Customer;
+        $segmentRepo = m::mock(SegmentRepository::class);
+        $segmentCursor = m::mock(Cursor::class);
+
+        $customer->segments = ['foo', 'bar'];
 
         // Act
-        $customer->shouldAllowMockingProtectedMethods();
+        app()->instance(SegmentRepository::class, $segmentRepo);
 
-        $customer->shouldReceive('referencesMany')
+        $segmentRepo->shouldReceive('where')
             ->once()
-            ->with(Segment::class, 'segments')
-            ->andReturn($interactionCursor);
+            ->with(['slug' => ['$in' => $customer->segments]])
+            ->andReturn($segmentCursor);
 
         // Assert
-        $this->assertSame($interactionCursor, $customer->segments());
+        $this->assertSame($segmentCursor, $customer->segments());
     }
 }
