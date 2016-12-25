@@ -68,6 +68,14 @@ class SegmentSchema extends Schema
      *     description="Interval (in cron-job format) to re-test and remove users from the segment.",
      *     default="0 0 * * * *"
      * ),
+     * @SWG\Property(
+     *     property="triggers",
+     *     type="array",
+     *     description="An array of triggers entities that will be executed whenever a Customer joins or leaves a segment.",
+     *     @SWG\Items(
+     *         ref="#/definitions/Trigger",
+     *     )
+     * ),
      */
     public $fields = [
         '_id'              => 'objectId',
@@ -76,6 +84,7 @@ class SegmentSchema extends Schema
         'ruleset'          => 'schema.'.RulesetSchema::class,
         'additionInterval' => 'cron',
         'removalInterval'  => 'cron',
+        'triggers'         => 'schema.'.TriggerSchema::class,
         'created_at'       => 'createdAtTimestamp',
         'updated_at'       => 'updatedAtTimestamp',
     ];

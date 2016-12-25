@@ -10,7 +10,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="Trigger",
- *     required={"rules"}
+ *     required={"type"}
  * )
  */
 class TriggerSchema extends Schema
