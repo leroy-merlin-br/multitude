@@ -16,6 +16,7 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
                 'ruleset'          => 'schema.'.RulesetSchema::class,
                 'additionInterval' => 'cron',
                 'removalInterval'  => 'cron',
+                'triggers'         => 'schema.'.TriggerSchema::class,
                 'created_at'       => 'createdAtTimestamp',
                 'updated_at'       => 'updatedAtTimestamp',
             ],

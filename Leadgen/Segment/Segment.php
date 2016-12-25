@@ -30,6 +30,7 @@ class Segment extends BaseEntity
         'name'  => 'required',
         'slug'  => 'required|alpha_dash',
         'ruleset' => 'required',
+        'triggers' => 'array',
     ];
 
     /**
@@ -40,6 +41,16 @@ class Segment extends BaseEntity
     public function ruleset()
     {
         return $this->embedsOne(Ruleset::class, 'ruleset');
+    }
+
+    /**
+     * Embeds multiple Trigger entitities within the triggers
+     *
+     * @return Mongolid\Cursor\EmbeddedCursor Embedded triggers
+     */
+    public function triggers()
+    {
+        return $this->embedsMany(Trigger::class, 'triggers');
     }
 
     /**
