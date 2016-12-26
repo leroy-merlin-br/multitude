@@ -72,7 +72,8 @@ class CustomerSchema extends Schema
      * @SWG\Property(
      *     property="segments",
      *     type="array",
-     *     description="_id of the segments that the customer is part of."
+     *     description="_id of the segments that the customer is part of.",
+     *     @SWG\Items(type="string")
      * ),
      */
     public $fields = [
