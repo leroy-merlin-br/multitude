@@ -132,6 +132,44 @@
                 }
             }
         },
+        "/interaction/pulse": {
+            "get": {
+                "tags": [
+                    "interaction"
+                ],
+                "summary": "Retrieve a list of interactions of the last minute",
+                "description": "Retrieves a list of interactions of the last minute.",
+                "operationId": "interaction.pulse",
+                "responses": {
+                    "200": {
+                        "description": "Summary of latest interactions",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Author as key and interaction type as value.",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/interaction": {
             "post": {
                 "tags": [
@@ -543,6 +581,18 @@
                     "items": {
                         "$ref": "#/definitions/Interaction"
                     }
+                },
+                "location": {
+                    "description": "Tells in which location the customer was in his last interaction.",
+                    "type": "string",
+                    "default": "web"
+                },
+                "segments": {
+                    "description": "_id of the segments that the customer is part of.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "type": "object"
@@ -572,6 +622,15 @@
                 "params": {
                     "description": "The params of the interaction. A set of key-value properties that should follow the params described in the `InteractionType`.",
                     "type": "object"
+                },
+                "channel": {
+                    "description": "Tells throught which channel the customer did that interaction.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "Tells in which location the customer was.",
+                    "type": "string",
+                    "default": "web"
                 },
                 "acknowledged": {
                     "description": "Tells if the given `Interaction` have already been indexed in Elasticsearch.",
@@ -659,7 +718,7 @@
             "required": [
                 "name",
                 "slug",
-                "rules"
+                "ruleset"
             ],
             "properties": {
                 "_id": {
@@ -674,7 +733,7 @@
                     "description": "A clean string to identify the segment.",
                     "type": "string"
                 },
-                "rules": {
+                "ruleset": {
                     "description": "The ruleset that determines if a customers is part of the segment.",
                     "type": "object",
                     "$ref": "#/definitions/Ruleset"
