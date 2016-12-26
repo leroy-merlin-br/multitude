@@ -64,7 +64,6 @@ class InteractionController extends ApiController
      */
     public function pulse()
     {
-
         $viewVars = [
             'interactionCount' => Interaction::all()->count(),
             'customerCount' => Customer::all()->count(),
