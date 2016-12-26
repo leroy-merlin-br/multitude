@@ -63,7 +63,6 @@ class InteractionSchema extends Schema
      * @SWG\Property(
      *     property="channel",
      *     type="string",
-     *     default="web",
      *     description="Tells throught which channel the customer did that interaction."
      * ),
      * @SWG\Property(
