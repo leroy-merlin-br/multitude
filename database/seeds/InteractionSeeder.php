@@ -35,6 +35,8 @@ class InteractionSeeder extends Seeder
                 '_id'         => new ObjectID('57ac87f00374215a016fd782'),
                 'author'      => 'zizaco@gmail.com',
                 'interaction' => 'searched',
+                'channel'     => 'web',
+                'location'    => 'sao_paulo',
                 'params'      => [
                     'term' => 'Quality potatoes',
                 ],
@@ -45,6 +47,8 @@ class InteractionSeeder extends Seeder
                 '_id'         => new ObjectID('57ac88a20374215a026fd783'),
                 'author'      => 'zizaco@gmail.com',
                 'interaction' => 'visited-product',
+                'channel'     => 'web',
+                'location'    => 'sao_paulo',
                 'params'      => [
                     'productId' => 1,
                     'category'  => 'Roots and Vegetables',
@@ -56,6 +60,8 @@ class InteractionSeeder extends Seeder
                 '_id'         => new ObjectID('57ac896d0374215b566fd784'),
                 'author'      => 'zizaco@gmail.com',
                 'interaction' => 'added-to-basket',
+                'channel'     => 'web',
+                'location'    => 'sao_paulo',
                 'params'      => [
                     'productId' => 1,
                     'price'     => 1.90,
@@ -68,6 +74,8 @@ class InteractionSeeder extends Seeder
                 '_id'         => new ObjectID('57ac89b80374215cc56fd786'),
                 'author'      => 'zizaco@gmail.com',
                 'interaction' => 'purchased-products',
+                'channel'     => 'web',
+                'location'    => 'sao_paulo',
                 'params'      => [
                     'productId' => 1,
                     'total'     => 1.90,
