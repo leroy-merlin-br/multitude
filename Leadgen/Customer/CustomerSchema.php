@@ -64,6 +64,12 @@ class CustomerSchema extends Schema
      *     )
      * ),
      * @SWG\Property(
+     *     property="location",
+     *     type="string",
+     *     default="web",
+     *     description="Tells in which location the customer was in his last interaction."
+     * ),
+     * @SWG\Property(
      *     property="segments",
      *     type="array",
      *     description="_id of the segments that the customer is part of."
@@ -75,6 +81,7 @@ class CustomerSchema extends Schema
         'email'        => 'string',
         'name'         => 'string',
         'interactions' => 'schema.'.InteractionSchema::class,
+        'location'     => 'string',
         'segments'     => 'forceArray',
         'created_at'   => 'createdAtTimestamp',
         'updated_at'   => 'updatedAtTimestamp',

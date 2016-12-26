@@ -61,6 +61,18 @@ class InteractionSchema extends Schema
      *     description="The params of the interaction. A set of key-value properties that should follow the params described in the `InteractionType`."
      * )
      * @SWG\Property(
+     *     property="channel",
+     *     type="string",
+     *     default="web",
+     *     description="Tells throught which channel the customer did that interaction."
+     * ),
+     * @SWG\Property(
+     *     property="location",
+     *     type="string",
+     *     default="web",
+     *     description="Tells in which location the customer was."
+     * ),
+     * @SWG\Property(
      *     property="acknowledged",
      *     type="boolean",
      *     default=false,
@@ -73,6 +85,8 @@ class InteractionSchema extends Schema
         'authorId'     => 'string',
         'interaction'  => 'objectId',
         'params'       => 'interactionFields',
+        'channel'      => 'string',
+        'location'     => 'string',
         'acknowledged' => 'bool',
         'created_at'   => 'createdAtTimestamp',
         'updated_at'   => 'updatedAtTimestamp',
