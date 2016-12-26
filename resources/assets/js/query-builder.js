@@ -91,6 +91,43 @@ QueryBuilder.prototype.initializeQueryBuilder = function ($el, initialQuery) {
         multiple: true,
         operators: ['in']
       }, {
+        id: 'channel',
+        label: 'Channel',
+        type: 'string',
+        input: 'checkbox',
+        values: {
+          "mobile": "Mobile",
+          "web": "Web / Desktop",
+        },
+        multiple: true,
+        operators: ['in']
+      }, {
+        id: 'location',
+        label: 'Location',
+        type: 'string',
+        input: 'checkbox',
+        values: {
+          'grande_sao_paulo': 'Grande São Paulo',
+          'rio_de_janeiro': 'Rio de Janeiro',
+          'campinas': 'Campinas',
+          'grande_porto_alegre': 'Grande Porto Alegre',
+          'rib_preto': 'Ribeirão Preto',
+          'sorocaba': 'Sorocaba',
+          'curitiba': 'Curitiba',
+          'uberlandia': 'Uberlandia',
+          'brasilia': 'Brasilia',
+          'sao_jose_dos_campos': 'São Jose dos Campos',
+          'sao_jose_do_rio_preto': 'São Jose do Rio Preto',
+          'belo_horizonte': 'Belo Horizonte',
+          'londrina': 'Londrina',
+          'santa_catarina': 'Santa Catarina',
+          'ceara': 'Ceará',
+          'mato_grosso_do_sul': 'Mato Grosso do Sul',
+          'goiania': 'Goiânia',
+        },
+        multiple: true,
+        operators: ['in']
+      }, {
         id: 'productId',
         field: 'params/productId/string',
         label: 'Product id',
