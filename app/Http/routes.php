@@ -66,3 +66,6 @@ $app->get('customer/{id}', ['as' => 'front.customer.show', 'uses' => 'Front\Cust
 // Segment routes
 $app->get('segment/{id}/exportCsv', ['as' => 'front.segment.exportCsv', 'uses' => 'Front\SegmentController@exportCsv']);
 $resource('segment', 'Front\SegmentController', 'front.', false);
+
+// Integration routes
+$app->get('integration', ['as' => 'front.integration.index', 'uses' => 'Front\IntegrationController@index']);

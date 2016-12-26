@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Leadgen App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="/js/all.js" async></script>
 </head>
 <body>
@@ -14,6 +15,7 @@
                     <a href="{{ route("front.customer.index") }}">Customers</a>
                     <a href="{{ route("front.segment.index") }}">Segments</a>
                     <a href="#">Interactions</a>
+                    <a href="{{ route("front.integration.index") }}">Integrations</a>
                 </nav>
             </div>
         </header>
