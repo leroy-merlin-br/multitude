@@ -28,7 +28,7 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                     ],
                 ],
                 '$interactionsToBeParsed' => [
-                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
+                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
                     ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
                     ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
                 ],
@@ -37,10 +37,11 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                         '_id'          => 123,
                         'email'        => 'johndoe@example.com',
                         'interactions' => [
-                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
+                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
                             ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
                             ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
                         ],
+                        'location' => 'thaplace'
                     ],
                 ],
             ],
@@ -49,19 +50,20 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
             'interactions a customer that don\'t exists yet' => [
                 '$customersInDatabase'    => [],
                 '$interactionsToBeParsed' => [
-                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
-                    ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
+                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
+                    ['_id' => 2, 'authorId' => 123, 'interaction' => 'b', 'location' => 'thaplace'],
+                    ['_id' => 3, 'authorId' => 123, 'interaction' => 'c', 'location' => 'newplace'],
                 ],
                 '$expectedTouchedCustomers' => [
                     [
                         '_id'          => 123,
                         'docNumber'    => null,
                         'interactions' => [
-                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
-                            ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
-                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c'],
+                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
+                            ['_id' => 2, 'authorId' => 123, 'interaction' => 'b', 'location' => 'thaplace'],
+                            ['_id' => 3, 'authorId' => 123, 'interaction' => 'c', 'location' => 'newplace'],
                         ],
+                        'location' => 'newplace'
                     ],
                 ],
             ],
@@ -75,8 +77,8 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                     ],
                 ],
                 '$interactionsToBeParsed' => [
-                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
-                    ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
+                    ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
+                    ['_id' => 2, 'authorId' => 123, 'interaction' => 'b', 'location' => 'thaplace'],
                     ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
                     ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
                 ],
@@ -85,9 +87,10 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                         '_id'          => 123,
                         'email'        => 'johndoe@example.com',
                         'interactions' => [
-                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a'],
-                            ['_id' => 2, 'authorId' => 123, 'interaction' => 'b'],
+                            ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
+                            ['_id' => 2, 'authorId' => 123, 'interaction' => 'b', 'location' => 'thaplace'],
                         ],
+                        'location' => 'thaplace'
                     ],
                     [
                         '_id'          => 456,
@@ -97,6 +100,7 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                             ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
                             ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
                         ],
+                        'location' => null
                     ],
                 ],
             ],
