@@ -63,9 +63,9 @@ $app->middleware([
    App\Http\Middleware\Cors::class,
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+   'basicAuth' => App\Http\Middleware\BasicAuth::class
+]);
 
 /*
 |--------------------------------------------------------------------------

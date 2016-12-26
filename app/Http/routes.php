@@ -58,15 +58,17 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
 // End-user routes
 
 // Dashboard
-$app->get('/', ['as' => 'front.dashboard.home', 'uses' => 'Front\DashboardController@home']);
+$app->group(['middleware' => 'basicAuth', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
+    $app->get('/', ['as' => 'front.dashboard.home', 'uses' => 'Front\DashboardController@home']);
 
-// Customers routes
-$app->get('customer', ['as' => 'front.customer.index', 'uses' => 'Front\CustomerController@index']);
-$app->get('customer/{id}', ['as' => 'front.customer.show', 'uses' => 'Front\CustomerController@show']);
+    // Customers routes
+    $app->get('customer', ['as' => 'front.customer.index', 'uses' => 'Front\CustomerController@index']);
+    $app->get('customer/{id}', ['as' => 'front.customer.show', 'uses' => 'Front\CustomerController@show']);
 
-// Segment routes
-$app->get('segment/{id}/exportCsv', ['as' => 'front.segment.exportCsv', 'uses' => 'Front\SegmentController@exportCsv']);
-$resource('segment', 'Front\SegmentController', 'front.', false);
+    // Segment routes
+    $app->get('segment/{id}/exportCsv', ['as' => 'front.segment.exportCsv', 'uses' => 'Front\SegmentController@exportCsv']);
+    $resource('segment', 'Front\SegmentController', 'front.', false);
 
-// Integration routes
-$app->get('integration', ['as' => 'front.integration.index', 'uses' => 'Front\IntegrationController@index']);
+    // Integration routes
+    $app->get('integration', ['as' => 'front.integration.index', 'uses' => 'Front\IntegrationController@index']);
+});
