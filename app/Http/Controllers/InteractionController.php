@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\ResponseBuilder;
 use Illuminate\Http\Request;
+use Leadgen\Customer\Customer;
+use Leadgen\Interaction\Interaction;
 use Leadgen\Interaction\Repository;
 
 /**
@@ -35,6 +37,48 @@ class InteractionController extends ApiController
     {
         $this->repo = $repo;
         $this->responseBuilder = $responseBuilder;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @SWG\Get(
+     *     path="/interaction/pulse",
+     *     summary="Retrieve a list of interactions of the last minute",
+     *     tags={"interaction"},
+     *     description="Retrieves a list of interactions of the last minute.",
+     *     operationId="interaction.pulse",
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Summary of latest interactions",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(property="status", type="string", description="Response status"),
+     *             @SWG\Property(property="content", type="array", @SWG\Items(type="object"), description="Author as key and interaction type as value."),
+     *             @SWG\Property(property="errors", type="array", @SWG\Items(type="string"), description="Array of error messages"),
+     *         ),
+     *     ),
+     * )
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pulse()
+    {
+
+        $viewVars = [
+            'interactionCount' => Interaction::all()->count(),
+            'customerCount' => Customer::all()->count(),
+            'interactionPulse' => []
+        ];
+
+        if ($interactionPulse = app()->make('redis')->get('interactionPulse')) {
+            $interactionPulse = unserialize($interactionPulse);
+
+            $viewVars['interactionPulse'] = $interactionPulse;
+        }
+
+        return $this->responseBuilder
+                ->respond($viewVars);
     }
 
     /**

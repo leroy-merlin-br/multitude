@@ -44,6 +44,7 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
 
     // Interaction routes
     $app->post('interaction', ['as' => 'interaction.store', 'uses' => 'InteractionController@store']);
+    $app->get('interaction/pulse', ['as' => 'interaction.pulse', 'uses' => 'InteractionController@pulse']);
 
     // Segment routes
     $resource('segment', 'SegmentController');
