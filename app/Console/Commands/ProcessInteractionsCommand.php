@@ -77,7 +77,13 @@ class ProcessInteractionsCommand extends Command
      */
     public function fire()
     {
-        $interactions = $this->interactionRepo->getUnacknowledged()->all();
+        $interactions = [];
+        $interactionPulse = [];
+
+        foreach ($this->interactionRepo->getUnacknowledged() as $interaction) {
+            $interactions[] = $interaction;
+            $interactionPulse[] = [$interaction->author => $interaction->interaction];
+        }
 
         if ($count = count($interactions)) {
             $processedIds = $this->interactionIndexer->index($interactions);
@@ -88,6 +94,9 @@ class ProcessInteractionsCommand extends Command
         }
 
         $this->log("$count interactions processed");
+
+        app()->make('redis')->set('interactionPulse', serialize($interactionPulse));
+        app()->make('redis')->expire('interactionPulse', 120);
     }
 
     /**
