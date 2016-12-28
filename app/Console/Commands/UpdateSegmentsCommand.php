@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Leadgen\Customer\SegmentParser;
+use Leadgen\Customer\SegmentParsing\SegmentParser;
 use Leadgen\Segment\Segment;
 
 /**
