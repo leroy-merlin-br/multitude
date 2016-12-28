@@ -44,7 +44,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
         $interactionType = $this->sampleInteractionType();
 
         $expectedMapping = [
-            'index' => 'leadgen',
+            'index' => 'leadgen_test',
             'type'  => 'Interaction',
             'body'  => [
                 'Interaction' => [
@@ -114,7 +114,7 @@ class ElasticsearchMapperTest extends PHPUnit_Framework_TestCase
         $interactionType = $this->sampleInteractionType();
 
         $expectedMapping = [
-            'index' => 'leadgen',
+            'index' => 'leadgen_test',
             'type'  => 'Customer',
             'body'  => [
                 'Customer' => [

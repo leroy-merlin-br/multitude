@@ -53,7 +53,7 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                     'body' => [
                         [
                             'index' => [
-                                '_index' => 'leadgen',
+                                '_index' => 'leadgen_test',
                                 '_type'  => 'Customer',
                                 '_id'    => '507f1f77bcf86cd799439022',
                             ],
@@ -99,7 +99,7 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                     'body' => [
                         [
                             'index' => [
-                                '_index' => 'leadgen',
+                                '_index' => 'leadgen_test',
                                 '_type'  => 'Customer',
                                 '_id'    => '507f1f77bcf86cd799439022',
                             ],
@@ -119,7 +119,7 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
                         ],
                         [
                             'index' => [
-                                '_index' => 'leadgen',
+                                '_index' => 'leadgen_test',
                                 '_type'  => 'Customer',
                                 '_id'    => '507f191e810c19729de860ab',
                             ],

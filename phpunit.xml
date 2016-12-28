@@ -25,5 +25,7 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_DATABASE" value="leadgen_test"/>
+        <env name="ES_INDEX" value="leadgen_test"/>
     </php>
 </phpunit>

@@ -2,7 +2,7 @@
 
 return [
 
-    'defaultIndex' => 'leadgen',
+    'defaultIndex' => env('DB_DATABASE', 'my_index'),
 
     /*
      * You can specify one of several different connections when building an
