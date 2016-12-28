@@ -7,6 +7,12 @@ use InteractionTypeSeeder;
 use Leadgen\InteractionType\InteractionType;
 use MongoDB\BSON\ObjectID;
 
+/**
+ * @feature I, developer
+ *          wish to manage the InteractionTypes that the system is able to
+ *          to receive from the Customers, in order to be able to register
+ *          interactions that are important for my business needs.
+ */
 class InteractionTypeCrudTest extends FunctionalTestCase
 {
     public function tearDown()

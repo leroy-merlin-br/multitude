@@ -7,6 +7,12 @@ use Leadgen\Segment\Segment;
 use MongoDB\BSON\ObjectID;
 use SegmentSeeder;
 
+/**
+ * @feature I, responsible for segmentation,
+ *          wish to manage the Segments that the system is able to identify, in
+ *          order to be able to identify and take action upon groups of
+ *          Customers that are important for my business needs.
+ */
 class SegmentCrudTest extends FunctionalTestCase
 {
     public function tearDown()
