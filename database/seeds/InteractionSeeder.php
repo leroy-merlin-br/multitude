@@ -56,6 +56,18 @@ class InteractionSeeder extends Seeder
             ],
 
             // ----------------------
+            'visited-product' => [
+                '_id'         => new ObjectID('57ac88a20374215a026fd783'),
+                'author'      => 'zizaco@gmail.com',
+                'interaction' => 'visited-category',
+                'channel'     => 'web',
+                'location'    => 'sao_paulo',
+                'params'      => [
+                    'category'  => 'Roots and Vegetables',
+                ],
+            ],
+
+            // ----------------------
             'added-to-basket' => [
                 '_id'         => new ObjectID('57ac896d0374215b566fd784'),
                 'author'      => 'zizaco@gmail.com',
