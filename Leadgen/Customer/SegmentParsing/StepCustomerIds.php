@@ -1,6 +1,9 @@
 <?php
 namespace Leadgen\Customer\SegmentParsing;
 
+use Infrastructure\Search\ElasticsearchQuery;
+use Leadgen\Customer\Customer;
+
 /**
  * This SegmentParser step runs the Elasticsearch query and return the ids of
  * the customers matched by the rule.
@@ -34,11 +37,11 @@ class StepCustomerIds extends StepBase
      */
     protected function process(Dto $dto): Dto
     {
-        if (! isset($dto->esQueryClasues)) {
+        if (! isset($dto->esQueryClauses)) {
             return $dto;
         }
 
-        $dto->customerIds = $this->getCustomerIds($dto->esQueryClasues);
+        $dto->customerIds = $this->getCustomerIds($dto->esQueryClauses);
 
         return $dto;
     }
@@ -60,13 +63,13 @@ class StepCustomerIds extends StepBase
         // get all _ids of maching Customers.
         while ($remaining > 0) {
             $cursor = $this->customerEsQuery->get(
-                $esQueryClauses,
+                $esQuery,
                 Customer::class
             );
 
             $idOfHits = array_merge($idOfHits, $cursor->getIdOfHits());
-            $esQueryClauses['from'] += $esQueryClauses['size'];
-            $remaining = $cursor->countPossible() - $esQueryClauses['from'];
+            $esQuery['from'] += $esQuery['size'];
+            $remaining = $cursor->countPossible() - $esQuery['from'];
         }
 
         return $idOfHits;

@@ -1,6 +1,8 @@
 <?php
 namespace Leadgen\Customer\SegmentParsing;
 
+use Leadgen\Segment\ElasticsearchRulesetParser;
+
 /**
  * This SegmentParser step build the Elasticsearch query array of the given
  * segment.
@@ -42,7 +44,7 @@ class StepEsQuery extends StepBase
         $esQueryClauses['size'] = 1000;
         $esQueryClauses['from'] = 0;
 
-        $dto->esQueryClasues = $esQueryClauses;
+        $dto->esQueryClauses = $esQueryClauses;
 
         return $dto;
     }

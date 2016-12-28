@@ -1,10 +1,14 @@
 <?php
 namespace Leadgen\Customer\SegmentParsing;
 
+use Leadgen\Segment\Segment;
+
 /**
  * A service that, by receiving a segment, will try to find the Customers that
  * match it and add a reference of the segment into then. It works by parsing
  * the input throught a chain of responsability.
+ *
+ * The SegmentParser is the entry point of this namespace.
  *
  * @see StepBase
  */

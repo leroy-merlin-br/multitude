@@ -43,16 +43,16 @@ abstract class StepBase
     /**
      * Set's the next step of the chain
      *
-     * @param StepInterface $next Next step that will be executed.
+     * @param StepBase $next Next step that will be executed.
      * @return self
      */
-    final public function setNext(StepInterface $next): self
+    final public function setNext(StepBase $next): self
     {
         if (! $this->next) {
             $this->next = $next;
+        } else {
+            $this->next->setNext($next);
         }
-
-        $this->next->setNext($next);
 
         return $this;
     }

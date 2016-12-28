@@ -1,13 +1,16 @@
 <?php
 namespace Leadgen\Customer\SegmentParsing;
 
+use Leadgen\Customer\Customer;
+use MongoDB\Driver\WriteConcern;
+
 /**
  * Call updateMany in mongodb in order to add the segment to the Customer
  * documents
  *
  * @see SegmentParser
  */
-class UpdateCustomers extends StepBase
+class StepUpdateCustomers extends StepBase
 {
     /**
      * Customer instance used to call a database query
@@ -33,11 +36,11 @@ class UpdateCustomers extends StepBase
      */
     protected function process(Dto $dto): Dto
     {
-        if (! isset($dto->customerIds)) {
+        if (! isset($dto->customerIds) || ! isset($dto->segment)) {
             return $dto;
         }
 
-        $dto->affectedCount = $this->callUpdate($dto->customerIds);
+        $dto->affectedCount = $this->callUpdate($dto);
 
         return $dto;
     }
@@ -46,26 +49,26 @@ class UpdateCustomers extends StepBase
      * Call updateMany in mongodb in order to add the segment to the Customer
      * documents
      *
-     * @param  array $customerIds Array containing the _ids of the customers.
+     * @param  Dto $dto Dto containing the _ids of the customers.
      *
      * @return int Number of affected documents.
      */
-    protected function callUpdate(array $customerIds): int
+    protected function callUpdate(Dto $dto): int
     {
         return $this->customer->collection()->updateMany(
             [
                 '_id' => [
-                    '$in' => $customerIds,
+                    '$in' => $dto->customerIds,
                 ],
                 'segments' => [
                     '$exists' => true,
                     '$gte' => [], // Checks if type is array
-                    '$ne' => $this->segment->slug // To avoid redundancy
+                    '$ne' => $dto->segment->slug // To avoid redundancy
                 ]
             ],
             [
                 '$addToSet' => [
-                    'segments' => $this->segment->slug, // Adds to segments
+                    'segments' => $dto->segment->slug, // Adds to segments
                 ],
             ],
             ['writeConcern' => new WriteConcern(1)]
