@@ -9,5 +9,4 @@ use stdClass;
  */
 class Dto extends stdClass
 {
-
 }
