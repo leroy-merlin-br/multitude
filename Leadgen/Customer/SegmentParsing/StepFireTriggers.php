@@ -1,8 +1,7 @@
 <?php
 namespace Leadgen\Customer\SegmentParsing;
 
-use Infrastructure\Search\ElasticsearchQuery;
-use Leadgen\Customer\Customer;
+use Leadgen\Customer\Repository as CustomerRepository;
 use PHProutine\Channel;
 use PHProutine\Runner;
 
@@ -21,12 +20,19 @@ class StepFireTriggers extends StepBase
     protected $phproutine;
 
     /**
-     * Injects dependencies
-     * @param Runner $phproutine PHPRoutine runner.
+     * @var CustomerRepository
      */
-    public function __construct(Runner $phproutine)
+    protected $customerRepo;
+
+    /**
+     * Injects dependencies
+     * @param Runner             $phproutine   PHPRoutine runner.
+     * @param CustomerRepository $customerRepo CustomerRepository that will be used to get the Customer cursor for the trigger.
+     */
+    public function __construct(Runner $phproutine, CustomerRepository $customerRepo)
     {
         $this->phproutine = $phproutine;
+        $this->customerRepo = $customerRepo;
     }
 
     /**
@@ -72,7 +78,7 @@ class StepFireTriggers extends StepBase
         }
 
         $async = function ($ch, $triggers, $customerIds) {
-            $customers = Customer::where(['_id' => ['$in' => $customerIds]]);
+            $customers = $this->customerRepo->where(['_id' => ['$in' => $customerIds]]);
 
             foreach ($triggers as $trigger) {
                 $results = app()->make($trigger->type)->fireTrigger($customers, $trigger->settings);

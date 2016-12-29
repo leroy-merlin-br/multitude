@@ -18,6 +18,7 @@ class SegmentParserTest extends PHPUnit_Framework_TestCase
         $dependencies = [
             'stepEsQuery' => m::mock(StepEsQuery::class),
             'stepCustomerIds' => m::mock(StepCustomerIds::class),
+            'stepFireTriggers' => m::mock(StepFireTriggers::class),
             'stepUpdateCustomers' => m::mock(StepUpdateCustomers::class)
         ];
         $segment = m::mock(Segment::class);
