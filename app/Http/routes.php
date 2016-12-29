@@ -36,7 +36,7 @@ $resource = function ($name, $controller, $namePrefix = '', $api = true) use ($a
  *     )
  * )
  */
-$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
+$app->group(['prefix' => 'api/v1', 'middleware' => 'secure', 'namespace' => 'App\Http\Controllers'], function () use ($app, $resource) {
     $app->get('/', ['as' => 'root', 'uses' => 'DocsController@index']);
 
     // Interaction type routes
