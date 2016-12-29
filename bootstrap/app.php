@@ -75,6 +75,17 @@ $app->routeMiddleware([
 */
 $app->configure('database');
 $app->configure('elasticsearch');
+$app->configure('exacttarget');
+
+/**
+ * Get config path of a file
+ * @param  string $file Config file name.
+ * @return string
+ */
+function config_path(string $file)
+{
+    return app()->path()."/config/$file/$file";
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +102,7 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 $app->register(App\Providers\MongoServiceProvider::class);
 $app->register(Cviebrock\LaravelElasticsearch\LumenServiceProvider::class);
 $app->register(App\Providers\ElasticsearchServiceProvider::class);
+$app->register(LeroyMerlin\ExactTarget\ServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
