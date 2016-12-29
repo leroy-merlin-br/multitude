@@ -2,9 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\NonSecureRequestException;
 use App\Http\ResponseBuilder;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -62,9 +64,26 @@ class Handler extends ExceptionHandler
                     return app(ResponseBuilder::class)->respondNotFound();
                 }
                 return new Response(view('errors.404'), 404);
+
+            // In case of no secure
+            case $e instanceof NonSecureRequestException:
+                if ($this->shouldRespondJson($request)) {
+                    return app(ResponseBuilder::class)->respondForbidden(null, [$e->getMessage()]);
+                }
+                return new RedirectResponse($this->getSecureVersion($request->fullUrl()));
         }
 
         return parent::render($request, $e);
+    }
+
+    /**
+     * Returns the secure version of the given URL
+     * @param  string $url Url.
+     * @return string
+     */
+    protected function getSecureVersion($url)
+    {
+        return str_replace(':8000/', ':8443/', str_replace('http:', 'https:', $url));
     }
 
     /**

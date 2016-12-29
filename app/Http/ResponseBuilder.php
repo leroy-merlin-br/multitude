@@ -127,6 +127,21 @@ class ResponseBuilder
     }
 
     /**
+     * Returns the response telling that the request was not secure
+     *
+     * @param  mixed $data   Data of the respone.
+     * @param  array $errors Error messages.
+     *
+     * @return Response
+     */
+    public function respondForbidden($data = null, array $errors = []): Response
+    {
+        return $this->setStatusCode(Response::HTTP_FORBIDDEN)
+            ->setErrorMessages($errors)
+            ->respond($data);
+    }
+
+    /**
      * Return a default response message for the given status code.
      *
      * @param int $statusCode Referent to the message.
