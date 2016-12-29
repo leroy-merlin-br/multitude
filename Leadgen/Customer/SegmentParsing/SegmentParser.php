@@ -26,15 +26,18 @@ class SegmentParser
      *
      * @param StepEsQuery         $stepEsQuery         Step of the segment parsing.
      * @param StepCustomerIds     $stepCustomerIds     Step of the segment parsing.
+     * @param StepFireTriggers    $stepFireTriggers    Step of the segment parsing.
      * @param StepUpdateCustomers $stepUpdateCustomers Step of the segment parsing.
      */
     public function __construct(
         StepEsQuery $stepEsQuery,
         StepCustomerIds $stepCustomerIds,
+        StepFireTriggers $stepFireTriggers,
         StepUpdateCustomers $stepUpdateCustomers
     ) {
         $this->pipeline = $stepEsQuery
             ->setNext($stepCustomerIds)
+            ->setNext($stepFireTriggers)
             ->setNext($stepUpdateCustomers);
     }
 
