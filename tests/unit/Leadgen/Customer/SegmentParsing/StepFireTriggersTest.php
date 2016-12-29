@@ -42,7 +42,7 @@ class StepFireTriggersTest extends PHPUnit_Framework_TestCase
             ->andReturn([$trigger]);
 
         $phproutine->shouldReceive('go')
-            ->andReturnUsing(function($closure, ...$params) {
+            ->andReturnUsing(function ($closure, ...$params) {
                 $closure(...$params);
             });
 
@@ -59,6 +59,5 @@ class StepFireTriggersTest extends PHPUnit_Framework_TestCase
             true,
             unserialize($step->parse($dto)->triggerResult->read())
         );
-
     }
 }
