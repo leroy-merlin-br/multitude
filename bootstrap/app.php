@@ -64,7 +64,8 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-   'basicAuth' => App\Http\Middleware\BasicAuth::class
+   'basicAuth' => App\Http\Middleware\BasicAuth::class,
+   'secure' => App\Http\Middleware\SecureConnection::class
 ]);
 
 /*
@@ -73,6 +74,7 @@ $app->routeMiddleware([
 |--------------------------------------------------------------------------
 |
 */
+$app->configure('multitude');
 $app->configure('database');
 $app->configure('elasticsearch');
 $app->configure('exacttarget');
