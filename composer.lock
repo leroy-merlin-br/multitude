@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b52eb7484c415820042d28dd326bfd30",
-    "content-hash": "ef0a0cd4eb83b24f521934d13f4b5bee",
+    "hash": "a78e23c80a6291cc1fb5dec3dee00bdc",
+    "content-hash": "ebc984a4e3422094f7386e03c98e02ca",
     "packages": [
         {
             "name": "codacy/coverage",
@@ -2604,6 +2604,49 @@
             "description": "A fluent query builder for Elastic Search.",
             "homepage": "http://github.com/PHPFluent/ElasticQueryBuilder",
             "time": "2013-02-24 21:00:00"
+        },
+        {
+            "name": "polonskiy/phproutine",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/polonskiy/phproutine.git",
+                "reference": "a5c56d7fe00135eaca8488eea9d331afd5f45d0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/polonskiy/phproutine/zipball/a5c56d7fe00135eaca8488eea9d331afd5f45d0a",
+                "reference": "a5c56d7fe00135eaca8488eea9d331afd5f45d0a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHProutine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Polonskiy",
+                    "email": "anton.polonskiy@gmail.com"
+                }
+            ],
+            "description": "Goroutines in PHP",
+            "keywords": [
+                "fork",
+                "goroutines",
+                "parallel processing",
+                "phproutine"
+            ],
+            "time": "2014-12-04 16:43:02"
         },
         {
             "name": "predis/predis",

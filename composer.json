@@ -16,7 +16,8 @@
         "zircote/swagger-php": "^2.0",
         "mockery/mockery": "^0.9.5",
         "codacy/coverage": "^1.0",
-        "leroy-merlin-br/exacttarget-client": "^0.1.0"
+        "leroy-merlin-br/exacttarget-client": "^0.1.0",
+        "polonskiy/phproutine": "^0.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
