@@ -4,6 +4,8 @@ namespace Leadgen\ExactTarget;
 use Leadgen\Customer\Customer;
 use LeroyMerlin\ExactTarget\Client;
 use LeroyMerlin\ExactTarget\Exception\ExactTargetClientException;
+use Psr\Log\LoggerInterface;
+use Iterator;
 
 /**
  * Updates customers into ExactTarget's data extensions.
@@ -17,10 +19,16 @@ class CustomerUpdater
     protected $exacttarget;
 
     /**
-     * Injects dependencies
-     * @param Client $exacttarget ExactTarget client.
+     * @var LoggerInterface
      */
-    public function __construct(Client $exacttarget)
+    protected $log;
+
+    /**
+     * Injects dependencies
+     * @param Client          $exacttarget ExactTarget client.
+     * @param LoggerInterface $log         Log writter instance.
+     */
+    public function __construct(Client $exacttarget, LoggerInterface $log)
     {
         $this->exacttarget = $exacttarget;
     }
@@ -37,7 +45,7 @@ class CustomerUpdater
     {
         $preparedCustomers = $this->prepareCustomers($customers);
 
-        return $this->commitToDataExtension($dataExtension, $prepareCustomers);
+        return $this->commitToDataExtension($dataExtension, $preparedCustomers);
     }
 
     /**
@@ -59,7 +67,14 @@ class CustomerUpdater
 
         foreach ($resources as $customer) {
             if ($customer->isValid()) {
-                $customerList[] = $this->presentUser($customer);
+                $customerList[] = [
+                    'keys' => [
+                        'Email' => $customer->email,
+                    ],
+                    'values' => [
+                        'Email' => $customer->email,
+                    ]
+                ];
             }
         }
 
@@ -82,9 +97,10 @@ class CustomerUpdater
         ];
 
         try {
-            $this->client->addDataExtensionRow($parameters);
+            $this->exacttarget->addDataExtensionRow($parameters);
         } catch (ExactTargetClientException $error) {
-            Log::error(
+            // $this->log->error(
+            dump(
                 sprintf('[%s] Failed to sync with ExactTarget with message: "%s"', static::class, $error->getMessage())
             );
 
