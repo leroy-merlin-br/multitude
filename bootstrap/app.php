@@ -79,14 +79,16 @@ $app->configure('database');
 $app->configure('elasticsearch');
 $app->configure('exacttarget');
 
-/**
- * Get config path of a file
- * @param  string $file Config file name.
- * @return string
- */
-function config_path(string $file)
-{
-    return app()->path()."/config/$file/$file";
+if (! function_exists('config_path')) {
+    /**
+     * Get config path of a file
+     * @param  string $file Config file name.
+     * @return string
+     */
+    function config_path(string $file)
+    {
+        return app()->path()."/config/$file/$file";
+    }
 }
 
 /*
