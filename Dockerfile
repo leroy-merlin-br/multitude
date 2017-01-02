@@ -23,6 +23,8 @@ RUN curl -sS https://getcomposer.org/installer \
 RUN sed -i "s/DocumentRoot .*/DocumentRoot \/var\/www\/html\/public/" /etc/apache2/sites-enabled/000-default.conf
 RUN echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /usr/local/etc/php/conf.d/error.ini
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/error.ini
+RUN echo "KeepAlive On" >> /etc/apache2/conf-enabled/keep-alive.conf
+RUN echo "KeepAliveTimeout 75" >> /etc/apache2/conf-enabled/keep-alive.conf
 RUN a2enmod rewrite
 RUN a2enmod headers
 
