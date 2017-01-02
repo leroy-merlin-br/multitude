@@ -31,6 +31,7 @@ class CustomerUpdater
     public function __construct(Client $exacttarget, LoggerInterface $log)
     {
         $this->exacttarget = $exacttarget;
+        $this->log = $log;
     }
 
     /**
@@ -38,6 +39,8 @@ class CustomerUpdater
      *
      * @param  mixed  $customers     Customers that will be sent to ExactTarget.
      * @param  string $dataExtension Identifier of the data extension.
+     *
+     * @throws \InvalidArgumentException If the $resources is not an array of iterable.
      *
      * @return bool Success.
      */
@@ -99,8 +102,7 @@ class CustomerUpdater
         try {
             $this->exacttarget->addDataExtensionRow($parameters);
         } catch (ExactTargetClientException $error) {
-            // $this->log->error(
-            dump(
+            $this->log->error(
                 sprintf('[%s] Failed to sync with ExactTarget with message: "%s"', static::class, $error->getMessage())
             );
 
