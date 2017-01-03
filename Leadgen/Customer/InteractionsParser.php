@@ -56,8 +56,12 @@ class InteractionsParser
                 }
             }
             $customer->save();
-            $this->touchedCustomers[] = $customer;
+            $this->touchedCustomers[$customer->_id] = $customer;
             $interactions = array_diff_key($interactions, $embededInteractions);
+
+            // Free memory
+            unset($embededInteractions);
+            unset($customers);
         }
 
         if (count($interactions)) {
@@ -83,17 +87,22 @@ class InteractionsParser
     protected function generateCustomersForInteractions($interactions)
     {
         foreach ($interactions as $interaction) {
-            $customer = Customer::first($interaction->authorId) ?: new Customer();
-            $customer->_id = $interaction->authorId;
-            if (strstr($interaction->author, '@')) {
-                $customer->email = $interaction->author ?: null;
+            if (isset($this->touchedCustomers[$interaction->authorId])) {
+                $customer = $this->touchedCustomers[$interaction->authorId];
             } else {
-                $customer->docNumber = $interaction->author ?: null;
+                $customer = Customer::first($interaction->authorId) ?: new Customer();
+                $customer->_id = $interaction->authorId;
+                if (strstr($interaction->author, '@')) {
+                    $customer->email = $interaction->author ?: null;
+                } else {
+                    $customer->docNumber = $interaction->author ?: null;
+                }
             }
+
             $customer->embed('interactions', $interaction);
             $customer->location = $interaction->location ?: $customer->location;
             $customer->save();
-            $this->touchedCustomers[] = $customer;
+            $this->touchedCustomers[$customer->_id] = $customer;
         }
     }
 }
