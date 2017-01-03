@@ -235,6 +235,326 @@
                 }
             }
         },
+        "/interactionType": {
+            "get": {
+                "tags": [
+                    "interactionType"
+                ],
+                "summary": "Retrieve a list of interactionTypes",
+                "description": "Retrieves a list of interactionTypes with pagination support.",
+                "operationId": "interactionType.index",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page to be retrieved",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of existent interactionTypes",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/InteractionType"
+                                    }
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "interactionType"
+                ],
+                "summary": "Creates a new interactionType",
+                "description": "Creates a new interactionType entity.",
+                "operationId": "interactionType.store",
+                "parameters": [
+                    {
+                        "name": "interactionType",
+                        "in": "body",
+                        "description": "Segment to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/InteractionType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The newly created interactionType",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "$ref": "#/definitions/InteractionType"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/interactionType/{id}": {
+            "get": {
+                "tags": [
+                    "interactionType"
+                ],
+                "summary": "Retrieve a specific interactionType",
+                "description": "You can retrieve a interactionType by it's _id or email",
+                "operationId": "interactionType.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the interactionType to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Segment data",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Display the specified resource.",
+                                    "$ref": "#/definitions/InteractionType"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Segment not found",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "interactionType"
+                ],
+                "summary": "Updates a interactionType",
+                "description": "Updates a interactionType entity.",
+                "operationId": "interactionType.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the interactionType to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "interactionType",
+                        "in": "body",
+                        "description": "Values that will overwrite the attributes of the interactionType if the id on the url.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/InteractionType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The updated interactionType in it's new state.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "description": "Update the specified resource in storage.",
+                                    "$ref": "#/definitions/InteractionType"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Segment not found. A interactionType with the given id was not found to be updated.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. If was not possible to update the interactionType.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "interactionType"
+                ],
+                "summary": "Deletes an existing interactionType",
+                "description": "Deletes a interactionType.",
+                "operationId": "interactionType.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "_id of the interactionType to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Segment not found. A interactionType with the given id was not found to be deleted.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. If was not possible to delete the interactionType.",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "description": "Response status",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Array of error messages",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/segment": {
             "get": {
                 "tags": [
@@ -747,6 +1067,33 @@
                     "description": "Interval (in cron-job format) to re-test and remove users from the segment.",
                     "type": "string",
                     "default": "0 0 * * * *"
+                },
+                "triggers": {
+                    "description": "An array of triggers entities that will be executed whenever a Customer joins or leaves a segment.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Trigger"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Trigger": {
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique identifier of the rule set. (Generated automatically)",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Identifies which trigger/logic will be executed.",
+                    "type": "string"
+                },
+                "settings": {
+                    "description": "A settings object that will be read in trigger excecution.",
+                    "type": "object"
                 }
             },
             "type": "object"
