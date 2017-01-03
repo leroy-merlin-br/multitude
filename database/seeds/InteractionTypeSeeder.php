@@ -74,6 +74,11 @@ class InteractionTypeSeeder extends Seeder
                         'type'     => 'string',
                         'required' => true,
                     ],
+                    [
+                        'name'     => 'contents',
+                        'type'     => 'string',
+                        'required' => false,
+                    ],
                 ],
             ],
 
@@ -115,6 +120,26 @@ class InteractionTypeSeeder extends Seeder
                     [
                         'name'     => 'category',
                         'type'     => 'string',
+                        'required' => false,
+                    ],
+                    [
+                        'name'     => 'contents',
+                        'type'     => 'string',
+                        'required' => false,
+                    ],
+                    [
+                        'name'     => 'accessories',
+                        'type'     => 'numeric',
+                        'required' => false,
+                    ],
+                    [
+                        'name'     => 'complementaries',
+                        'type'     => 'numeric',
+                        'required' => false,
+                    ],
+                    [
+                        'name'     => 'similars',
+                        'type'     => 'numeric',
                         'required' => false,
                     ],
                 ],
