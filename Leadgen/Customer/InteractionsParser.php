@@ -83,7 +83,7 @@ class InteractionsParser
 
         $customerIds = array_values(array_unique($customerIds));
 
-        return $this->customerRepo->where(['_id' => ['$in' => $customerIds]]);
+        return $this->customerRepo->where(['_id' => ['$in' => $customerIds]], 1, -1);
     }
 
     protected function generateCustomersForInteractions($interactions)
@@ -107,6 +107,10 @@ class InteractionsParser
         }
     }
 
+    /**
+     * Saves the customers that were touched by the parser
+     * @return void
+     */
     protected function saveTouchedCustomers()
     {
         foreach ($this->touchedCustomers as $customer) {
