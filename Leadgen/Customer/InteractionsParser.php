@@ -55,7 +55,7 @@ class InteractionsParser
                     $embededInteractions[] = $key;
                 }
             }
-            $customer->save();
+
             $this->touchedCustomers[$customer->_id] = $customer;
             $interactions = array_diff_key($interactions, $embededInteractions);
 
@@ -67,6 +67,8 @@ class InteractionsParser
         if (count($interactions)) {
             $this->generateCustomersForInteractions($interactions);
         }
+
+        $this->saveTouchedCustomers();
 
         return $this->touchedCustomers;
     }
@@ -101,8 +103,14 @@ class InteractionsParser
 
             $customer->embed('interactions', $interaction);
             $customer->location = $interaction->location ?: $customer->location;
-            $customer->save();
             $this->touchedCustomers[$customer->_id] = $customer;
+        }
+    }
+
+    protected function saveTouchedCustomers()
+    {
+        foreach ($this->touchedCustomers as $customer) {
+            $customer->save();
         }
     }
 }
