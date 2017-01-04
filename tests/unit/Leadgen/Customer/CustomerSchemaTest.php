@@ -1,7 +1,7 @@
 <?php
 namespace Leadgen\Customer;
 
-use Leadgen\Customer\RulesetSchema;
+use Leadgen\Interaction\InteractionSchema;
 use PHPUnit_Framework_TestCase;
 
 class CustomerSchemaTest extends PHPUnit_Framework_TestCase
