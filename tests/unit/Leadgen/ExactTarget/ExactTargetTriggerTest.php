@@ -21,7 +21,7 @@ class ExactTargetTriggerTest extends PHPUnit_Framework_TestCase
         // Act
         $customerUpdater->shouldReceive('send')
             ->once()
-            ->with($customers, 'fooBar')
+            ->with($customers, 'fooBar', [])
             ->andReturn($results);
 
         // Assert

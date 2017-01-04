@@ -79,7 +79,7 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                 '$interactionsToBeParsed' => [
                     ['_id' => 1, 'authorId' => 123, 'interaction' => 'a', 'location' => 'thaplace'],
                     ['_id' => 2, 'authorId' => 123, 'interaction' => 'b', 'location' => 'thaplace'],
-                    ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
+                    ['_id' => 3, 'authorId' => 456, 'interaction' => 'c', 'author' => 'example@zizaco.net'],
                     ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
                 ],
                 '$expectedTouchedCustomers' => [
@@ -94,10 +94,9 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
                     ],
                     [
                         '_id'          => 456,
-                        'docNumber'    => null,
                         'email'        => 'example@zizaco.net',
                         'interactions' => [
-                            ['_id' => 3, 'authorId' => 456, 'interaction' => 'c'],
+                            ['_id' => 3, 'authorId' => 456, 'interaction' => 'c', 'author' => 'example@zizaco.net'],
                             ['_id' => 4, 'authorId' => 456, 'interaction' => 'd', 'author' => 'example@zizaco.net'],
                         ],
                         'location' => null
@@ -142,7 +141,7 @@ class InteractionsParserTest extends PHPUnit_Framework_TestCase
 
         $customerRepo->shouldReceive('where')
             ->once()
-            ->with(['_id' => ['$in' => array_values(array_unique($customerIds))]])
+            ->with(['_id' => ['$in' => array_values(array_unique($customerIds))]], 1, -1)
             ->andReturn(new EmbeddedCursor(Customer::class, $customers));
 
         $dataMapper->shouldReceive('first')

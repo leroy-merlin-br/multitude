@@ -32,6 +32,10 @@ class ExactTargetTrigger
      */
     public function fireTrigger($customers, array $settings)
     {
-        return $this->customerUpdater->send($customers, $settings['dataExtension'] ?? 'multitudeCustomers');
+        return $this->customerUpdater->send(
+            $customers,
+            $settings['dataExtension'] ?? 'multitudeCustomers',
+            $settings['fields'] ?? []
+        );
     }
 }
