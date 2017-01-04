@@ -18,6 +18,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
             'empty customers' => [
                 '$customers' => [],
                 '$dataExtension' => 'fooBar',
+                '$fields' => [],
                 '$expectations' => [
                     'key' => 'fooBar',
                     'data' => []
@@ -40,6 +41,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                     ]
                 ],
                 '$dataExtension' => 'some-thing',
+                '$fields' => [],
                 '$expectations' => [
                     'key' => 'some-thing',
                     'data' => [
@@ -59,6 +61,49 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                 ]
             ],
 
+            'customers with custom fields' => [
+                '$customers' => [
+                    [
+                        'email' => 'johndoe@gmail.com',
+                        'aggregated' => [
+                            'stuff' => [1, 2, 3],
+                            'moreStuff' => ['a', 'b']
+                        ]
+                    ],
+                    [
+                        'email' => 'example@example.com',
+                        'aggregated' => [
+                            'stuff' => [4, 5, 6]
+                        ]
+                    ],
+                ],
+                '$dataExtension' => 'some-thing',
+                '$fields' => [
+                    'aggregated.stuff' => 'Stuff',
+                    'aggregated.moreStuff' => 'MoreStuff'
+                ],
+                '$expectations' => [
+                    'key' => 'some-thing',
+                    'data' => [
+                        [
+                            'keys' => ['Email' => 'johndoe@gmail.com'],
+                            'values' => [
+                                'Email' => 'johndoe@gmail.com',
+                                'Stuff' => '1;2;3',
+                                'MoreStuff' => 'a;b'
+                            ]
+                        ],
+                        [
+                            'keys' => ['Email' => 'example@example.com'],
+                            'values' => [
+                                'Email' => 'example@example.com',
+                                'Stuff' => '4;5;6'
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+
             // ------------------------------
             'critical error' => [
                 '$customers' => [
@@ -66,6 +111,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                     ['email' => 'random@customer.com']
                 ],
                 '$dataExtension' => 'some-thing',
+                '$fields' => [],
                 '$expectations' => [
                     'key' => 'some-thing',
                     'data' => [
@@ -90,6 +136,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                     ['email' => 'random@customer.com']
                 ],
                 '$dataExtension' => 'some-thing-else',
+                '$fields' => [],
                 '$expectations' => [
                     'key' => 'some-thing-else',
                     'data' => [
@@ -117,6 +164,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
     public function testShouldSendCustomersAndRecoverFromErrors(
         $customers,
         $dataExtension,
+        $fields,
         $expectations,
         $expectedResult = true,
         $error = null
@@ -151,7 +199,10 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
         }
 
         // Assert
-        $this->assertEquals($expectedResult, $customerUpdater->send($customers, $dataExtension));
+        $this->assertEquals(
+            $expectedResult,
+            $customerUpdater->send($customers, $dataExtension, $fields)
+        );
     }
 
     public function testShouldThrownExceptionIfCustomersAreNotValid()

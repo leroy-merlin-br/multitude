@@ -37,16 +37,17 @@ class CustomerUpdater
     /**
      * Send the given Customers to the given ExactTarget's data extension
      *
-     * @param  mixed  $customers     Customers that will be sent to ExactTarget.
-     * @param  string $dataExtension Identifier of the data extension.
+     * @param  mixed    $customers     Customers that will be sent to ExactTarget.
+     * @param  string   $dataExtension Identifier of the data extension.
+     * @param  string[] $fields        Fields to map to the data extension. [<entityField> => <dataExtensionField>].
      *
      * @throws \InvalidArgumentException If the $resources is not an array of iterable.
      *
      * @return bool Success.
      */
-    public function send($customers, string $dataExtension)
+    public function send($customers, string $dataExtension, array $fields = [])
     {
-        $preparedCustomers = $this->prepareCustomers($customers);
+        $preparedCustomers = $this->prepareCustomers($customers, $fields);
 
         return $this->commitToDataExtension($dataExtension, $preparedCustomers);
     }
@@ -55,12 +56,14 @@ class CustomerUpdater
      * Prepare the given array|iterabe given to the data format of ExactTarget
      * API.
      *
-     * @param  mixed $resources Customers that will be sent to ExactTarget.
+     * @param  mixed    $resources Customers that will be sent to ExactTarget.
+     * @param  string[] $fields    Fields to map to the data extension. [<entityField> => <dataExtensionField>].
+     *
      * @throws \InvalidArgumentException If the $resources is not an array of iterable.
      *
      * @return array Prepared data.
      */
-    protected function prepareCustomers($resources)
+    protected function prepareCustomers($resources, array $fields)
     {
         if (!(is_array($resources) || $resources instanceof Iterator)) {
             throw new \InvalidArgumentException('$resources should be iterable, invalid type given.');
@@ -70,7 +73,7 @@ class CustomerUpdater
 
         foreach ($resources as $customer) {
             if ($customer->isValid()) {
-                $customerList[] = [
+                $customerData = [
                     'keys' => [
                         'Email' => $customer->email,
                     ],
@@ -78,6 +81,16 @@ class CustomerUpdater
                         'Email' => $customer->email,
                     ]
                 ];
+
+                foreach ($fields as $key => $value) {
+                    $fieldValue = array_get($customer->attributes, $key);
+                    if ($fieldValue) {
+                        $fieldValue = implode(';', (array)$fieldValue);
+                        $customerData['values'][$value] = $fieldValue;
+                    }
+                }
+
+                $customerList[] = $customerData;
             }
         }
 
