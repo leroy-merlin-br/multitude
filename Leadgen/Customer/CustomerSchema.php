@@ -75,6 +75,12 @@ class CustomerSchema extends Schema
      *     description="_id of the segments that the customer is part of.",
      *     @SWG\Items(type="string")
      * ),
+     * @SWG\Property(
+     *     property="aggregated",
+     *     type="array",
+     *     description="Pre aggregated or calculated values that may be later filled.",
+     *     @SWG\Items(type="object")
+     * ),
      */
     public $fields = [
         '_id'          => 'string',
@@ -84,6 +90,7 @@ class CustomerSchema extends Schema
         'interactions' => 'schema.'.InteractionSchema::class,
         'location'     => 'string',
         'segments'     => 'forceArray',
+        'aggregated'   => 'forceArray',
         'created_at'   => 'createdAtTimestamp',
         'updated_at'   => 'updatedAtTimestamp',
     ];
