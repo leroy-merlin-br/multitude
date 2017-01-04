@@ -56,7 +56,7 @@ class AggregatorTest extends PHPUnit_Framework_TestCase
                 '$interactions' => [
                     [
                         'params' => [
-                            'foo' => $range(1,22),
+                            'foo' => $range(1, 22),
                             'bar' => str_split('abc'),
                         ]
                     ],
@@ -78,7 +78,7 @@ class AggregatorTest extends PHPUnit_Framework_TestCase
                     'bar',
                 ],
                 '$expectation' => [
-                    'foo' => $range(1,22),
+                    'foo' => $range(1, 22),
                     'bar' => str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN'),
                 ]
             ],
