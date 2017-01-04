@@ -79,8 +79,8 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                 ],
                 '$dataExtension' => 'some-thing',
                 '$fields' => [
-                    'aggregated.stuff' => 'Stuff',
-                    'aggregated.moreStuff' => 'MoreStuff'
+                    'aggregated/stuff' => 'Stuff',
+                    'aggregated/moreStuff' => 'MoreStuff'
                 ],
                 '$expectations' => [
                     'key' => 'some-thing',

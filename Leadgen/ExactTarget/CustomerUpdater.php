@@ -83,7 +83,7 @@ class CustomerUpdater
                 ];
 
                 foreach ($fields as $key => $value) {
-                    $fieldValue = array_get($customer->attributes, $key);
+                    $fieldValue = array_get($customer->attributes, str_replace('/', '.', $key));
                     if ($fieldValue) {
                         $fieldValue = implode(';', (array)$fieldValue);
                         $customerData['values'][$value] = $fieldValue;
