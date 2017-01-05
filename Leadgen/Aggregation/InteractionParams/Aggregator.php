@@ -1,6 +1,8 @@
 <?php
 namespace Leadgen\Aggregation\InteractionParams;
 
+use Iterator;
+
 /**
  * Aggregates the fields of a series of Interactions.
  */
