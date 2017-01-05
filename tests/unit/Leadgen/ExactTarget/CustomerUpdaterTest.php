@@ -5,6 +5,7 @@ use Leadgen\Customer\Customer;
 use LeroyMerlin\ExactTarget\Client;
 use LeroyMerlin\ExactTarget\Exception\ExactTargetClientException;
 use Mockery as m;
+use MongoDB\BSON\UTCDateTime;
 use Mongolid\Cursor\Cursor;
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
@@ -68,19 +69,22 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                         'aggregated' => [
                             'stuff' => [1, 2, 3],
                             'moreStuff' => ['a', 'b']
-                        ]
+                        ],
+                        'created_at' => new UTCDateTime(new \DateTime('2017-01-05'))
                     ],
                     [
                         'email' => 'example@example.com',
                         'aggregated' => [
                             'stuff' => [4, 5, 6]
-                        ]
+                        ],
+                        'created_at' => new UTCDateTime(new \DateTime('2017-01-06'))
                     ],
                 ],
                 '$dataExtension' => 'some-thing',
                 '$fields' => [
                     'aggregated/stuff' => 'Stuff',
-                    'aggregated/moreStuff' => 'MoreStuff'
+                    'aggregated/moreStuff' => 'MoreStuff',
+                    'created_at' => 'CreatedAt'
                 ],
                 '$expectations' => [
                     'key' => 'some-thing',
@@ -90,14 +94,16 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                             'values' => [
                                 'Email' => 'johndoe@gmail.com',
                                 'Stuff' => '1;2;3',
-                                'MoreStuff' => 'a;b'
+                                'MoreStuff' => 'a;b',
+                                'CreatedAt' => '2017-01-05T00:00:00+00:00'
                             ]
                         ],
                         [
                             'keys' => ['Email' => 'example@example.com'],
                             'values' => [
                                 'Email' => 'example@example.com',
-                                'Stuff' => '4;5;6'
+                                'Stuff' => '4;5;6',
+                                'CreatedAt' => '2017-01-06T00:00:00+00:00'
                             ]
                         ]
                     ]

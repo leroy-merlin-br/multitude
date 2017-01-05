@@ -1,9 +1,11 @@
 <?php
 namespace Leadgen\ExactTarget;
 
+use DateTime;
 use Leadgen\Customer\Customer;
 use LeroyMerlin\ExactTarget\Client;
 use LeroyMerlin\ExactTarget\Exception\ExactTargetClientException;
+use MongoDB\BSON\UTCDateTime;
 use Psr\Log\LoggerInterface;
 use Iterator;
 
@@ -84,10 +86,16 @@ class CustomerUpdater
 
                 foreach ($fields as $key => $value) {
                     $fieldValue = array_get($customer->attributes, str_replace('/', '.', $key));
+
+                    if ($fieldValue instanceof UTCDateTime) {
+                        $fieldValue = $fieldValue->toDateTime()->format(DateTime::ATOM);
+                    }
+
                     if ($fieldValue) {
                         $fieldValue = implode(';', (array)$fieldValue);
                         $customerData['values'][$value] = $fieldValue;
                     }
+
                 }
 
                 $customerList[] = $customerData;
