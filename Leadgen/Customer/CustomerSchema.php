@@ -112,6 +112,6 @@ class CustomerSchema extends Schema
             return [];
         }
 
-        return [];
+        return $value;
     }
 }

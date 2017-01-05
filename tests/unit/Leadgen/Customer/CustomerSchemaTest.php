@@ -25,4 +25,29 @@ class CustomerSchemaTest extends PHPUnit_Framework_TestCase
             (new CustomerSchema)
         );
     }
+
+    public function forceArrayDataProvider()
+    {
+        $default = [];
+
+        return [
+            // $in, $out
+            [null, $default],
+            [123456, $default],
+            ['foo', ['foo']],
+            [[1, 2, 3], [1, 2, 3]],
+            [['foo', 'bar', 'fuz'], ['foo', 'bar', 'fuz']]
+        ];
+    }
+
+    /**
+     * @dataProvider forceArrayDataProvider
+     */
+    public function testShouldParseForceArray($in, $out)
+    {
+        $this->assertEquals(
+            $out,
+            (new CustomerSchema)->forceArray($in)
+        );
+    }
 }
