@@ -913,6 +913,13 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "aggregated": {
+                    "description": "Pre aggregated or calculated values that may be later filled.",
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
                 }
             },
             "type": "object"

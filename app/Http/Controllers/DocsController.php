@@ -40,6 +40,10 @@ class DocsController extends ApiController
             'host' => $request->getHttpHost(),
         ];
 
-        return view('app.swagger', $viewVars);
+        $docs = json_decode(view('app.swagger', $viewVars)->render(), true);
+
+        $docs['schemes'] = [config('multitude.https') ? 'https' : 'http'];
+
+        return $docs;
     }
 }
