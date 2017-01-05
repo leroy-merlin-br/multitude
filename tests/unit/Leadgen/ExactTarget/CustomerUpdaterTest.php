@@ -76,8 +76,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                         'email' => 'example@example.com',
                         'aggregated' => [
                             'stuff' => [4, 5, 6]
-                        ],
-                        'created_at' => new UTCDateTime(new \DateTime('2017-01-06'))
+                        ]
                     ],
                 ],
                 '$dataExtension' => 'some-thing',
@@ -102,8 +101,7 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                             'keys' => ['Email' => 'example@example.com'],
                             'values' => [
                                 'Email' => 'example@example.com',
-                                'Stuff' => '4;5;6',
-                                'CreatedAt' => '2017-01-06T00:00:00+00:00'
+                                'Stuff' => '4;5;6'
                             ]
                         ]
                     ]
