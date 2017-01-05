@@ -55,7 +55,7 @@ class StepUpdateCustomers extends StepBase
      */
     protected function callUpdate(Dto $dto): int
     {
-        return $this->customer->collection()->updateMany(
+        $result = $this->customer->collection()->updateMany(
             [
                 '_id' => [
                     '$in' => $dto->customerIds,
@@ -73,5 +73,7 @@ class StepUpdateCustomers extends StepBase
             ],
             ['writeConcern' => new WriteConcern(1)]
         )->getModifiedCount();
+
+        return $result ?: 0;
     }
 }
