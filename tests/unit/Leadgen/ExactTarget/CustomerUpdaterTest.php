@@ -7,6 +7,7 @@ use LeroyMerlin\ExactTarget\Exception\ExactTargetClientException;
 use Mockery as m;
 use MongoDB\BSON\UTCDateTime;
 use Mongolid\Cursor\Cursor;
+use Mongolid\Serializer\Type\UTCDateTime as MongolidUTCDateTime;
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
 

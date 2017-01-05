@@ -6,6 +6,7 @@ use Leadgen\Customer\Customer;
 use LeroyMerlin\ExactTarget\Client;
 use LeroyMerlin\ExactTarget\Exception\ExactTargetClientException;
 use MongoDB\BSON\UTCDateTime;
+use Mongolid\Serializer\Type\UTCDateTime as MongolidUTCDateTime;
 use Psr\Log\LoggerInterface;
 use Iterator;
 
@@ -87,7 +88,7 @@ class CustomerUpdater
                 foreach ($fields as $key => $value) {
                     $fieldValue = array_get($customer->attributes, str_replace('/', '.', $key));
 
-                    if ($fieldValue instanceof UTCDateTime) {
+                    if ($fieldValue instanceof UTCDateTime || $fieldValue instanceof MongolidUTCDateTime) {
                         $fieldValue = $fieldValue->toDateTime()->format(DateTime::ATOM);
                     }
 
@@ -95,7 +96,6 @@ class CustomerUpdater
                         $fieldValue = implode(';', (array)$fieldValue);
                         $customerData['values'][$value] = $fieldValue;
                     }
-
                 }
 
                 $customerList[] = $customerData;
