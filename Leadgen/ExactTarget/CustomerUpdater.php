@@ -124,6 +124,10 @@ class CustomerUpdater
             }
         }
 
+        $this->log->info(
+            sprintf('[%s] Commited %d Customers to ExactTarget', static::class, count($parameters['data']))
+        );
+
         return true;
     }
 

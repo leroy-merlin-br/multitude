@@ -198,6 +198,8 @@ class CustomerUpdaterTest extends PHPUnit_Framework_TestCase
                 });
         }
 
+        $logger->shouldReceive('info');
+
         // Assert
         $this->assertEquals(
             $expectedResult,
