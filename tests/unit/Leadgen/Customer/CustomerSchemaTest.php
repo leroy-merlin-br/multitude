@@ -10,16 +10,18 @@ class CustomerSchemaTest extends PHPUnit_Framework_TestCase
     {
         $this->assertAttributeEquals(
             [
-                '_id'          => 'string',
-                'docNumber'    => 'string',
-                'email'        => 'string',
-                'name'         => 'string',
-                'interactions' => 'schema.'.InteractionSchema::class,
-                'location'     => 'string',
-                'segments'     => 'forceArray',
-                'aggregated'   => 'forceArray',
-                'created_at'   => 'createdAtTimestamp',
-                'updated_at'   => 'updatedAtTimestamp',
+                '_id'           => 'string',
+                'docNumber'     => 'string',
+                'email'         => 'string',
+                'name'          => 'string',
+                'interactions'  => 'schema.'.InteractionSchema::class,
+                'location'      => 'string',
+                'segments'      => 'forceArray',
+                'aggregated'    => 'forceArray',
+                'created_at'    => 'createdAtTimestamp',
+                'created_at'    => 'createdAtTimestamp',
+                'updated_at'    => 'updatedAtTimestamp',
+                'interacted_at' => 'createdAtTimestamp',
             ],
             'fields',
             (new CustomerSchema)

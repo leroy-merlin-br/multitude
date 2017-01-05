@@ -51,7 +51,7 @@ class StepFireTriggersTest extends PHPUnit_Framework_TestCase
             ->andReturn(true);
 
         $customerRepo->shouldReceive('where')
-            ->with(['_id' => ['$in' => $dto->customerIds]])
+            ->with(['_id' => ['$in' => $dto->customerIds]], 1, -1)
             ->andReturn($customerCursor);
 
         // Assert

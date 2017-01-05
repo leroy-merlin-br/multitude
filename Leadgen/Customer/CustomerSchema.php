@@ -83,16 +83,17 @@ class CustomerSchema extends Schema
      * ),
      */
     public $fields = [
-        '_id'          => 'string',
-        'docNumber'    => 'string',
-        'email'        => 'string',
-        'name'         => 'string',
-        'interactions' => 'schema.'.InteractionSchema::class,
-        'location'     => 'string',
-        'segments'     => 'forceArray',
-        'aggregated'   => 'forceArray',
-        'created_at'   => 'createdAtTimestamp',
-        'updated_at'   => 'updatedAtTimestamp',
+        '_id'           => 'string',
+        'docNumber'     => 'string',
+        'email'         => 'string',
+        'name'          => 'string',
+        'interactions'  => 'schema.'.InteractionSchema::class,
+        'location'      => 'string',
+        'segments'      => 'forceArray',
+        'aggregated'    => 'forceArray',
+        'created_at'    => 'createdAtTimestamp',
+        'updated_at'    => 'updatedAtTimestamp',
+        'interacted_at' => 'createdAtTimestamp', // But will be updated manually
     ];
 
     /**

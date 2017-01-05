@@ -78,7 +78,7 @@ class StepFireTriggers extends StepBase
         }
 
         $async = function ($ch, $triggers, $customerIds) {
-            $customers = $this->customerRepo->where(['_id' => ['$in' => $customerIds]]);
+            $customers = $this->customerRepo->where(['_id' => ['$in' => $customerIds]], 1, -1);
 
             foreach ($triggers as $trigger) {
                 $results = app()->make($trigger->type)->fireTrigger($customers, $trigger->settings);

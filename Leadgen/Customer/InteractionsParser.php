@@ -51,6 +51,7 @@ class InteractionsParser
             foreach ($interactions as $key => $interaction) {
                 if ($interaction->authorId == $customer->_id) {
                     $customer->embed('interactions', $interaction);
+                    $customer->interacted_at = $interaction->created_at;
                     $customer->location = $interaction->location ?: $customer->location;
                     $embededInteractions[] = $key;
                 }
@@ -102,6 +103,7 @@ class InteractionsParser
             }
 
             $customer->embed('interactions', $interaction);
+            $customer->interacted_at = $interaction->created_at;
             $customer->location = $interaction->location ?: $customer->location;
             $this->touchedCustomers[$customer->_id] = $customer;
         }
