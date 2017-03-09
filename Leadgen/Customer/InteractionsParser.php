@@ -116,7 +116,10 @@ class InteractionsParser
     protected function saveTouchedCustomers()
     {
         foreach ($this->touchedCustomers as $customer) {
-            $customer->save();
+            try {
+                $customer->save();
+            } catch (\Exception $e) {
+            }
         }
     }
 }

@@ -136,6 +136,6 @@ class Repository implements RepositoryInterface
      */
     public function getUnacknowledged(): CursorInterface
     {
-        return $this->resourceRepo->where(['acknowledged' => false], 1, 600);
+        return $this->resourceRepo->where(['acknowledged' => false], 1, 200);
     }
 }
