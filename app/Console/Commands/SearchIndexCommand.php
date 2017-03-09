@@ -71,7 +71,7 @@ class SearchIndexCommand extends Command
 
         if ($this->option('rebuild') && $indiceExists) {
             $this->log("dropping index '$indexName'...", 'info');
-            $this->elasticsearch->indices()->delete($params);
+            $this->elasticsearch->indices()->delete(['index' => $indexName]);
             $indiceExists = false;
         }
 

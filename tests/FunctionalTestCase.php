@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Kernel;
+use Mongolid\Connection\Pool;
 
 class FunctionalTestCase extends TestCase
 {
@@ -9,6 +10,7 @@ class FunctionalTestCase extends TestCase
         parent::setUp();
 
         $this->runCommand('db:searchindex');
+        $this->waitElasticsearchOperations();
     }
 
     /**
@@ -69,5 +71,19 @@ class FunctionalTestCase extends TestCase
             ->indices()->refresh(['index' => $indiceName]);
 
         usleep(2 * 1000);
+    }
+
+    /**
+     * Drops an database collection
+     *
+     * @param  string $collectionName Name of the collection being dropped.
+     *
+     * @return void
+     */
+    protected function cleanCollection(string $collectionName)
+    {
+        $conn = $this->app->make(Pool::class)->getConnection();
+        $db = $conn->getRawConnection()->{$conn->defaultDatabase};
+        $db->$collectionName->drop();
     }
 }

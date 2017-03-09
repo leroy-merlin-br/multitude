@@ -35,7 +35,7 @@ class SegmentParsingTest extends FunctionalTestCase
 
         $this->haveCustomer('murphy@test.com');
         $this->interactionHappened([
-            '_id'         => new ObjectID('57ac88a20374215a026fd783'),
+            '_id'         => new ObjectID('57ac88a20374215a026fd784'),
             'author'      => 'murphy@test.com',
             'interaction' => 'visited-product',
             'channel'     => 'web',
@@ -52,6 +52,14 @@ class SegmentParsingTest extends FunctionalTestCase
         // Then
         $this->customerShouldBeInSegment('johndoe@test.com', 'bathroom-project');
         $this->customerShouldNotBeInSegment('murphy@test.com', 'bathroom-project');
+    }
+
+    public function tearDown()
+    {
+        $this->cleanCollection('interactionTypes');
+        $this->cleanCollection('interactions');
+        $this->cleanCollection('segments');
+        $this->cleanCollection('customers');
     }
 
     protected function haveIntoDatabase(string $entityName)
