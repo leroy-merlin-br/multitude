@@ -76,6 +76,11 @@ class SegmentSchema extends Schema
      *         ref="#/definitions/Trigger",
      *     )
      * ),
+     * @SWG\Property(
+     *     property="influence",
+     *     type="object",
+     *     description="An influence object. An influence object is a series of 'key, pair' where the keys are strings and the values are exclusivelly integers. They are later used to know if an user matches a new segment or if he have a Project."
+     * ),
      */
     public $fields = [
         '_id'              => 'objectId',
@@ -85,6 +90,7 @@ class SegmentSchema extends Schema
         'additionInterval' => 'cron',
         'removalInterval'  => 'cron',
         'triggers'         => 'schema.'.TriggerSchema::class,
+        'influence'        => 'influence',
         'created_at'       => 'createdAtTimestamp',
         'updated_at'       => 'updatedAtTimestamp',
     ];
@@ -106,5 +112,31 @@ class SegmentSchema extends Schema
         };
 
         return '0 0 * * * *';
+    }
+
+    /**
+     * Prepares a field the be an 'influence' associative array.
+     *
+     * An influence associative array is a series of 'key, pair' where the
+     * keys are strings and the values are exclusivelly integers. They are
+     * later used to know if an user matches a new segment or if he have a
+     * Project.
+     *
+     * @param  mixed $value Value that will be parsed.
+     * @return array
+     */
+    public function influence($value = [])
+    {
+        if (!is_array($value)) {
+            return [];
+        }
+
+        foreach ($value as $key => $amount) {
+            if (!is_numeric($amount)) {
+                unset($value[$key]);
+            }
+        }
+
+        return $value;
     }
 }

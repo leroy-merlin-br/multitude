@@ -31,6 +31,7 @@ class Segment extends BaseEntity
         'slug'  => 'required|alpha_dash',
         'ruleset' => 'required',
         'triggers' => 'array',
+        'influence' => 'array',
     ];
 
     /**
