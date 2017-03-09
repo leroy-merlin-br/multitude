@@ -10,8 +10,8 @@ use MongoDB\BSON\ObjectID;
 /**
  * @feature I, responsible for segmentation,
  *          wish to create a segmentation of Customers based in a list of
- *          behaviors that they performed, in order to identify ''kinds''of
- *          customers.
+ *          behaviors that they performed, in order to be able to work with
+ *          'clusters' of customers.
  */
 class SegmentParsingTest extends FunctionalTestCase
 {

@@ -8,9 +8,9 @@ use Leadgen\Interaction\Interaction;
 use MongoDB\BSON\ObjectID;
 
 /**
- * @feature I, responsible for segmentation,
- *          wish that the multitude parses the new interactions that happened
- *          and assign then to new and/or existing customers based on the email
+ * @feature I, developer,
+ *          wish that multitude parses the new interactions that happened
+ *          and assign then to new and existing customers based on the email
  *          of the interactions. In order to be able quickly retrieve
  *          interactions that 'belongs to' a customer.
  */
