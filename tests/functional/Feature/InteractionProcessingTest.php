@@ -20,8 +20,6 @@ class InteractionProcessingTest extends FunctionalTestCase
     {
         // Given
         $this->haveIntoDatabase('InteractionType');
-        $this->waitElasticsearchOperations();
-        // $this->haveCustomer('steve_bowl@test.com');
 
         $this->interactionReceived([
             '_id'         => new ObjectID('56bd88a20374215a026fd786'),
@@ -48,6 +46,7 @@ class InteractionProcessingTest extends FunctionalTestCase
 
         // When
         $this->runCommand('leadgen:proc-interaction');
+        $this->waitElasticsearchOperations();
 
         // Then
         $this->customerShouldHaveInteraction(
@@ -120,6 +119,13 @@ class InteractionProcessingTest extends FunctionalTestCase
                 $contains = true;
                 break;
             }
+        }
+
+        if (!$contains) {
+            foreach ($customer->interactions() as $interaction) {
+                $interactionAttributes[] = $interaction->attributes;
+            }
+            $this->assertContains($interactionFields, $interactionAttributes ?? []);
         }
 
         $this->assertTrue($contains);
