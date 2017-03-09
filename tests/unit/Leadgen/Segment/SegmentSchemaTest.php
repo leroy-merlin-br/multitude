@@ -31,7 +31,7 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
         $default = '0 0 * * * *';
 
         return [
-            // $in, $out
+            // $input, $output
             ['potato', $default],
             [123456, $default],
             ['* * *', $default],
@@ -44,11 +44,11 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider cronFieldDataProvider
      */
-    public function testShouldParseCronField($in, $out)
+    public function testShouldParseCronField($input, $output)
     {
         $this->assertEquals(
-            $out,
-            (new SegmentSchema)->cron($in)
+            $output,
+            (new SegmentSchema)->cron($input)
         );
     }
 
@@ -57,7 +57,7 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
         $default = [];
 
         return [
-            // $in, $out
+            // $input, $output
             [null, $default],
             [123456, $default],
             ['something', $default],
@@ -71,11 +71,11 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider influenceFieldDataProvider
      */
-    public function testShouldParseInfluenceField($in, $out)
+    public function testShouldParseInfluenceField($input, $output)
     {
         $this->assertEquals(
-            $out,
-            (new SegmentSchema)->influence($in)
+            $output,
+            (new SegmentSchema)->influence($input)
         );
     }
 }

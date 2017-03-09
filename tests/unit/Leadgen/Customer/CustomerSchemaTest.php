@@ -33,7 +33,7 @@ class CustomerSchemaTest extends PHPUnit_Framework_TestCase
         $default = [];
 
         return [
-            // $in, $out
+            // $input, $output
             [null, $default],
             [123456, $default],
             ['foo', ['foo']],
@@ -45,11 +45,11 @@ class CustomerSchemaTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider forceArrayDataProvider
      */
-    public function testShouldParseForceArray($in, $out)
+    public function testShouldParseForceArray($input, $output)
     {
         $this->assertEquals(
-            $out,
-            (new CustomerSchema)->forceArray($in)
+            $output,
+            (new CustomerSchema)->forceArray($input)
         );
     }
 }
