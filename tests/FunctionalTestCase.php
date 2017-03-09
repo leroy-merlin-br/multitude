@@ -5,6 +5,12 @@ use Mongolid\Connection\Pool;
 
 class FunctionalTestCase extends TestCase
 {
+    /**
+     * Used for the visual reporting at tearDownAfterClass
+     * @var string
+     */
+    public static $testOutput;
+
     public function setUp()
     {
         parent::setUp();
@@ -85,5 +91,45 @@ class FunctionalTestCase extends TestCase
         $conn = $this->app->make(Pool::class)->getConnection();
         $db = $conn->getRawConnection()->{$conn->defaultDatabase};
         $db->$collectionName->drop();
+    }
+
+    /**
+     * Prepares the test output based in the @feature annotation or Class name.
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        $docs = (new ReflectionClass(static::class))->getDocComment();
+        preg_match('/@feature ([^@\/]+)/', $docs, $matches);
+        $featureAnnotation = trim(str_replace('*', '', preg_replace('/ +/', ' ', $matches[1] ?? "")));
+
+        echo "\n ";
+        static::$testOutput = "\n\033[32m [✓] $featureAnnotation\033[0m\n";
+    }
+
+    /**
+     * Prepares the test output string in case a test was not successfull.
+     *
+     * @param  Exception $e Test failure.
+     *
+     * @return void
+     */
+    protected function onNotSuccessfulTest(Exception $e)
+    {
+        static::$testOutput = str_replace('[32m [✓]', '[31m [×]', static::$testOutput);
+
+        throw $e;
+    }
+
+    /**
+     * Prints out the feature annotation (if present) with the status of the
+     * given test class.
+     *
+     * @return void
+     */
+    public static function tearDownAfterClass()
+    {
+        echo static::$testOutput;
     }
 }
