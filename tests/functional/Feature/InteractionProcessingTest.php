@@ -52,7 +52,6 @@ class InteractionProcessingTest extends FunctionalTestCase
         $this->customerShouldHaveInteraction(
             'steve_bowl@test.com',
             [
-                '_id'         => new ObjectID('56bd88a20374215a026fd786'),
                 'author'      => 'steve_bowl@test.com',
                 'interaction' => 'visited-category',
                 'channel'     => 'web',
@@ -66,7 +65,6 @@ class InteractionProcessingTest extends FunctionalTestCase
         $this->customerShouldHaveInteraction(
             'shail@test.com',
             [
-                '_id'         => new ObjectID('56bd88a20374215a026fd789'),
                 'author'      => 'shail@test.com',
                 'interaction' => 'visited-product',
                 'channel'     => 'mobile',
@@ -125,7 +123,7 @@ class InteractionProcessingTest extends FunctionalTestCase
             foreach ($customer->interactions() as $interaction) {
                 $interactionAttributes[] = $interaction->attributes;
             }
-            $this->assertContains($interactionFields, $interactionAttributes ?? []);
+            $this->assertContains($interactionFields, $interactionAttributes ?? [], json_encode($interactionAttributes));
         }
 
         $this->assertTrue($contains);
