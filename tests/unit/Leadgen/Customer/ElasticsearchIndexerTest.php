@@ -165,12 +165,11 @@ class ElasticsearchIndexerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         $elasticsearch = m::mock(Client::class);
-        $test = $this;
         $esIndexer = new ElasticsearchIndexer($elasticsearch);
 
         // Act
         $elasticsearch->shouldReceive('bulk')
-            ->andReturnUsing(function ($params) use ($test, $indexExpectation, $indexResponse) {
+            ->andReturnUsing(function ($params) use ($indexExpectation, $indexResponse) {
                 $this->assertEquals($indexExpectation, $params);
 
                 return $indexResponse;

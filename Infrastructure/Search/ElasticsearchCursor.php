@@ -61,7 +61,6 @@ class ElasticsearchCursor extends EmbeddedCursor implements CursorInterface
      */
     protected function getItemsFromResult(array $rawEsReturn): array
     {
-        $items = [];
         if (! isset($rawEsReturn['hits']['hits'][0]['_source'])) {
             return [];
         }

@@ -30,11 +30,9 @@ class AddsSegmentsArrayToCustomers
     /**
      * Reverse the migrations
      *
-     * @param  Database $db MongoDB Database.
-     *
      * @return void
      */
-    public function down(Database $db)
+    public function down()
     {
         // does nothing
     }
