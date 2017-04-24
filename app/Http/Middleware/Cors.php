@@ -22,9 +22,10 @@ class Cors
     public function handle(Request $request, Closure $next)
     {
         $headers = [
-            'Access-Control-Allow-Origin'  => $request->header('Origin', '*'),
-            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers' => 'Content-Type, Accept, Authorization, X-Requested-With',
+            'Access-Control-Allow-Origin'      => $request->header('Origin', '*'),
+            'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers'     => 'Content-Type, Accept, Authorization, X-Requested-With',
+            'Access-Control-Allow-Credentials' => 'true',
         ];
 
         // Using this you don't need an method for 'OPTIONS' on controller
