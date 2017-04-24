@@ -1,6 +1,7 @@
 <?php
 namespace Leadgen\Segment;
 
+use Leadgen\Base\SchemaFields\CronFieldTrait;
 use Leadgen\Segment\RulesetSchema;
 use PHPUnit_Framework_TestCase;
 
@@ -26,29 +27,11 @@ class SegmentSchemaTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function cronFieldDataProvider()
+    public function testShouldContainCronFieldTrait()
     {
-        $default = '0 0 * * * *';
-
-        return [
-            // $input, $output
-            ['potato', $default],
-            [123456, $default],
-            ['* * *', $default],
-            ['* * * * * *', '* * * * * *'],
-            [' * * * * * *   ', '* * * * * *'],
-            ['   * * 1 * 2 *', '* * 1 * 2 *'],
-        ];
-    }
-
-    /**
-     * @dataProvider cronFieldDataProvider
-     */
-    public function testShouldParseCronField($input, $output)
-    {
-        $this->assertEquals(
-            $output,
-            (new SegmentSchema)->cron($input)
+        $this->assertContains(
+            CronFieldTrait::class,
+            class_uses(SegmentSchema::class)
         );
     }
 
