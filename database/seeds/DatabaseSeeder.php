@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call('InteractionTypeSeeder');
         $this->call('InteractionSeeder');
         $this->call('SegmentSeeder');
+        $this->call('TokenSeeder');
     }
 }
