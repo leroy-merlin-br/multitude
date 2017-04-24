@@ -8,4 +8,11 @@ return [
      * App\Http\Middleware\SecureConnection middleware.
      */
     'https' => env('HTTPS', false),
+
+    /**
+     * Enabled AuthToken requirement. This must be enabled in any deployment of
+     * multitude. It should be disabled for testing only. This is handled by the
+     * App\Http\Middleware\AuthToken middleware.
+     */
+    'auth_token' => env('AUTH_TOKEN_ENABLED', true),
 ];
