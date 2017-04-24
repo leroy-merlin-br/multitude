@@ -2,6 +2,7 @@
 
 namespace Leadgen\Segment;
 
+use Leadgen\Base\SchemaFields\CronFieldTrait;
 use Mongolid\Schema;
 
 /**
@@ -15,6 +16,8 @@ use Mongolid\Schema;
  */
 class SegmentSchema extends Schema
 {
+    use CronFieldTrait;
+
     /**
      * Name of the collection where this kind of Entity is going to be saved or
      * retrieved from.
@@ -94,25 +97,6 @@ class SegmentSchema extends Schema
         'created_at'       => 'createdAtTimestamp',
         'updated_at'       => 'updatedAtTimestamp',
     ];
-
-    /**
-     * Prepares a field to be a cron string or null.
-     *
-     * @param mixed $value Value that will be evaluated.
-     *
-     * @return string
-     */
-    public function cron($value = '0 0 * * * *')
-    {
-        $value = trim($value);
-        $cronPattern = '/^(\S+) (\S+) (\S+) (\S+) (\S+) (\S+)$/';
-
-        if (preg_match($cronPattern, $value)) {
-            return $value;
-        };
-
-        return '0 0 * * * *';
-    }
 
     /**
      * Prepares a field the be an 'influence' associative array.
