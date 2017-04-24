@@ -53,6 +53,12 @@ $app->group(['prefix' => 'api/v1', 'middleware' => 'secure', 'namespace' => 'App
     $app->get('customer', ['as' => 'customer.index', 'uses' => 'CustomerController@index']);
     $app->get('customer/{id}', ['as' => 'customer.show', 'uses' => 'CustomerController@show']);
     $app->get('customer/query/{segmentQuery}', ['as' => 'customer.query', 'uses' => 'CustomerController@query']);
+
+    // AuthToken routes
+    $app->get('authTokens', ['as' => 'authToken.index', 'uses' => 'TokenController@index']);
+    $app->get('authTokens/{id}', ['as' => 'authToken.show', 'uses' => 'TokenController@show']);
+    $app->post('authTokens', ['as' => 'authToken.store', 'uses' => 'TokenController@store']);
+    $app->delete('authTokens/{id}', ['as' => 'authToken.delete', 'uses' => 'TokenController@destroy']);
 });
 
 // End-user routes
