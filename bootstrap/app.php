@@ -65,6 +65,7 @@ $app->middleware([
 
 $app->routeMiddleware([
    'basicAuth' => App\Http\Middleware\BasicAuth::class,
+   'authToken' => App\Http\Middleware\AuthToken::class,
    'secure' => App\Http\Middleware\SecureConnection::class
 ]);
 
