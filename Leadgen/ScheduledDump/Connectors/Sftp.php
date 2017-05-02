@@ -63,7 +63,7 @@ class Sftp implements ConnectorInterface
      *
      * @param  CursorInterface $interactions Interactions that are going to be exported.
      *
-     * @return void
+     * @return bool Success
      */
     public function dump(CursorInterface $interactions)
     {
@@ -75,7 +75,7 @@ class Sftp implements ConnectorInterface
             $data .= $this->renderInteraction($interaction).PHP_EOL;
         }
 
-        $this->filesystem->write($this->settings['filename'], $data);
+        return $this->filesystem->write($this->settings['filename'], $data);
     }
 
     /**

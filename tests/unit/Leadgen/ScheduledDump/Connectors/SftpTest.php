@@ -61,18 +61,20 @@ class SftpTest extends TestCase
             }
             public function write($path, $contents, \League\Flysystem\Config $config)
             {
-                parent::write($path, $contents, $config);
                 $this->written = compact('path', 'contents');
+                return parent::write($path, $contents, $config);
             }
         };
 
         // Act
         $this->setProtected($connector, 'adapterClass', $fakeAdapter);
         $connector->configure(['foo' => 'bar', 'filename' => 'rofl.csv']);
-        $connector->dump($interactionsCursor);
+        $result = $connector->dump($interactionsCursor);
 
         // Assert
         $adapterInstance = $this->getProtected($connector, 'filesystem')->getAdapter();
+
+        $this->assertTrue($result);
 
         $this->assertEquals(
             ['foo' => 'bar', 'filename' => 'rofl.csv'],
