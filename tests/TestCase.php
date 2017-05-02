@@ -34,4 +34,25 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
         $property->setValue($obj, $value);
     }
+
+    /**
+     * Get a protected property of an object
+     *
+     * @param  mixed  $obj      Object Instance.
+     * @param  string $property Property name.
+     *
+     * @return mixed Property value.
+     */
+    protected function getProtected($obj, $property)
+    {
+        $class = new ReflectionClass($obj);
+        $property = $class->getProperty($property);
+        $property->setAccessible(true);
+
+        if (is_string($obj)) { // static
+            return $property->getValue();
+        }
+
+        return $property->getValue($obj);
+    }
 }
