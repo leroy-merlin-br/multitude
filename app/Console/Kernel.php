@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\DumpInteractionsCommand;
 use App\Console\Commands\MakeMigrationCommand;
 use App\Console\Commands\MigrationCommand;
 use App\Console\Commands\ProcessInteractionsCommand;
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SwaggerGenerateCommand::class,
         ProcessInteractionsCommand::class,
+        DumpInteractionsCommand::class,
         UpdateSegmentsCommand::class,
         MigrationCommand::class,
         MakeMigrationCommand::class,
