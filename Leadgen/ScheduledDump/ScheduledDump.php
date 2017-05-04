@@ -43,6 +43,7 @@ class ScheduledDump extends BaseEntity
      */
     public static $rules = [
         'name'        => 'string|required',
+        'slug'        => 'required|alpha_dash',
         'description' => 'string',
         'periodicity' => 'string|required',
         'type'        => 'string',

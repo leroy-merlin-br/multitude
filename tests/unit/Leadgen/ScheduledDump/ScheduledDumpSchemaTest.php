@@ -13,6 +13,7 @@ class ScheduledDumpSchemaTest extends PHPUnit_Framework_TestCase
             [
                 '_id'         => 'objectId',
                 'name'        => 'string',
+                'slug'        => 'string',
                 'description' => 'string',
                 'periodicity' => 'cron',
                 'settings'    => 'array',

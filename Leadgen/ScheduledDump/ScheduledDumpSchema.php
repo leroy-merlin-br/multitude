@@ -11,7 +11,7 @@ use Mongolid\Schema;
  * @SWG\Definition(
  *     type="object",
  *     definition="ScheduledDump",
- *     required={"name", "periodicity", "type", "settings"}
+ *     required={"name", "slug", "periodicity", "type", "settings"}
  * )
  */
 class ScheduledDumpSchema extends Schema
@@ -49,6 +49,11 @@ class ScheduledDumpSchema extends Schema
      *     description="Name to identify the scheduled dump."
      * ),
      * @SWG\Property(
+     *     property="slug",
+     *     type="string",
+     *     description="A clean string to identify the scheduled dump."
+     * ),
+     * @SWG\Property(
      *     property="description",
      *     type="string",
      *     description="A description of the scheduled dump. Can be used to identify it later."
@@ -73,6 +78,7 @@ class ScheduledDumpSchema extends Schema
     public $fields = [
         '_id'         => 'objectId',
         'name'        => 'string',
+        'slug'        => 'string',
         'description' => 'string',
         'periodicity' => 'cron',
         'settings'    => 'array',
