@@ -64,6 +64,19 @@ class Repository implements RepositoryInterface
         return $this->resourceRepo->where($query, $page, $perPage);
     }
 
+    public function getPeriod($periodString): CursorInterface
+    {
+        $dateFinal = new \DateTime;
+        $dateStart = (clone $dateFinal)->modify($periodString);
+
+        return $this->resourceRepo->where([
+            'created_at' => [
+                '$gte' => new MongoDB\BSON\UTCDateTime($dateStart),
+                '$lt' => new MongoDB\BSON\UTCDateTime($dateFinal),
+            ]
+        ]);
+    }
+
     /**
      * Find an resource that exists.
      *
