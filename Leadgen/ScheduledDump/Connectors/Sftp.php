@@ -70,12 +70,17 @@ class Sftp implements ConnectorInterface
         $this->initializeFilesystem();
         $cachedInteractions = $interactions->all();
         $data = implode(';', $this->headers).PHP_EOL;
+        $filename = str_replace(
+            '<date>',
+            date('Ymd'),
+            $this->settings['filename'] ?? 'ScheduledDump_<date>.csv'
+        );
 
         foreach ($cachedInteractions as $interaction) {
             $data .= $this->renderInteraction($interaction).PHP_EOL;
         }
 
-        return $this->filesystem->write($this->settings['filename'], $data);
+        return $this->filesystem->write($filename, $data);
     }
 
     /**
