@@ -12,6 +12,7 @@ use App\Console\Commands\UpdateSegmentsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 use Leadgen\Segment\Repository;
+use Leadgen\ScheduledDump\Repository as DumpRepository;
 
 /**
  * Register and schedule artisan commands.
@@ -38,6 +39,12 @@ class Kernel extends ConsoleKernel
      * @var \Mongolid\Cursor\CursorInterface
      */
     protected $segments;
+
+    /**
+     * Caches the Scheduled Dumps that are being used to register commands
+     * @var \Mongolid\Cursor\CursorInterface
+     */
+    protected $scheduledDumps;
 
     /**
      * Define the application's command schedule.
@@ -90,6 +97,10 @@ class Kernel extends ConsoleKernel
             // $commands["leadgen:segment-update --remove $segment->slug"] = $segment->removalInterval;
         }
 
+        foreach ($this->getScheduledDumps() as $scheduledDump) {
+            $commands["leadgen:dump-interaction $scheduledDump->slug"] = $scheduledDump->periodicity;
+        }
+
         return $commands;
     }
 
@@ -104,5 +115,18 @@ class Kernel extends ConsoleKernel
         }
 
         return $this->segments;
+    }
+
+    /**
+     * Returns a cursor containing all segments
+     * @return \Mongolid\Cursor\CursorInterface
+     */
+    protected function getScheduledDumps()
+    {
+        if (! $this->scheduledDumps) {
+            $this->scheduledDumps = app()->make(DumpRepository::class)->all(1, 300);
+        }
+
+        return $this->scheduledDumps;
     }
 }
