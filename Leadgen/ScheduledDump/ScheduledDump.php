@@ -23,6 +23,7 @@ class ScheduledDump extends BaseEntity
      */
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'periodicity',
         'type',
